@@ -1,0 +1,52 @@
+\subsection{Leader Board}
+Leaderboards are used in games to provide information on who are the best players globally (and often also locally) and how the current player ranks against other players. Rovio's leaderboard service provides a different kind of leaderboards for games. The default type of leaderboard is level-based which means that the high scores are stored by level, so each user has one document per each level passed in a game. Each level score document contains the user's highest score, (estimated) rank, matchmaking and percentile indices and some other additional properties the service itself doesn't care about (e.g. stars, lap time etc. depending on the game). Since the leaderboard should always contain the highest score the user has achieved in a level, custom conflict resolution based on the high score is required. With \glspl{crdt} the conflict resolution could be done so that the maximum or minimum score wins, and the rest of the properties are taken from the update that contained the new score (no conflict resolution required). The leaderboard service supports the following operations:
+\begin{enumerate}
+	\item Send score (adds or updates the high score of the user) 
+	\item Get ranking (returns the user's ranking in a level) 
+	\item Get matching (returns a list of user IDs whose ranking is close to the requesting user)
+	\item Get leaderboard (returns the leaderboard for top ranking users, user's friends etc.)
+\end{enumerate}
+The game clients usually use the same \gls{dc} for every game session so global consistency could be lowered and higher consistency required within the same \gls{dc}. This would mean the global leaderboard would be updated with a longer delay than the country-specific one but that shouldn't really matter.
+
+A mathematical representation of this use case is represented below, where Table \ref{tab:leaderBorad_constants_variables}.
+\begin{table}[!ht]
+	\begin{tabular}{|p{.8cm}|p{5.7cm}|r| }
+		\hline
+		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
+		\hline
+		\hline
+			$|DC|$ & It is the total number of \glspl{dc} and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{N}_{0}$ \\
+		\hline
+			$G$ & It is the total number of games and $g$ represents a game in the overall system, $g \in \{1,\dots, G\}$. & $\mathbb{N}_{0}$ \\
+		\hline
+			$L_{g}$ & It is the total number of levels in game $g$ and $l$ identify a level in game $g$, $l \in \{1,..., L_{g}\}$. & $\mathbb{N}_{0}$ \\
+		\hline
+			$P_{gld}$ & It is the total number of players that has played at some stage the game $g$ at level $l$, as it is seen by \gls{dc} $d$, and $p$ identifies one of those players, $p \in \{1,\dots, P_{gld}\}$. & $\mathbb{N}_{0}$ \\
+		\hline
+			$\delta_{gldp}$ & It is the score for player $p$ has achieved at level $l$ of game $p$ as seen by \gls{dc} d. & $\mathbb{N}_{0}$ \\
+		\hline
+			$\lambda_{gld}$ & It represents the highest score achieved by all players that have played game $g$ at level $l$ as it is seen by \gls{dc} $d$, which calculation is shown in Equation \ref{eq:game_best_score}. & $\mathbb{N}_{0}$ \\
+		\hline
+			$J_{gld}$ & It represents the group of all the players which scores for the game $k$ at level $l$ are not lower than the scores achieved by any of the other players which have played the game $g$ at level $l$ as it is seen by \gls{dc} $d$, represented in Equation \ref{eq:game_top_leader_board}. & $\mathbb{N}^{n}_{0}$ \\
+		\hline
+	\end{tabular}
+			
+	\caption{Leader Board Constants and Variables.}
+	\label{tab:leaderBorad_constants_variables}
+\end{table}
+\begin{multline} \label{eq:game_best_score}
+	\lambda_{gld} = \max\{\delta_{gld1},\dots, \delta_{gldP_{gld}}\} ~ \forall ~ g \in \{1,\dots, G\},\\ l \in \{1,\dots, P_{gld}\}, d \in \{1,\dots, |DC|\}
+\end{multline}
+\begin{multline} \label{eq:game_top_leader_board}
+	J_{gld} = \{j | \delta_{gldj} \ge \delta_{gldq} ~ \forall q \in \{1,\dots, P_{gld}\}\}
+\end{multline}
+
+Furthermore $J_{gld}$ could be extended to represent the different positions in the Leader Board, such that $J^{i}_{gld}$ is the group of players which are at position $i$ on the Leader Board, $i \in \mathbb{Z}_{\ge 1}$, as shown in Equation \ref{eq:game_leader_board}. This means that $J^{1}_{gld}$, which represent the top position, is equivalent to $J_{gld}$, such that $J^{1}_{gld} = J_{gld}$.
+\begin{multline} \label{eq:game_leader_board}
+	J^{i}_{gld} = \{j | \delta_{gldq} < \delta_{gldj} < \delta_{gldo} ~ \forall ~ q \in J^{g-1}_{gld}, o \in J^{g+1}_{gld}\},\\ g \in \mathbb{N}_{> 1}
+\end{multline}
+
+Equation \ref{eq:game_best_score1} expresses that for any player within $J_{kli}$ their highest scores for game $k$ at level $l$, as it is seen by \gls{dc} $i$, is equal to the highest score achieved between all the players for that game an level as it is seen by \gls{dc} $i$.
+\begin{multline} \label{eq:game_best_score1}
+	\lambda_{gld} = \delta_{gldp} ~ \forall ~ g \in \{1,\dots, G\},\\ l \in \{1,\dots, L_{g}\}, d \in \{1,\dots, |DC|\}, p \in J^{1}_{gld}
+\end{multline}

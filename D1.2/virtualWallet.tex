@@ -1,0 +1,29 @@
+\subsection{Virtual Wallet}
+Virtual Wallet applications manage virtual economies.The clients keep a local state and also does credits and debits to their local state but the clients local state cannot be trusted. Such applications require massive scalability and very robust security guarantees. To ensure very low per-transaction financial cost, as required for use at a ne granularity (nano-transactions), some consistency constraints may need to be temporarily relaxed, but not others. The challenge is to maintain correctness at an extreme scale, i.e., ensure money does not vanish nor is created out of thin air, despite data fragmented across numerous replicas, lost or duplicated information, long-term disconnection, etc. Rovio's Wallet service provides a delivery mechanism for in-game items and manages the user's virtual currencies. A single wallet contains balances of the virtual currencies the user owns, vouchers for the in-game items (e.g powerups) the user has purchased but have not been delivered yet, and a transaction log that lists the most recent transactions for the wallet.
+\begin{itemize}
+	\item Balance consists of a numerical value and currency name (e.g Crystals: 150 or Euro: 2.45). 
+	\item Voucher consists of a unique voucher ID and item details (item ID, name etc.). Vouchers are removed from the wallet when consumed. 
+	\item Transaction consists of a unique transaction ID, timestamp, transaction type and whatever extra data is needed for the transaction type. Transactions are only removed from the wallet when they are archived (it cannot be	kept all the transactions of a wallet in the same document due to the size constraint and thus the transaction for a wallet is archived after a max size is reached and they are put them into another storage and then removed from the document).
+\end{itemize}
+Since there is real money involved, losing data is not an option and custom conflict resolution logic is required. The current conflict resolution logic rebuilds the wallet based on the transactions. With \glspl{crdt} the balances could probably be represented as a map of currency name and value counters, and the vouchers and transactions as sets as were presented in \cite{shapiro11conflictfree}. The Wallet service supports the following operations: 
+\begin{enumerate}
+	\item Purchase item (adds voucher to current vouchers set)
+	\item Purchase virtual currency (increases balance, current counter)
+	\item Consume voucher (removes voucher by adding voucher to used vauchers set)
+	\item Consume virtual currency (decreases balance by adding used currency count)
+\end{enumerate}
+All of the operations add an entry to the transaction log.
+
+
+\subsubsection{Conflict Situations}
+Purchasing an item that the user should be able to purchase only once (e.g. removing ads from a game, purchasing a level package for a game) multiple times would cause problems as we would charge the item multiple times but would only be able to deliver it once.
+
+Consuming the same voucher multiple times would cause issues if it resulted in delivering the same item multiple times (the user would have paid it only once). We could, of course, decide to take the hit and give the extra items for free.
+
+Consuming virtual currency in a way that balance becomes negative would also cause issues unless it is decided to take the hit and round it up to 0.
+
+
+\subsubsection{Transactions}
+The transaction log needs to contain entries for all operations where real money is involved. Depending on how the transaction log is implemented (as a part of the wallet object itself or as separate document(s)), there might be a need to update more than one object atomically. If the transaction log is in separate document(s) both the wallet object and the transaction log object need to be updated, either at the same time or so that the transaction object is updated right after the wallet object.
+
+\input{formalVirtualWallet}

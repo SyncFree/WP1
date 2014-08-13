@@ -1,0 +1,110 @@
+%%  Using official ACM format
+%% Do not edit unless you really know what you are doing.
+\documentclass{acm_proc_article-sp}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Definitions
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\def\firstUserCase{1} % set to 1 to build user cases on their own pages
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\usepackage[T1]{fontenc}
+%\usepackage[latin9]{inputenc}
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+\usepackage{graphicx}
+%\usepackage{babel}
+\usepackage[pdftitle={Optimistic Control for a Critical System},%
+		hidelinks,colorlinks=true, linkcolor=black, citecolor=cyan, filecolor=green, urlcolor=blue]{hyperref}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\input{../glossaries}
+\glsdisablehyper
+
+
+\begin{document}
+
+\title{Formal Mathematical Requirements\\(work in progress)}
+%
+% You need the command \numberofauthors to handle the 'placement and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time', i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of "name/affiliations" may appear. We just ask that you restrict the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate' we ask you to refrain from putting more than six authors (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you without further effort on your part as the last section in the body of your article BEFORE References or any Appendices.
+
+\numberofauthors{2} %  in this sample file, there are a *total*
+% of EIGHT authors. SIX appear on the 'first-page' (for formatting reasons) and the remaining two appear in the \additionalauthors section.
+%
+\author{
+% 1st. author
+	\alignauthor
+	Tom Benedictu\\
+	\affaddr{Trifork Leeds}\\
+	\email{tom@trifork.com}
+% 2nd. author
+	\alignauthor
+	Amadeo Asco\\
+	\affaddr{Trifork Leeds}\\
+	\email{aas@trifork.com}
+}
+
+% There's nothing stopping you putting the seventh, eighth, etc. author on the opening page (as the 'third row') but we ask, for aesthetic reasons that you place these 'additional authors' in the \additional authors block, viz.
+%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
+%	email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
+%	(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
+\date{28 July 2014}
+
+\maketitle
+\input{abstract}
+
+% A category with the (minimum) three required fields
+%\category{H.4}{Information Systems Applications}{Miscellaneous}
+%A category including the fourth, optional field follows...
+%\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+%\category{D.2.1}{Software Engineering}{Requirements/Specifications}[user cases]
+\category{H.2.4}{Systems}[concurrency, distributed databases]
+
+\terms{Documentation, Reliability}
+
+\keywords{CRDTs, Use cases, SyncFree} % NOT required for Proceedings
+
+
+\input{introduction}
+
+\input{useCases}
+
+\ifnum\firstUserCase=1
+	\cleardoublepage
+%	\newpage
+\fi
+\input{conclusion}
+
+%ACKNOWLEDGMENTS are optional
+\input{acknowledgements}
+
+
+%
+% The following two commands are all you need in the initial runs of your .tex file to produce the bibliography for the citations in your paper.
+\bibliographystyle{abbrv}
+\bibliography{../syncFree}  % sigproc.bib is the name of the Bibliography in this case
+% You must have a proper ".bib" file and remember to run:
+% latex bibtex latex latex to resolve all references
+%
+% ACM needs 'a single self-contained file'!
+%
+
+%APPENDICES are optional
+%\balancecolumns
+%\appendix
+%Appendix A
+
+\balancecolumns
+% That's all
+\end{document}

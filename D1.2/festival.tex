@@ -1,0 +1,108 @@
+\section{Festival}
+The Trifrok Festival application is an existing App developed for Android and iOS, Figure \ref{fig:relai_layout}. It allows festival participants to see the concert schedule and other centrally updated information as well as distribution of user-created content. The application has been operational for years while each year new features have been added. The specific use case we are addressing here is the ability to conduct polls where participants can vote for a concert. The challenge is that we cannot see if we receive a vote twice, we don't know who the vote came from, and we do not have a reliable network with a \gls{dc} in the middle.
+\begin{figure*}[!ht]
+	\centering
+	\includegraphics[width=1\textwidth]{figures/TriforkRelai.png}
+	
+	\caption{Overview of current Festival implementation which uses Trifork's Relai.}
+	\label{fig:relai_layout}
+\end{figure*}
+
+Massive events like conferences, sport events, and music festivals encounters may saturate the mobile bandwidth which would result in loss of cellular radio connectivity. Based on Trifork Relai local data are updated via not only cellular radio connectivity but also Blue-tooth and WiFi Direct with other devices in a peer-to-peer fashion. So although you may not be able to connect to a \gls{dc} you can still post your votes to peer devices just as you can get more up to date data from these.
+
+Having a normal counter where you add one or more at the time will obviously not work in this scenario as we don't have a central database, we have no means to check how many times you are voting, nor do we have any means to see how large a percentage of possible votes have been given. This raises a new dilemma where the probabilistic counter comes in handy.
+
+Each device will hold a bit array for voting bad and for voting good for each concert, i.e. when a vote is cast as ``bad'' a random number is generated on the device and the corresponding bit in the ``bad'' array is set. The same goes for the ``good'' votes, but note that each possible candidate (bad or good in this case) must have their own bit array. Now this array can be spread to peer devices where it is added to other device\textquoteright s bit arrays as a simple AND operation. At any device you can now see the total number of votes for bad and good by calculating the number of votes that are most likely with number of set bits compared to the number of still unset bits. This value will not change if an array is added several times, in other words it is idempotent. 
+
+One consistency issue that is left unresolved is that you cannot see that few or many votes are missing. Obviously the precision of the count must be obtained by sizing the array towards the total number of votes cast. Another possible inconsistency is that segregated groups of devices can show uncorrelated results. This can happen in a number of situations which are unlikely but possible, i.e. lets say no cellular radio network is available and one group are now only networking using WiFi Direct and another group are only networking using Blue-tooth and no device is bridging the two means of networking. Then each group will have their own voting polls.
+
+We have a number of unintended side effects. For a music festival this is acceptable, while for an App for parliament this would not be acceptable. In the implementation each device can only vote for each concert once and you cannot alter your vote after it has been given. If you have more devices you also have more votes. If you uninstall and reinstall the App you will be able to vote again for the same concert.
+
+Consider a "Festival" that it is composed a many acts/events. We start by considering the case of a "Festival" composed only of one act that later will be extended to many. To simplify, without losing generality, we consider the case of an event in a theatre and the constants and varibales used are presented in Table \ref{tab:festival_constants_variables}.
+\begin{table}[!ht]
+	\begin{tabular}{|p{.5cm}|p{5.7cm}|r| }
+		\hline
+		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
+		\hline
+		\hline
+			$|DC|$ & It is the total number of \glspl{dc} through which an ad must be distributed and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{N}_{0}$ \\
+		\hline
+			$N$ & It is the number of people attending the "Festival". & $\mathbb{N}_{0}$ \\
+		\hline
+			$n_{d}$ & It refers to the attendees to the "Festival" with highest index that device $d$ has information about,  $d \in \{1,\dots, N\}$. & $\mathbb{N}_{0}$ \\
+		\hline
+			$G_{d}$ & It is the array of good votes known by the device $d$ where $G_{da}$ is the value in the array of good votes available at devise $d$, $G_{d}$, for attendee $a$, presented in Expression \ref{ep:good_values}.
+				\begin{equation} \label{ep:good_values}
+					0 \le G_{ka} \le 1 ~ \forall k,a \in \{1,\dots, N\}
+				\end{equation} & 
+			$\mathbb{N}_{0}$ \\
+		\hline
+			$B_{d}$ & It is the array of bad votes known by device $d$ where $B_{da}$ is the value in the array of bad votes seen by device $d$ for attendee $a$, $B_{da}$, presented in Expression \ref{ep:bad_values}.
+				\begin{equation} \label{ep:bad_values}
+					0 \le B_{da} \le 1 ~ \forall d, a \in \{1,\dots, N\}
+				\end{equation} & 
+			$\mathbb{N}_{0}$ \\
+		\hline
+			$V^{good}_{d}$ & It is the number of good votes received by the attendee $d$ device, as shown by Equation \ref{eq:local_total_good_votes}. & $\mathbb{N}_{0}$ \\
+		\hline
+			$V^{bad}_{d}$ & It is the number of bad votes received by the attendee $d$ device, as shown by Equation \ref{eq:local_total_bad_votes}. & $\mathbb{N}_{0}$ \\
+		\hline
+			$V^{good}$ & It represents the total number of attendees that voted good, as shown in Equations  \ref{eq:attendee_voted_good} and \ref{eq:total_good_votes}. It is considered that if $n_{d} < N$ then $G_{da} = B_{da} = 0 ~ \forall ~ a > n_{d}$. & $\mathbb{N}_{0}$ \\
+		\hline
+			$V^{bad}$ & It represents the total number of attendees that voted bad, as shown in Equations \ref{attendee_voted_bad} and \ref{eq:total_bad_votes}. & $\mathbb{N}_{0}$ \\
+		\hline
+			$M_{d}$ & It represents the total number of attendees that voted as seen by device/attendee $d$, as shown in Equation \ref{eq:num_votes}. & $\mathbb{N}_{0}$ \\
+		\hline
+			$M$ & It represents the total number of attendees that voted, as shown in Equation \ref{eq:total_num_votes}. & $\mathbb{N}_{0}$ \\
+		\hline
+	\end{tabular}
+			
+	\caption{Festival Constants and Variables.}
+	\label{tab:festival_constants_variables}
+\end{table}
+\begin{equation} \label{eq:total_good_votes}
+	V^{good}  = \sum^{N}_{d=1} \delta^{good}_{d}
+\end{equation}
+\begin{equation} \label{eq:attendee_voted_good}
+	\delta^{good}_{d} = \left\{\begin{array}{ll}
+			1 & if \sum^{N}_{a=1} G_{da} > 0\\
+			0 & otherwise
+		\end{array}
+	\right.
+\end{equation}
+\begin{equation} \label{eq:local_total_good_votes}
+	V^{good}_{d}  = \sum^{n_{d}}_{a=1} G_{da} ~ \forall ~ d \in \{1,\dots, N\}
+\end{equation}
+\begin{equation} \label{eq:total_bad_votes}
+	V^{bad}  = \sum^{N}_{d=1} \delta^{bad}_{d}
+\end{equation}
+\begin{equation} \label{attendee_voted_bad}
+	\delta^{bad}_{d} = \left\{\begin{array}{ll}
+			1 & if \sum^{N}_{d=1} B_{da} > 0\\
+			0 & otherwise
+		\end{array}
+	\right.
+\end{equation}
+\begin{equation} \label{eq:local_total_bad_votes}
+	V^{bad}_{d}  = \sum^{n_{d}}_{a=1} B_{da} ~ \forall ~ d \in \{1,\dots, N\}
+\end{equation}
+\begin{equation} \label{eq:num_votes}
+	M_{d}  = \sum^{n_{d}}_{a=1} (G_{da} + B_{da}) ~ \forall ~ d \in \{1,\dots, N\}
+\end{equation}
+\begin{equation} \label{eq:total_num_votes}
+M  = V^{good} + V^{bad}
+\end{equation}
+
+An attendee may only vote once as expressed in Inequality \ref{ep:vote_not_equal}, but he/she may not vote at all.
+\begin{equation} \label{ep:vote_not_equal}
+	G_{da} + B_{da} < 2 ~ \forall ~ d \in \{1,\dots, N\}, a \in \{1,\dots, n_{k}\}
+\end{equation}
+
+A measure of the coherence for the copies between an attendee $a$ and another attendee $j$ can be obtained by calculating the number of bits where both versions of voting differ as expressed in Equation \ref{eq:discrepancy_votes}. All the devices are in sync if $\bigtriangleup M_{dj} = 0 ~ \forall ~ d, j \in \{1,\dots, N\}$.
+\begin{equation} \label{eq:discrepancy_votes}
+	\bigtriangleup M_{dj} = \sum^{N}_{i = 1} ((G_{di} + G_{ji}) \% 2 + (B_{dj} + B_{ji}) \% 2) ~ \forall ~ d, j \in \{1,\dots, N\}
+\end{equation}
+
+This can be extended to multiple events/acts by introducing a new index that represent each of them.
+
+To reduce the amount of data transferred between devices it could be used a probabilistic approach as it is used in the current implementation, where the index of an attendee is calculated randomly for a pre-defined size of the poll, $n_{d} = n < N ~ \forall ~ d \in \{1,\dots, n\}$. This means that different attendees may be assigned the same position in the poll, so potentially their votes would equate to a single vote, if they vote equally. So given this the Inequality \ref{ep:vote_not_equal} would not be complied with so it needs to be removed from the representation for this implementation.
