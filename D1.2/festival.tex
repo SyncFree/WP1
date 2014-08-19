@@ -1,4 +1,4 @@
-\section{Festival}
+\subsection{Festival}
 The \href{https://www.trifork.com/news/roskilde-festival}{Trifrok Festival} application is an existing App developed for Android and iOS, Figure \ref{fig:relai_layout}. It allows festival participants to see the concert schedule and other centrally updated information as well as distribution of user-created content. The application has been operational for years while each year new features have been added. The specific use case we are addressing here is the ability to conduct polls where participants can vote for a concert. The challenge is that we cannot see if we receive a vote twice, we don't know who the vote came from, and we do not have a reliable network with a \gls{dc} in the middle.
 \begin{figure*}[!ht]
 	\centering
@@ -19,7 +19,7 @@ One consistency issue that is left unresolved is that you cannot see that few or
 We have a number of unintended side effects. For a music festival this is acceptable, while for an App for parliament this would not be acceptable. In the implementation each device can only vote for each concert once and you cannot alter your vote after it has been given. If you have more devices you also have more votes. If you uninstall and reinstall the App you will be able to vote again for the same concert.
 
 \subsubsection{Mark-Counter}
-A Mark-Counter is composed of an array of $n$ bits. A Mark-Counter $B$ is composed of $n$ bits each represented by $B_{i} \in \{0, 1\} \forall i \in \{1,\dots, n\}$. $A^{n}$ represents the group of all the arrays of bits of size $n$, where $n$ is also the number of bits in a Mark-Counter.
+A Mark-Counter is composed of an array of $n$ bits. A Mark-Counter $B$ is composed of $n$ bits each represented by $B_{i} \in \{0, 1\} \forall i \in \{1,\dots, n\}$. $A^{n}$ represents the group of all the arrays of bits of size $n$ ($|B| = n$), where $n$ is also the number of bits in a Mark-Counter.
 
 Bitwise OR operator is represented as | in this document.
 
@@ -27,9 +27,11 @@ Bitwise OR operator is represented as | in this document.
 \begin{itemize}
 	\item Set a bit in a Mark-Counter: a bit may change individually from 0 to 1 but may not be reset back to zero by this operator.
 	
-	\item Merge Mark-Counters (bitwise OR operator, |): given two Mark-Counters $B, C \in A^{n}$, their merger is defined as $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, n\}\}$. If both arrays have different sizes, i.e. $n_{B}$ and $n_{C}$, then $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, \max{\{n_{B}, n_{C}\}}\} \text{ with } B_{j} = 0 ~ \forall ~ j > n_{B}, C_{k} = 0 ~ \forall ~ k > n_{C}\}$ and the size of $D$ would be $n_{D} = \max{\{n_{B}, n_{C}\}}$.
+	\item Merge Mark-Counters (bitwise OR operator, |): given two Mark-Counters $B, C \in A^{n}$, their merger is defined as $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, n\}\}$.
 	
-	\item Count: given a Mark-Counter $B$ the count corresponds to the number of bits that have been set to 1, $\sum^{n}_{i = 1} B_{i}$.
+	If both arrays have different sizes, i.e. $|B|$ and $|C|$, then $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, \max{\{|B|, |C|\}}\} \text{ with } B_{j} = 0 ~ \forall ~ j > |B|, C_{k} = 0 ~ \forall ~ k > |C|\}$ and the size of $D$ would be $|D| = \max{\{|B|, |C|\}}$.
+	
+	\item Count: given a Mark-Counter $B$ the count corresponds to the number of bits that have been set to 1, $\sum^{|B|}_{i = 1} B_{i}$. Similarly, once it is know the number of 1s it is also known the number of zeros for a given array size.
 \end{itemize}
 
 
@@ -131,102 +133,102 @@ Bitwise OR operator is represented as | in this document.
 \end{itemize}
 
 
-{\bf Festival use case with Mark-Counters} \\
-Consider a "Festival" which it is composed a many acts/events. We start by considering the case of a "Festival" composed only of one act that later will be extended to many. To simplify, without losing generality, we consider the case of an event in a theatre and the constants and variables used are presented in Table \ref{tab:festival_constants_variables}.
-\begin{table}[!ht]
-	\begin{tabular}{|p{.5cm}|p{5.7cm}|r| }
+\subsubsection{Festival use case with Mark-Counters} \\
+Consider a "Festival" which it is composed of many acts/events. We start by considering the case of a "Festival" composed only of one act that later will be extended to many. To simplify, without losing generality, it is considered the case of an event in a theatre and the constants and variables used are presented in Table \ref{tab:festival_constants_variables}.
+\begin{table*}[!ht]
+	\begin{tabular}{|p{2.4cm}|p{13.4cm}|r| }
 		\hline
 		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
 		\hline
 		\hline
-			$|DC|$ & It is the total number of \glspl{dc} through which an ad must be distributed and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{Z}_{+}$ \\
+			$DC$ & It is the group of \glspl{dc} through which an event must be distributed and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$N$ & It is the number of people attending the "Festival", the size of the array of bits. & $\mathbb{Z}_{+}$ \\
+			$People$ & It is the group of people attending the "Festival", with $|People|$ representing the number of people attending and the size of the array of bits. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$n_{d}$ & It refers to the highest attendee's index to the "Festival" that the device $d$ has information about,  $d \in \{1,\dots, N\}$. Also $1 \le n_{d} \le N ~ \forall ~ d \in \{1,\dots, N\}$. & $\mathbb{Z}_{+}$ \\
+			$n_{d}$ & It refers to the highest attendee's index to the "Festival" that the device $d$ has information about,  $d \in \{1,\dots, |People|\}$. Also $1 \le n_{d} \le |People| ~ \forall ~ d \in \{1,\dots, |People|\}$. & $\mathbb{Z}_{+}$ \\
 		\hline
 			$G_{d}$ & It is the array of good votes known by the device $d$ from device $d$ and other devices. $G_{d}$ is an array of bit of size of at least $n_{d}$, with each bit represent a device. $G_{d}$ is a Mark-Counter where a bit is set to 1 if the corresponding attendee, represented by that bit, is set to 1 to state the vote of the attendee as good. & $\mathbb{Z}_{+}$ \\
 		\hline 
-			$G_{da}$ & It is the value in the array of good votes available at devise $d$ for attendee $a$, presented in Expression \ref{ep:good_values}. Also it can be said to be the bit $a$ in the array of bits $G_{d}$, $a \in \{1,\dots, N\}$.
+			$G_{da}$ & It is the value in the array of good votes available at devise $d$ for attendee $a$, presented in Expression \ref{ep:good_values}. Also it can be said to be the bit $a$ in the array of bits $G_{d}$, $a \in \{1,\dots, |People|\}$.
 				\begin{equation} \label{ep:good_values}
-					0 \le G_{ka} \le 1 ~ \forall k,a \in \{1,\dots, N\}
+					0 \le G_{ka} \le 1 ~ \forall k,a \in \{1,\dots, |People|\}
 				\end{equation} & 
 			$\mathbb{Z}_{+}$ \\
 		\hline
 			$B_{d}$ & It is the array of bad votes known by device $d$ from device $d$ and other devices. $B_{d}$ is an array of bit of size of at least $n_{d}$, with each bit represent a device. $B_{d}$ is a Mark-Counter where a bit is set to 1 if the corresponding attendee, represented by that bit, is set to 1 to state the vote of the attendee as bad. & $\mathbb{Z}_{+}$ \\
 		 \hline
-		 	$B_{da}$ & It is the value in the array of bad votes seen by device $d$ for attendee $a$, $B_{da}$, presented in Expression \ref{ep:bad_values}. Also it can be said to be the bit $a$ in the array of bits $B_{d}$, $a \in \{1,\dots, N\}$.
+		 	$B_{da}$ & It is the value in the array of bad votes seen by device $d$ for attendee $a$, $B_{da}$, presented in Expression \ref{ep:bad_values}. Also it can be said to be the bit $a$ in the array of bits $B_{d}$, $a \in \{1,\dots, |People|\}$.
 				\begin{equation} \label{ep:bad_values}
-					0 \le B_{da} \le 1 ~ \forall d, a \in \{1,\dots, N\}
+					0 \le B_{da} \le 1 ~ \forall d, a \in \{1,\dots, |People|\}
 				\end{equation} & 
 			$\mathbb{Z}_{+}$ \\
 		\hline
-			$V^{good}_{d}$ & It is the number of good votes received by the attendee $d$ device, as shown by Equation \ref{eq:local_total_good_votes}. & $\mathbb{Z}_{+}$ \\
+			$numGood_{d}$ & It is the number of good votes received by the attendee $d$ device, as shown by Equation \ref{eq:local_total_good_votes}. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$V^{bad}_{d}$ & It is the number of bad votes received by the attendee $d$ device, as shown by Equation \ref{eq:local_total_bad_votes}. & $\mathbb{Z}_{+}$ \\
+			$numGood$ & It represents the total number of attendees that voted good, as shown in Equations  \ref{eq:attendee_voted_good} and \ref{eq:total_good_votes}. It is considered that if $n_{d} < |People|$ then $G_{da} = B_{da} = 0 ~ \forall ~ a > n_{d}$. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$V^{good}$ & It represents the total number of attendees that voted good, as shown in Equations  \ref{eq:attendee_voted_good} and \ref{eq:total_good_votes}. It is considered that if $n_{d} < N$ then $G_{da} = B_{da} = 0 ~ \forall ~ a > n_{d}$. & $\mathbb{Z}_{+}$ \\
+			$numBad_{d}$ & It is the number of bad votes received by the attendee $d$ device, as shown by Equation \ref{eq:local_total_bad_votes}. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$V^{bad}$ & It represents the total number of attendees that voted bad, as shown in Equations \ref{attendee_voted_bad} and \ref{eq:total_bad_votes}. & $\mathbb{Z}_{+}$ \\
+			$numBad$ & It represents the total number of attendees that voted bad, as shown in Equations \ref{attendee_voted_bad} and \ref{eq:total_bad_votes}. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$M_{d}$ & It represents the total number of attendees that voted as seen by device/attendee $d$, as shown in Equation \ref{eq:num_votes}. & $\mathbb{Z}_{+}$ \\
+			$numAttendees_{d}$ & It represents the total number of attendees that voted as seen by device/attendee $d$, as shown in Equation \ref{eq:num_votes}. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$M$ & It represents the total number of attendees that voted, as shown in Equation \ref{eq:total_num_votes}. & $\mathbb{Z}_{+}$ \\
+			$numAttendees$ & It represents the total number of attendees that voted, as shown in Equation \ref{eq:total_num_votes}. & $\mathbb{Z}_{+}$ \\
 		\hline
 	\end{tabular}
 			
 	\caption{Festival Constants and Variables.}
 	\label{tab:festival_constants_variables}
-\end{table}
-\begin{equation} \label{eq:total_good_votes}
-	V^{good}  = \sum^{N}_{d=1} \delta^{good}_{d}
-\end{equation}
+\end{table*}
 \begin{equation} \label{eq:attendee_voted_good}
 	\delta^{good}_{d} = \left\{\begin{array}{ll}
-			1 & if \sum^{N}_{a=1} G_{da} > 0\\
-			0 & otherwise
-		\end{array}
+		1 & if \sum_{a \in People} G_{da} > 0\\
+		0 & otherwise
+	\end{array}
 	\right.
 \end{equation}
-\begin{equation} \label{eq:local_total_good_votes}
-	V^{good}_{d}  = \sum^{n_{d}}_{a=1} G_{da} ~ \forall ~ d \in \{1,\dots, N\}
+\begin{equation} \label{eq:total_good_votes}
+	numGood  = \sum_{d \in People} \delta^{good}_{d}
 \end{equation}
-\begin{equation} \label{eq:total_bad_votes}
-	V^{bad}  = \sum^{N}_{d=1} \delta^{bad}_{d}
+\begin{equation} \label{eq:local_total_good_votes}
+	numGood_{d}  = \sum^{n_{d}}_{a=1} G_{da} ~ \forall ~ d \in \{1,\dots, |People|\}
 \end{equation}
 \begin{equation} \label{attendee_voted_bad}
 	\delta^{bad}_{d} = \left\{\begin{array}{ll}
-			1 & if \sum^{N}_{d=1} B_{da} > 0\\
-			0 & otherwise
-		\end{array}
+		1 & if \sum_{d \in People} B_{da} > 0\\
+		0 & otherwise
+	\end{array}
 	\right.
 \end{equation}
+\begin{equation} \label{eq:total_bad_votes}
+	numBad  = \sum_{d \in People} \delta^{bad}_{d}
+\end{equation}
 \begin{equation} \label{eq:local_total_bad_votes}
-	V^{bad}_{d}  = \sum^{n_{d}}_{a=1} B_{da} ~ \forall ~ d \in \{1,\dots, N\}
+	numBad_{d}  = \sum^{n_{d}}_{a=1} B_{da} ~ \forall ~ d \in \{1,\dots, |People|\}
 \end{equation}
 \begin{equation} \label{eq:num_votes}
-	M_{d}  = \sum^{n_{d}}_{a=1} (G_{da} + B_{da}) ~ \forall ~ d \in \{1,\dots, N\}
+	numAttendees_{d}  = \sum^{n_{d}}_{a=1} (G_{da} + B_{da}) ~ \forall ~ d \in \{1,\dots, |People|\}
 \end{equation}
 \begin{equation} \label{eq:total_num_votes}
-	M  = V^{good} + V^{bad}
+	numAttendees  = numGood + numBad
 \end{equation}
 
 An attendee may only vote once as expressed in Inequality \ref{ep:vote_not_equal}, but he/she may not vote at all.
 \begin{equation} \label{ep:vote_not_equal}
-	G_{da} + B_{da} < 2 ~ \forall ~ d \in \{1,\dots, N\}, a \in \{1,\dots, n_{k}\}
+	G_{da} + B_{da} < 2 ~ \forall ~ d \in \{1,\dots, |People|\}, a \in \{1,\dots, n_{k}\}
 \end{equation}
 
-A measure of the coherence for the copies between an attendee $a$ and another attendee $j$ can be obtained by calculating the number of bits where both versions of voting differ as expressed in Equation \ref{eq:discrepancy_votes}. All the devices are in sync if $\bigtriangleup M_{dj} = 0 ~ \forall ~ d, j \in \{1,\dots, N\}$.
-\begin{equation} \label{eq:discrepancy_votes}
-	\bigtriangleup M_{dj} = \sum^{N}_{i = 1} ((G_{di} + G_{ji}) \% 2 + (B_{dj} + B_{ji}) \% 2) ~ \forall ~ d, j \in \{1,\dots, N\}
-\end{equation}
+A measure of the coherence for the copies between an attendee $a$ and another attendee $j$ can be obtained by calculating the number of bits where both versions of voting differ as expressed in Equation \ref{eq:discrepancy_votes}. All the devices are in sync if $\bigtriangleup numAttendees_{dj} = 0 ~ \forall ~ d, j \in \{1,\dots, |People|\}$.
+\begin{multline} \label{eq:discrepancy_votes}
+	\bigtriangleup numAttendees_{dj} = \sum_{i \in People} ((G_{di} + G_{ji}) \% 2 + (B_{dj} + B_{ji}) \% 2)\\ \forall ~ d, j \in \{1,\dots, |People|\}
+\end{multline}
 
 This can be extended to multiple events/acts by introducing a new index that represent each of these events/acts.
 
 The problem with the real Festival use case is that not all devices may know about all the attendees and even if they did then the size of the bit arrays may be too big to be efficient their use, so Trifork come with the idea of using Statistical Mark-Counter. which are presented in Section \ref{sec:stat_mark_counter}. In Trifork's Festival the counters are reduced in size by using statistics, and each bit is randomly assigned to a customer.
 
 \subsubsection{Statistical Mark-Counter} \label{sec:stat_mark_counter}
-To reduce the amount of data transferred between devices and for cases where not all devises may know the total number of attendees it could be used a probabilistic approach. The current Trifork's Festival implementation already uses an statistical Mark-Counter, where the index of an attendee is calculated randomly for a pre-defined size of the poll, $n_{d} = n \le N ~ \forall ~ d \in \{1,\dots, n\}$. This means that different attendees may be assigned the same position in the poll, so potentially their votes would equate to a single vote, if they vote equally. So given this the Inequality \ref{ep:vote_less_equal} would not be complied with so it would needs to be removed from the representation to \ref{attendee_voted_bad}.
+To reduce the amount of data transferred between devices and for cases where not all devises may know the total number of attendees it could be used a probabilistic approach. The current Trifork's Festival implementation already uses an statistical Mark-Counter, where the index of an attendee is calculated randomly for a pre-defined size of the poll, $n_{d} = n \le |People| ~ \forall ~ d \in \{1,\dots, n\}$. This means that different attendees may be assigned the same position in the poll, so potentially their votes would equate to a single vote, if they vote equally. So given this the Inequality \ref{ep:vote_less_equal} would not be complied with so it would needs to be removed from the representation to \ref{attendee_voted_bad}.
 \begin{equation} \label{ep:vote_less_equal}
 	G_{da} + B_{da} \le 2 ~ \forall ~ d, a \in \{1,\dots, n\}
 \end{equation}
