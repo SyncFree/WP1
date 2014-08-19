@@ -81,13 +81,17 @@
 \input{useCases}
 
 \ifnum\firstUserCase=1
-	\cleardoublepage
-%	\newpage
+%	\cleardoublepage
+	\newpage
 \fi
 \input{conclusion}
 
 %ACKNOWLEDGMENTS are optional
 \input{acknowledgements}
+\ifnum\firstUserCase=1
+%	\cleardoublepage
+\newpage
+\fi
 
 
 %
@@ -107,4 +111,5 @@
 
 \balancecolumns
 % That's all
+\input{appendix}
 \end{document}
