@@ -1,0 +1,657 @@
+% This file was created with JabRef 2.10.
+% Encoding: Cp1252
+
+
+@InProceedings{Hell2009a,
+  Title                    = {Building on Quicksand},
+  Author                   = {Pat Helland and
+ David Campbell},
+  Booktitle                = {CIDR},
+  Year                     = {2009},
+
+  Abstract                 = {Reliable systems have always been built out of unreliable components [1]. Early on, the reliable components were small such as mirrored disks or ECC (Error Correcting Codes) in core memory. These systems were designed such that failures of these small components were transparent to the application. Later, the size of the unreliable components grew larger and semantic challenges crept into the application when failures occurred.
+Fault tolerant algorithms comprise a set of idempotent sub- algorithms. Between these idempotent sub-algorithms, state is sent across the failure boundaries of the unreliable components. The failure of an unreliable component can then be tolerated as a takeover by a backup, which uses the last known state and drives forward with a retry of the idempotent sub-algorithm. Classically, this has been done in a linear fashion (i.e. one step at a time).
+As the granularity of the unreliable component grows (from a mirrored disk to a system to a data center), the latency to communicate with a backup becomes unpalatable. This leads to a more relaxed model for fault tolerance. The primary system will acknowledge the work request and its actions without waiting to ensure that the backup is notified of the work. This improves the responsiveness of the system because the user is not delayed behind a slow interaction with the backup.
+There are two implications of asynchronous state capture:
+1) Everything promised by the primary is probabilistic. There is always a chance that an untimely failure shortly after the promise results in a backup proceeding without knowledge of
+the commitment. Hence, nothing is guaranteed!
+2) Applications must ensure eventual consistency [20]. Since work may be stuck in the primary after a failure and reappear
+later, the processing order for work cannot be guaranteed.
+Platform designers are struggling to make this easier for their applications. Emerging patterns of eventual consistency and probabilistic execution may soon yield a way for applications to express requirements for a “looser” form of consistency while providing availability in the face of ever larger failures. As we will also point out in this paper, the patterns of probabilistic execution and eventual consistency are applicable to intermittently connected application patterns.
+This paper recounts portions of the evolution of these trends, attempts to show the patterns that span these changes, and talks about future directions as we continue to “build on quicksand”.},
+  Bibsource                = {DBLP, http://dblp.uni-trier.de},
+  Crossref                 = {DBLP:conf/cidr/2009},
+  Ee                       = {http://www-db.cs.wisc.edu/cidr/cidr2009/Paper_133.pdf},
+  Review                   = {Discusses basic principles for building fault-tolerant, stateful systems. As systems scale, designers must confront a fundamental tradeoff between availability and consistency. The paper offers insights for designing in the face of this inconvenient reality.
+
+The paper argues that app developers cannot be shielded from the complexity in which the application has logic for reconciling inconsistent.}
+}
+
+@Article{Abadi2012consistency,
+  Title                    = {Consistency Tradeoffs in Modern Distributed Database System Design: CAP is Only Part of the Story},
+  Author                   = {Abadi, D.},
+  Journal                  = {Computer},
+  Year                     = {2012},
+
+  Month                    = {Feb},
+  Number                   = {2},
+  Pages                    = {37-42},
+  Volume                   = {45},
+
+  Abstract                 = {The CAP theorem's impact on modern distributed database system design is more limited than is often perceived. Another tradeoff-between consistency and latency -has had a more direct influence on several well-known DDBSs. A proposed new formulation, PACELC, unifies this tradeoff with CAP.},
+  Doi                      = {10.1109/MC.2012.33},
+  ISSN                     = {0018-9162},
+  Keywords                 = {distributed databases;theorem proving;CAP throrem;PACELC formulation;consistency tradeoff;consistency-availability-partition tolerance theorem;distributed database system design;partition-availability-consistency-else-latency-consistency formulation;Computer architecture;Database systems;Distributed databases;Protocols;Wide area networks;CAP theorem;computer systems organization;database architectures;distributed database systems;networking and information technology},
+  Url                      = {http://cs-www.cs.yale.edu/homes/dna/papers/abadi-pacelc.pdf}
+}
+
+@TechReport{Baquero1997a,
+  Title                    = {Specification of Convergent Abstract Data Types for
+Autonomous Mobile Computing},
+  Author                   = {Carlos Baquero and Francisco Moura},
+  Institution              = {Departamento de Inform{\'a}tica, Universidade do Minho},
+  Year                     = {1997},
+  Month                    = october,
+
+  Abstract                 = {Abstract Traditional replica control mechanisms such as quorum consensus, primary replicas and other strong consistency approaches are unable to provide a useful level of availability on unconstrained mobile environments. We define an environment thats exploits pair-wise communication and allows autonomous creation and joining of replicas while ensuring eventual convergence. A set of composable components (ADTs) are formally specified using the SETS Calculus. These components can be used to build simple distributed applications that take advantage of peer-to-peer communication between mobile hosts.},
+  Key                      = {scadt4},
+  Keywords                 = {mobile computing, ADTs, Replication, SETS Calculus},
+  Url                      = {http://gsd.di.uminho.pt/publications/gsd-1997-06}
+}
+
+@InProceedings{syn:rep:1580,
+  Title                    = {Exploiting our computational surroundings for better mobile collaboration},
+  Author                   = {Jo{{\~a}}o Barreto and Paulo Ferreira and Marc Shapiro},
+  Booktitle                = intconfon # {Mobile Data Management (MDM)},
+  Year                     = {2007},
+
+  Address                  = {Mannheim, Germany},
+  Month                    = {May},
+  Pages                    = {110--117},
+
+  Comment                  = {INT LIP6 REGAL},
+  Keywords                 = {syn,rep},
+  Local-url                = {./papers/DecoupledConsistency-MDM-2007.pdf},
+  Url                      = {http://www.computer.org/portal/web/csdl/doi/10.1109/MDM.2007.24}
+}
+
+@TechReport{rep:optim:sh126,
+  Title                    = {Telex: Principled System Support for Write-Sharing in Collaborative Applications},
+  Author                   = {Benmouffok, Lamia and Busca, Jean-Michel and Manuel Marqu{\`e}s, Joan and Shapiro, Marc and Sutra, Pierre and Tsoukalas, Georgios},
+  Institution              = {INRIA},
+  Year                     = {2008},
+
+  Address                  = rocq,
+  Month                    = {May},
+  Note                     = {Use \cite{rep:sh133} instead!},
+  Number                   = {6546},
+  Type                     = rr,
+
+  Keywords                 = {rep,optim},
+  Local-url                = {./papers/Telex-principled-RR-6546-2008-06.pdf},
+  Url                      = {http://hal.inria.fr/inria-00281329/en/}
+}
+
+@InProceedings{rep:sh133,
+  Title                    = {Telex: A Semantic Platform for Cooperative Application Development},
+  Author                   = {Lamia Benmouffok and Jean-Michel Busca and Joan Manuel Marqu{\`e}s and Marc Shapiro and Pierre Sutra and Georgios Tsoukalas},
+  Booktitle                = cfse,
+  Year                     = {2009},
+
+  Address                  = {Toulouse, France},
+  Month                    = {September},
+
+  Comment                  = {NAT LIP6 REGAL},
+  Local-url                = {./papers/Telex-CFSE-2009.pdf},
+  Url                      = {http://lip6.fr/Marc.Shapiro/papers/Telex-CFSE-2009.pdf},
+  X-editorial-board        = {yes},
+  X-international-audience = {yes},
+  X-pays                   = {GR, ES},
+  X-proceedings            = {yes}
+}
+
+@InProceedings{app:rep:optim:1608,
+  Title                    = {Semantic Middleware for Designing Collaborative Applications in Mobile Environment},
+  Author                   = {Lamia Benmouffok and Jean-Michel Busca and Marc Shapiro},
+  Booktitle                = {Middleware for Network Eccentric and Mobile Apps.\ W.\ ({MiNEMA})},
+  Year                     = {2007},
+
+  Address                  = {Magdeburg, Germany},
+  Month                    = {September},
+  Pages                    = {58--61},
+
+  Comment                  = {INT LIP6 REGAL},
+  Keywords                 = {app,rep},
+  Local-url                = {./papers/benmouffok-busca-minema-2007.pdf},
+  Url                      = {http://minema.cs.uni-magdeburg.de/downloads/folien/minema07-proceedings.pdf}
+}
+
+@Article{Bouajjani2014a,
+  Title                    = {Verifying Eventual Consistency of Optimistic Replication Systems},
+  Author                   = {Bouajjani, Ahmed and Enea, Constantin and Hamza, Jad},
+  Journal                  = {SIGPLAN Not.},
+  Year                     = {2014},
+
+  Month                    = jan,
+  Number                   = {1},
+  Pages                    = {285--296},
+  Volume                   = {49},
+
+  Abstract                 = {We address the verification problem of eventual consistency of optimistic replication systems. Such systems are typically used to implement distributed data structures over large scale networks. We introduce a formal definition of eventual consistency that applies to a wide class of existing implementations, including the ones using speculative executions. Then, we reduce the problem of checking eventual consistency to reachability and model checking problems. This reduction enables the use of existing verification tools for message-passing programs in the context of verifying optimistic replication systems. Furthermore, we derive from these reductions decision procedures for checking eventual consistency of systems implemented as finite-state programs communicating through unbounded unordered channels.},
+  Acmid                    = {2535877},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1145/2578855.2535877},
+  ISSN                     = {0362-1340},
+  Issue_date               = {January 2014},
+  Keywords                 = {message passing concurrency, model checking, static program analysis},
+  Numpages                 = {12},
+  Publisher                = {ACM},
+  Url                      = {http://doi.acm.org/10.1145/2578855.2535877}
+}
+
+@InProceedings{Brewer2000cap,
+  Title                    = {Towards Robust Distributed Systems (Abstract)},
+  Author                   = {Brewer, Eric A.},
+  Booktitle                = {Proceedings of the Nineteenth Annual ACM Symposium on Principles of Distributed Computing},
+  Year                     = {2000},
+
+  Address                  = {New York, NY, USA},
+  Pages                    = {7--},
+  Publisher                = {ACM},
+  Series                   = {PODC '00},
+
+  Acmid                    = {343502},
+  Doi                      = {10.1145/343477.343502},
+  ISBN                     = {1-58113-183-6},
+  Location                 = {Portland, Oregon, USA},
+  Url                      = {http://doi.acm.org/10.1145/343477.343502}
+}
+
+@Misc{FMK,
+  Title                    = {{FMK}},
+
+  Author                   = {{Danish Helath and Medicines Authority}},
+  HowPublished             = {\url{http://sundhedsstyrelsen.dk/en/medicines/medicine-profile}},
+  Year                     = {2013},
+
+  Bdsk-url-1               = {http://sundhedsstyrelsen.dk/en/medicines/medicine-profile%20http://sundhedsstyrelsen.dk/en/medicines/medicine-profile},
+  Date-added               = {2014-07-09 11:30:25 +0000},
+  Date-modified            = {2014-07-09 11:41:50 +0000}
+}
+
+@Article{DeCandia2007a,
+  Title                    = {Dynamo: Amazon's Highly Available Key-value Store},
+  Author                   = {DeCandia, Giuseppe and Hastorun, Deniz and Jampani, Madan and Kakulapati, Gunavardhan and Lakshman, Avinash and Pilchin, Alex and Sivasubramanian, Swaminathan and Vosshall, Peter and Vogels, Werner},
+  Journal                  = {SIGOPS Oper. Syst. Rev.},
+  Year                     = {2007},
+
+  Month                    = oct,
+  Number                   = {6},
+  Pages                    = {205--220},
+  Volume                   = {41},
+
+  Acmid                    = {1294281},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1145/1323293.1294281},
+  ISSN                     = {0163-5980},
+  Issue_date               = {December 2007},
+  Keywords                 = {performance, reliability, scalability},
+  Numpages                 = {16},
+  Publisher                = {ACM},
+  Url                      = {http://doi.acm.org/10.1145/1323293.1294281}
+}
+
+@InProceedings{Deftu2013a,
+  Title                    = {A Scalable Conflict-Free Replicated Set Data Type},
+  Author                   = {Deftu, Andrei and Griebsch, Jan},
+  Booktitle                = {Proceedings of the 2013 IEEE 33rd International Conference on Distributed Computing Systems},
+  Year                     = {2013},
+
+  Address                  = {Washington, DC, USA},
+  Pages                    = {186--195},
+  Publisher                = {IEEE Computer Society},
+  Series                   = {ICDCS '13},
+
+  Abstract                 = {Replication of state is the fundamental approach to achieve scalability and availability. In order to maintain or restore replica consistency under updates, some form of synchronization is needed. Conflict-free Replicated Data Types (CRDTs) ensure eventual consistency, such that replicas converge to a common state, equivalent to a correct sequential execution without foreground synchronization. A particular CRDT is the set data type, which is a pervasive abstraction for storing collections of unique elements and constitutes an important building block for other, more complex data structures. Since the original specification is not scalable, we improve it by introducing an efficient algorithm for sending deltas of updates between replicas and by partitioning a set replica into disjunctive subsets. We further add support for limited-lifetime elements, which, in turn, enable simple garbage collection strategies to address the problem of unbounded database growth. Lastly, implementation details and evaluation results of a client library for this data structure are presented.},
+  Acmid                    = {2549731},
+  Doi                      = {10.1109/ICDCS.2013.10},
+  ISBN                     = {978-0-7695-5000-8},
+  Keywords                 = {eventual consistency, data replication, distributed systems},
+  Numpages                 = {10},
+  Url                      = {http://dx.doi.org/10.1109/ICDCS.2013.10}
+}
+
+@Misc{syncfree,
+  Title                    = {SyncFree "Large-scale computation without synchronisation''},
+
+  Author                   = {{European research project, grant agreement 609551}},
+  HowPublished             = {\url{http://syncfree.lip6.fr}},
+  Month                    = {October},
+  Year                     = {2013},
+
+  Bdsk-url-1               = {http://syncfree.lip6.fr},
+  Date-added               = {2014-07-09 11:33:56 +0000},
+  Date-modified            = {2014-07-09 12:19:09 +0000}
+}
+
+@Article{Ghosh2014a,
+  Title                    = {Automatically Extracting Requirements Specifications from
+ Natural Language},
+  Author                   = {Shalini Ghosh and
+ Daniel Elenius and
+ Wenchao Li and
+ Patrick Lincoln and
+ Natarajan Shankar and
+ Wilfried Steiner},
+  Journal                  = {CoRR},
+  Year                     = {2014},
+  Volume                   = {abs/1403.3142},
+
+  Bibsource                = {DBLP, http://dblp.uni-trier.de},
+  Ee                       = {http://arxiv.org/abs/1403.3142},
+  Url                      = {http://arxiv.org/pdf/1403.3142.pdf}
+}
+
+@Article{Gilbert2002a,
+  Title                    = {Brewer's Conjecture and the Feasibility of Consistent, Available, Partition-tolerant Web Services},
+  Author                   = {Gilbert, Seth and Lynch, Nancy},
+  Journal                  = {SIGACT News},
+  Year                     = {2002},
+
+  Month                    = jun,
+  Number                   = {2},
+  Pages                    = {51--59},
+  Volume                   = {33},
+
+  Acmid                    = {564601},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1145/564585.564601},
+  ISSN                     = {0163-5700},
+  Issue_date               = {June 2002},
+  Numpages                 = {9},
+  Publisher                = {ACM},
+  Url                      = {http://doi.acm.org/10.1145/564585.564601}
+}
+
+@Article{app:syn:optim:1487,
+  Title                    = {Pushing log-based reconciliation},
+  Author                   = {Youssef Hamadi and Marc Shapiro},
+  Journal                  = {Int.\ J.\ on Artif.\ Intelligence Tools (IJAIT)},
+  Year                     = {2005},
+
+  Month                    = jun,
+  Number                   = {3--4},
+  Pages                    = {445--458},
+  Volume                   = {14},
+
+  Comment                  = {INT LIP6 REGAL},
+  Keywords                 = {app,syn,optim},
+  Local-url                = {./papers/ijait05Log.pdf},
+  Url                      = {http://dx.doi.org/10.1142/S0218213005002193}
+}
+
+@InProceedings{helland2007life,
+  Title                    = {Life beyond Distributed Transactions: an Apostate's Opinion.},
+  Author                   = {Helland, Pat},
+  Booktitle                = {CIDR},
+  Year                     = {2007},
+  Pages                    = {132--141},
+
+  Date-added               = {2014-07-09 12:41:01 +0000},
+  Date-modified            = {2014-07-09 12:41:01 +0000}
+}
+
+@InProceedings{rep:1507,
+  Title                    = {Brief announcement: Exploring the Consistency Problem Space},
+  Author                   = {Nishith Krishna and Marc Shapiro and Karthikeyan Bhargavan},
+  Booktitle                = podc,
+  Year                     = {2005},
+
+  Address                  = {Las Vegas, Nevada, USA},
+  Month                    = {July},
+  Organization             = {ACM SIGACT-SIGOPS},
+  Pages                    = {168--168},
+
+  Authorizer               = {http://dl.acm.org/authorize?877295},
+  Comment                  = {INT LIP6 REGAL},
+  Keywords                 = {rep},
+  Url                      = {http://doi.acm.org/10.1145/1073814.1073845}
+}
+
+@Article{lloyd2014dont,
+  Title                    = {Don'T Settle for Eventual Consistency},
+  Author                   = {Lloyd, Wyatt and Freedman, Michael J. and Kaminsky, Michael and Andersen, David G.},
+  Journal                  = {Commun. ACM},
+  Year                     = {2014},
+
+  Month                    = may,
+  Number                   = {5},
+  Pages                    = {61--68},
+  Volume                   = {57},
+
+  Acmid                    = {2596624},
+  Address                  = {New York, NY, USA},
+  Bdsk-url-1               = {http://doi.acm.org/10.1145/2596624},
+  Bdsk-url-2               = {http://dx.doi.org/10.1145/2596624},
+  Date-added               = {2014-07-01 13:39:32 +0000},
+  Date-modified            = {2014-07-01 13:39:47 +0000},
+  Doi                      = {10.1145/2596624},
+  ISSN                     = {0001-0782},
+  Issue_date               = {May 2014},
+  Numpages                 = {8},
+  Publisher                = {ACM},
+  Url                      = {http://doi.acm.org/10.1145/2596624}
+}
+
+@InProceedings{app:sh137,
+  Title                    = {A Semantically Rich Approach for Collaborative Model Edition},
+  Author                   = {Jonathan Michaux and Xavier Blanc and Pierre Sutra and Marc Shapiro},
+  Booktitle                = {Symp.\ on Applied Computing (SAC)},
+  Year                     = {2011},
+
+  Address                  = {TaiChung, Taiwan},
+  Month                    = {March},
+  Organization             = {ACM SIGAPP},
+  Pages                    = {1470--1475},
+  Publisher                = {ACM},
+  Volume                   = {26},
+
+  Authorizer               = {http://dl.acm.org/authorize?17863},
+  Doi                      = {http://doi.acm.org/10.1145/1982185.1982500},
+  Local-url                = {./papers/SAC2011-Cpraxis_wholePaper.pdf},
+  Url                      = {http://lip6.fr/Marc.Shapiro/papers/SAC2011-Cpraxis_wholePaper.pdf}
+}
+
+@InProceedings{Preguica2009a,
+  Title                    = {A Commutative Replicated Data Type for Cooperative Editing},
+  Author                   = {Preguica, Nuno and Marques, Joan Manuel and Shapiro, Marc and Letia, Mihai},
+  Booktitle                = {Proceedings of the 2009 29th IEEE International Conference on Distributed Computing Systems},
+  Year                     = {2009},
+
+  Address                  = {Washington, DC, USA},
+  Pages                    = {395--403},
+  Publisher                = {IEEE Computer Society},
+  Series                   = {ICDCS '09},
+
+  Abstract                 = {A Commutative Replicated Data Type (CRDT) is one where all concurrent operations commute. The replicas of a CRDT converge automatically, without complex concurrency control. This paper describes Treedoc, a novel CRDT design for cooperative text editing. An essential property is that the identifiers of Treedoc atoms are selected from a dense space. We discuss practical alternatives for implementing the identifier space based on an extended binary tree. We also discuss storage alternatives for data and meta-data, and mechanisms for compacting the tree. In the best case, Treedoc incurs no overhead with respect to a linear text buffer. We validate the results with traces from existing edit histories.},
+  Acmid                    = {1584604},
+  Doi                      = {10.1109/ICDCS.2009.20},
+  ISBN                     = {978-0-7695-3659-0},
+  Keywords                 = {commutative replicated data type, distributed algorithms, replicated data, co-operative editing, dense identifier space},
+  Numpages                 = {9},
+  Url                      = {http://dx.doi.org/10.1109/ICDCS.2009.20}
+}
+
+@Article{pritchett2008base,
+  Title                    = {{BASE}: An {ACID} Alternative},
+  Author                   = {Pritchett, Dan},
+  Journal                  = {Queue},
+  Year                     = {2008},
+
+  Month                    = may,
+  Number                   = {3},
+  Pages                    = {48--55},
+  Volume                   = {6},
+
+  Acmid                    = {1394128},
+  Address                  = {New York, NY, USA},
+  Bdsk-url-1               = {http://doi.acm.org/10.1145/1394127.1394128},
+  Bdsk-url-2               = {http://dx.doi.org/10.1145/1394127.1394128},
+  Date-added               = {2014-07-01 13:38:00 +0000},
+  Date-modified            = {2014-07-09 11:40:05 +0000},
+  Doi                      = {10.1145/1394127.1394128},
+  ISSN                     = {1542-7730},
+  Issue_date               = {May/June 2008},
+  Keywords                 = {eventual consistency, soft state, availability},
+  Numpages                 = {8},
+  Publisher                = {ACM},
+  Url                      = {http://doi.acm.org/10.1145/1394127.1394128}
+}
+
+@Article{Saito2005a,
+  Title                    = {Optimistic Replication},
+  Author                   = {Yasushi Saito and Marc Shapiro},
+  Journal                  = acmcs,
+  Year                     = {2005},
+
+  Month                    = {March},
+  Number                   = {1},
+  Pages                    = {42--81},
+  Volume                   = {37},
+
+  Authorizer               = {http://dl.acm.org/authorize?865762},
+  Comment                  = {INT LIP6 REGAL},
+  Doi                      = {http://doi.acm.org/10.1145/1057977.1057980},
+  Group                    = {replication+consistency},
+  Keywords                 = {optim,rep,syn},
+  Local-url                = {./papers/Optimistic_Replication_Computing_Surveys_2005-03_cameraready.pdf},
+  Url                      = {http://lip6.fr/Marc.Shapiro/papers/Optimistic_Replication_Computing_Surveys_2005-03_cameraready.pdf}
+}
+
+@InCollection{opt:db:sh129,
+  Title                    = {Optimistic Replication and Resolution},
+  Author                   = {Marc Shapiro},
+  Booktitle                = {Encyclopedia of Database Systems (online and print)},
+  Publisher                = springer,
+  Year                     = {2009},
+  Editor                   = {{\"O}zsu, M. Tamer and Liu, Ling},
+  Month                    = {October},
+  Note                     = {http://www.springer.com/computer/database+management+%26+information+retrieval/book/978-0-387-49616-0},
+
+  Comment                  = {INT LIP6 REGAL},
+  Group                    = {papers},
+  Keywords                 = {opt,db},
+  Local-url                = {./papers/optimistic-replication-Encyclopedia-DB-systems-2009.pdf},
+  Url                      = {http://pagesperso-systeme.lip6.fr/Marc.Shapiro/papers/optimistic-replication-Encyclopedia-DB-systems-2009.pdf},
+  X-editorial-board        = {yes},
+  X-international-audience = {yes},
+  X-proceedings            = {yes}
+}
+
+@TechReport{Shapiro2004a,
+  Title                    = {The {A}ctions-{C}onstraints approach to replication: Definitions and proofs},
+  Author                   = {Marc Shapiro and Karthikeyan Bhargavan},
+  Institution              = {Microsoft Research},
+  Year                     = {2004},
+  Month                    = {March},
+  Number                   = {MSR-TR-2004-14},
+
+  Keywords                 = {rep,syn,optim},
+  Url                      = {ftp://ftp.research.microsoft.com/pub/tr/TR-2004-14.pdf}
+}
+
+@TechReport{rep:syn:optim:1491,
+  Title                    = {A formalism for consistency and partial replication},
+  Author                   = {Marc Shapiro and Karthikeyan Bhargavan and Yek Chong and Youssef Hamadi},
+  Institution              = {Microsoft Research},
+  Year                     = {2004},
+
+  Address                  = {Cambridge, UK},
+  Month                    = {June},
+  Number                   = {MSR-TR-2004-58},
+
+  Keywords                 = {rep,syn,optim},
+  Url                      = {ftp://ftp.research.microsoft.com/pub/tr/TR-2004-58.pdf}
+}
+
+@InProceedings{optim:rep:syn:1498,
+  Title                    = {A Constraint-based Formalism for Consistency in Replicated Systems},
+  Author                   = {Marc Shapiro and Karthikeyan Bhargavan and Nishith Krishna},
+  Booktitle                = opodis,
+  Year                     = {2004},
+
+  Address                  = {Grenoble, France},
+  Month                    = {December},
+  Number                   = {3544},
+  Pages                    = {331--345},
+  Series                   = {lncs},
+
+  Comment                  = {INT LIP6 REGAL},
+  Keywords                 = {optim,rep,syn},
+  Local-url                = {./papers/opodis2004-final-2004-10-30.pdf},
+  Url                      = {http://dx.doi.org/10.1007/11516798_24}
+}
+
+@InCollection{Shapiro2009a,
+  Title                    = {Eventual Consistency},
+  Author                   = {Marc Shapiro and Bettina Kemme},
+  Booktitle                = {Encyclopedia of Database Systems (online and print)},
+  Publisher                = springer,
+  Year                     = {2009},
+  Editor                   = {{\"O}zsu, M. Tamer and Liu, Ling},
+  Month                    = {Octuber},
+  Note                     = {Printed},
+
+  Comment                  = {INT LIP6 REGAL},
+  Group                    = {papers},
+  Keywords                 = {opt,proto},
+  Local-url                = {./papers/eventual-consistency-Encyclopedia-DB-systems-2009.pdf},
+  Url                      = {http://www.springer.com/computer/database+management+%26+information+retrieval/book/978-0-387-49616-0},
+  X-editorial-board        = {yes},
+  X-international-audience = {yes},
+  X-pays                   = {CA},
+  X-proceedings            = {yes}
+}
+
+@InProceedings{formel:rep:1529,
+  Title                    = {The three dimensions of data consistency},
+  Author                   = {Marc Shapiro and Nishith Krishna},
+  Booktitle                = {Journ{\'e}es Francophones sur la Coh{\'e}rence des Donn{\'e}es en Univers R{\'e}parti (CDUR)},
+  Year                     = {2005},
+
+  Address                  = {CNAM, Paris, France},
+  Month                    = {November},
+  Pages                    = {54--58},
+
+  Comment                  = {NAT LIP6 REGAL},
+  Keywords                 = {formel,rep},
+  Local-url                = {./papers/cdur2005.pdf},
+  Url                      = {http://lip6.fr/Marc.Shapiro/papers/cdur2005.pdf}
+}
+
+@InProceedings{shapiro11conflictfree,
+  Title                    = {Conflict-free Replicated Data Types},
+  Author                   = {Marc Shapiro and Nuno Pregui{\c c}a and Carlos Baquero and Marek Zawirski},
+  Booktitle                = intsympon # {Stabilization, Safety, and Security of Distributed Systems (SSS)},
+  Year                     = {2011},
+
+  Address                  = {Grenoble, France},
+  Editor                   = {Xavier D{\'e}fago and Franck Petit and V. Villain},
+  Month                    = oct,
+  Pages                    = {386--400},
+  Publisher                = springer,
+  Series                   = lncs,
+  Volume                   = {6976},
+
+  Bdsk-url-1               = {http://lip6.fr/Marc.Shapiro/papers/CRDTs_SSS-2011.pdf},
+  Date-added               = {2011-11-17 11:54:14 +0100},
+  Date-modified            = {2012-05-24 11:23:23 +0200},
+  Keywords                 = {CRDT}
+}
+
+@TechReport{shapiro11comprehensive,
+  Title                    = {A comprehensive study of Convergent and Commutative Replicated Data Types},
+  Author                   = {Shapiro, Marc and Pregui{\c c}a, Nuno and Baquero, Carlos and Zawirski, Marek},
+  Institution              = {INRIA},
+  Year                     = {2011},
+  Month                    = Jan,
+  Note                     = {Printed},
+  Number                   = {RR-7506},
+  Type                     = {Rapport de recherche},
+
+  Abstract                 = {{Eventual consistency aims to ensure that replicas of some mutable shared object converge without foreground synchronisation. Previous approaches to eventual consistency are ad-hoc and error-prone. We study a principled approach: to base the design of shared data types on some simple formal conditions that are sufficient to guarantee eventual consistency. We call these types Convergent or Commutative Replicated Data Types (CRDTs). This paper formalises asynchronous object replication, either state based or operation based, and provides a sufficient condition appropriate for each case. It describes several useful CRDTs, including container data types supporting both \add and \remove operations with clean semantics, and more complex types such as graphs, montonic DAGs, and sequences. It discusses some properties needed to implement non-trivial CRDTs.}},
+  Affiliation              = {REGAL - INRIA Rocquencourt , Laboratoire d'Informatique de Paris 6 - LIP6 , Centro de Investiga{\c c}{\\~a}o em Inform{\'a}tica e Tecnologias da Informa{\c c}{\\~a}o - CITI , Universidade do Minho Departamento de Inform{\'a}tica Distributed Systems Group - Universidade do Minho Departamento de Inform{\'a}tica},
+  Collaboration            = {INRIA, UNL, U Minho, LIP6 },
+  File                     = {techreport.pdf:http\://hal.inria.fr/inria-00555588/PDF/techreport.pdf:PDF},
+  Hal_id                   = {inria-00555588},
+  Keywords                 = {eventual consistency; optimistic replication; replicated data types; distributed algorithms; distributed systems; Data replication; commutative operations},
+  Language                 = {Anglais},
+  Pages                    = {50},
+  Url                      = {http://hal.inria.fr/inria-00555588}
+}
+
+@Article{Stankovic1999a,
+  Title                    = {Misconceptions about real-time databases},
+  Author                   = {Stankovic, J.A and Sang Hyuk Son and Hansson, J.},
+  Journal                  = {Computer},
+  Year                     = {1999},
+
+  Month                    = {Jun},
+  Number                   = {6},
+  Pages                    = {29-36},
+  Volume                   = {32},
+
+  Doi                      = {10.1109/2.769440},
+  ISSN                     = {0018-9162},
+  Keywords                 = {database management systems;real-time systems;timing;transaction processing;computer systems;conventional database technology;general purpose systems;mainstream database users;real time applications;real time aspects;real time databases;real time support;research areas;Application software;Audio databases;Control systems;Database systems;Hardware;Real time systems;Sensor systems;Stock markets;Timing;Transaction databases},
+  Url                      = {http://www.cs.virginia.edu/~stankovic/psfiles/R6stan.lo.pdf}
+}
+
+@InProceedings{Terry1995a,
+  Title                    = {Managing Update Conflicts in Bayou, a Weakly Connected Replicated Storage System},
+  Author                   = {Terry, D. B. and Theimer, M. M. and Petersen, Karin and Demers, A. J. and Spreitzer, M. J. and Hauser, C. H.},
+  Booktitle                = {Proceedings of the Fifteenth ACM Symposium on Operating Systems Principles},
+  Year                     = {1995},
+
+  Address                  = {New York, NY, USA},
+  Pages                    = {172--182},
+  Publisher                = {ACM},
+  Series                   = {SOSP '95},
+
+  Acmid                    = {224070},
+  Doi                      = {10.1145/224056.224070},
+  ISBN                     = {0-89791-715-4},
+  Location                 = {Copper Mountain, Colorado, USA},
+  Numpages                 = {11},
+  Url                      = {http://doi.acm.org/10.1145/224056.224070}
+}
+
+@Article{Vogels2009a,
+  Title                    = {Eventually Consistent},
+  Author                   = {Vogels, Werner},
+  Journal                  = {Commun. ACM},
+  Year                     = {2009},
+
+  Month                    = jan,
+  Number                   = {1},
+  Pages                    = {40--44},
+  Volume                   = {52},
+
+  Acmid                    = {1435432},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1145/1435417.1435432},
+  ISSN                     = {0001-0782},
+  Issue_date               = {January 2009},
+  Numpages                 = {5},
+  Publisher                = {ACM},
+  Url                      = {http://doi.acm.org/10.1145/1435417.1435432}
+}
+
+@Article{weiss10logootundo,
+  Title                    = {Logoot-Undo: Distributed Collaborative Editing System on P2P Networks},
+  Author                   = {Stephane Weiss and Pascal Urso and Pascal Molli},
+  Journal                  = {IEEE Transactions on Parallel and Distributed Systems},
+  Year                     = {2010},
+  Pages                    = {1162-1174},
+  Volume                   = {21},
+
+  Address                  = {Los Alamitos, CA, USA},
+  Bdsk-url-1               = {http://doi.ieeecomputersociety.org/10.1109/TPDS.2009.173},
+  Date-added               = {2011-02-15 16:31:38 +0100},
+  Date-modified            = {2012-05-24 11:23:23 +0200},
+  ISSN                     = {1045-9219},
+  Keywords                 = {CRDT},
+  Publisher                = {IEEE Computer Society}
+}
+
+@comment{jabref-meta: groupsversion:3;}
+
+@comment{jabref-meta: groupstree:
+0 AllEntriesGroup:;
+1 ExplicitGroup:Eventual Consistency\;0\;Baquero1997a\;Preguica2009a\;
+Saito2005a\;Shapiro2004a\;Shapiro2009a\;app:rep:optim:1608\;app:sh137\
+;app:syn:optim:1487\;formel:rep:1529\;opt:db:sh129\;optim:rep:syn:1498
+\;rep:1507\;rep:optim:sh126\;rep:sh133\;rep:syn:optim:1491\;shapiro11c
+onflictfree\;syn:rep:1580\;;
+}
+
