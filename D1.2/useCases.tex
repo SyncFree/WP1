@@ -3,6 +3,27 @@ Three use cases has been identified from Rovio representing significant issues a
 
 We are here providing an overview to illustrate the nature of the requirements we are faced with in large-scale distributed applications without global synchronisation.
 
+The general constants and variables that applied to all the following use cases are presented in Table \ref{tab:general_definitions}.
+\begin{table}[!ht]
+	\begin{tabular}{|p{1cm}|p{5.6cm}|r| }
+		\hline
+		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
+		\hline
+		\hline
+		$DC$ & It is the set of all \glspl{dc}. $d$ identifies one of the \glspl{dc}, $d \in DC$, where $|DC|$ is the number of \glspl{dc}. & $\mathbb{Z}_{+} $\\
+		\hline
+		$DV$ & It is the set of devices. $dv$ represents one of those devices, $dv \in DV$, where $|DV|$ is the number of devices. & $\mathbb{Z}_{+}$ \\
+		\hline
+		$Nodes$ & It is the set of nodes. $n$ represents one of those nodes, $n \in Node$, where $|Nodes|$ is the number of nodes in a \gls{dc}. & $\mathbb{Z}_{+}$ \\
+		\hline
+		$Clients$ & it is the set of clients and $c$ represents a client in the system, $c \in Clients$, where $|Clients|$ is the total number of clients. & $\mathbb{Z}_{+}$ \\
+		\hline
+	\end{tabular}
+
+	\caption{General definitions.}
+	\label{tab:general_definitions}
+\end{table}
+
 \input{entertainmentApplications}
 
 \ifnum\firstUserCase=1

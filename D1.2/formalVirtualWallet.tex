@@ -1,8 +1,8 @@
 A mathematical representation of this use case is represented below.
 \begin{enumerate}
-	\item $M$ is the total number of \glspl{dc} and $i$ identifies one of the \glspl{dc}, $M \in \mathbb{Z}_{+}$ and $i \in \{1,\dots, M\}$.
+%	\item $|DC|$ is the total number of \glspl{dc} and $i$ identifies one of the \glspl{dc}, $|DC| \in \mathbb{Z}_{+}$ and $i \in \{1,\dots, |DC|\}$.
 
-	\item $C$ is the total number of clients and $c$ represents a client in the system, $c \in \mathbb{Z}_{+}$ and $c \in \{1,\dots, C\}$.
+	\item $Clients$ is the total number of clients and $c$ represents a client in the system, $c \in \mathbb{Z}_{+}$ and $c \in Clients$.
 
 	\item $Balance = \{ \langle Crsytals, n1 \rangle, \langle Euro, n2 \rangle \}$ maps each currency $curr \in \{Crystals, Euro\}$ to an amount $n1, n2 \in \mathbb{R}$. $B_{ci} \in B$ keeps the balance and $\widetilde{B}_{ci} \in B$ keeps the consumed amounts of currencies by a client $c$ in \gls{dc} $i$, where $B$ denotes the set of all $Balance$ maps.
 
@@ -15,13 +15,13 @@ A mathematical representation of this use case is represented below.
  	
 	\item The tuple $W_{ci} = \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T_{c} \rangle$ defines the wallet of a client $c$ kept in \gls{dc} $i$. A wallet keeps the purchased currencies, consumed currencies, purchased set of vouchers, consumed set of vouchers and the list of (not yet archived) transaction logs $T_{c}$ of a client. $|T_{c}| <= MaxTSize$ since the transaction logs in a wallet should be archived when the cardinality of the transactions reaches to the max size.
 
-	\item The net balance of a client can be obtained by subtracting the consumed amounts of currencies from the balance of a client $c \in C$ in \gls{dc} $i$. Equation \ref{eq:balance_virtual_wallet} shows that the net amounts of all currencies should be non-negative.
+	\item The net balance of a client can be obtained by subtracting the consumed amounts of currencies from the balance of a client $c \in Clients$ in \gls{dc} $i$. Equation \ref{eq:balance_virtual_wallet} shows that the net amounts of all currencies should be non-negative.
 	\begin{multline}  \label{eq:balance_virtual_wallet}
 		\langle curr, n \rangle \in B'_{ci} = B_{ci} \ominus \widetilde{B}_{ci} \implies \\
-		n \ge 0 ~ \forall ~  curr \in Curr, ~  c \in \{1,\dots, C\},  ~  i \in \{1,\dots, M\} 
+		n \ge 0 ~ \forall ~  curr \in Curr, ~  c \in Clients,  ~  i \in \{1,\dots, |DC|\} 
 	\end{multline}
 
-	\item The net set of vouchers of a client can be obtained by subtracting the consumed vouchers from the gained vouchers of a client $c \in C$ in \gls{dc} $i$, as shown in Equation \ref{eq:balance_virtual_wallet1}, where $\setminus$ is the standard multiset difference operator.
+	\item The net set of vouchers of a client can be obtained by subtracting the consumed vouchers from the gained vouchers of a client $c \in Clients$ in \gls{dc} $i$, as shown in Equation \ref{eq:balance_virtual_wallet1}, where $\setminus$ is the standard multiset difference operator.
 	\begin{equation} \label{eq:balance_virtual_wallet1}
 		V'_{ci} = V_{ci} \setminus \widetilde{V}_{ci} \\
 	\end{equation}
