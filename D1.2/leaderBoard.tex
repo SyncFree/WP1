@@ -9,44 +9,44 @@ Leaderboards are used in games to provide information on who are the best player
 The game clients usually use the same \gls{dc} for every game session so global consistency could be lowered and higher consistency required within the same \gls{dc}. This would mean the global leaderboard would be updated with a longer delay than the country-specific one but that shouldn't really matter.
 
 A mathematical representation of this use case is represented below, where Table \ref{tab:leaderBorad_constants_variables}.
-\begin{table}[!ht]
-	\begin{tabular}{|p{.8cm}|p{5.7cm}|r| }
+\begin{table*}[!ht]
+	\begin{tabular}{|p{2.2cm}|p{13.5cm}|p{.8cm}| }
 		\hline
 		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
 		\hline
 		\hline
-			$|DC|$ & It is the total number of \glspl{dc} and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{N}_{0}$ \\
+			$DC$ & It is the group of \glspl{dc} and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{N}_{0}$ \\
 		\hline
-			$G$ & It is the total number of games and $g$ represents a game in the overall system, $g \in \{1,\dots, G\}$. & $\mathbb{N}_{0}$ \\
+			$Games$ & It is the total number of games and $g$ represents a game in the overall system, $g \in \{1,\dots, |Games|\}$. & $\mathbb{N}_{0}$ \\
 		\hline
-			$L_{g}$ & It is the total number of levels in game $g$ and $l$ identify a level in game $g$, $l \in \{1,..., L_{g}\}$. & $\mathbb{N}_{0}$ \\
+			$Levels_{g}$ & It is the levels in game $g$ and $l$ identify a level in game $g$, $l \in \{1,..., |Levels_{g}|\}$. & $\mathbb{N}_{0}$ \\
 		\hline
-			$P_{gld}$ & It is the total number of players that has played at some stage the game $g$ at level $l$, as it is seen by \gls{dc} $d$, and $p$ identifies one of those players, $p \in \{1,\dots, P_{gld}\}$. & $\mathbb{N}_{0}$ \\
+			$Players_{gld}$ & It is the players that has played at some stage the game $g$ at level $l$, as it is seen by \gls{dc} $d$, and $p$ identifies one of those players, $p \in \{1,\dots, |Players_{gld}|\}$. & $\mathbb{N}_{0}$ \\
 		\hline
-			$\delta_{gldp}$ & It is the score for player $p$ has achieved at level $l$ of game $p$ as seen by \gls{dc} d. & $\mathbb{N}_{0}$ \\
+			$Score_{gldp}$ & It is the score for player $p$ has achieved at level $l$ of game $p$ as seen by \gls{dc} d. & $\mathbb{N}_{0}$ \\
 		\hline
-			$\lambda_{gld}$ & It represents the highest score achieved by all players that have played game $g$ at level $l$ as it is seen by \gls{dc} $d$, which calculation is shown in Equation \ref{eq:game_best_score}. & $\mathbb{N}_{0}$ \\
+			$highestScore_{gld}$ & It represents the highest score achieved by all players that have played game $g$ at level $l$ as it is seen by \gls{dc} $d$, which calculation is shown in Equation \ref{eq:game_best_score}. & $\mathbb{N}_{0}$ \\
 		\hline
-			$J_{gld}$ & It represents the group of all the players which scores for the game $k$ at level $l$ are not lower than the scores achieved by any of the other players which have played the game $g$ at level $l$ as it is seen by \gls{dc} $d$, represented in Equation \ref{eq:game_top_leader_board}. & $\mathbb{N}^{n}_{0}$ \\
+			$Players_{gld}$ & It represents the group of all the players which scores for the game $k$ at level $l$ are not lower than the scores achieved by any of the other players which have played the game $g$ at level $l$ as it is seen by \gls{dc} $d$, represented in Equation \ref{eq:game_top_leader_board}. & $\mathbb{N}^{n}_{0}$ \\
 		\hline
 	\end{tabular}
 			
 	\caption{Leader Board Constants and Variables.}
 	\label{tab:leaderBorad_constants_variables}
-\end{table}
+\end{table*}
 \begin{multline} \label{eq:game_best_score}
-	\lambda_{gld} = \max\{\delta_{gld1},\dots, \delta_{gldP_{gld}}\} ~ \forall ~ g \in \{1,\dots, G\},\\ l \in \{1,\dots, P_{gld}\}, d \in \{1,\dots, |DC|\}
+	highestScore_{gld} = \max\{Score_{gld1},\dots, Score_{gld|Players_{gld}|}\}\\ \forall ~ g \in \{1,\dots, |Games|\}, l \in \{1,\dots, |Levels_{g}|\},\\ d \in \{1,\dots, |DC|\}
 \end{multline}
 \begin{multline} \label{eq:game_top_leader_board}
-	J_{gld} = \{j | \delta_{gldj} \ge \delta_{gldq} ~ \forall q \in \{1,\dots, P_{gld}\}\}
+	Players_{gld} = \{j | Score_{gldj} \ge Score_{gldq}\\ \forall q \in \{1,\dots, |Players_{gld}|\}\}
 \end{multline}
 
-Furthermore $J_{gld}$ could be extended to represent the different positions in the Leader Board, such that $J^{i}_{gld}$ is the group of players which are at position $i$ on the Leader Board, $i \in \mathbb{Z}_{\ge 1}$, as shown in Equation \ref{eq:game_leader_board}. This means that $J^{1}_{gld}$, which represent the top position, is equivalent to $J_{gld}$, such that $J^{1}_{gld} = J_{gld}$.
+Furthermore $Players_{gld}$ could be extended to represent the different positions in the Leader Board, such that $Players^{i}_{gld}$ is the group of players which are at position $i$ on the Leader Board, $i \in \mathbb{Z}_{\ge 1}$, as shown in Equation \ref{eq:game_leader_board}. This means that $Players^{1}_{gld}$, which represent the top position, is equivalent to $Players_{gld}$, such that $Players^{1}_{gld} = Players_{gld}$.
 \begin{multline} \label{eq:game_leader_board}
-	J^{i}_{gld} = \{j | \delta_{gldq} < \delta_{gldj} < \delta_{gldo} ~ \forall ~ q \in J^{g-1}_{gld}, o \in J^{g+1}_{gld}\},\\ g \in \mathbb{N}_{> 1}
+	Players^{i}_{gld} = \{j | Score_{gldq} < Score_{gldj} < Score_{gldo}\\ \forall ~ q \in Players^{g-1}_{gld}, o \in Players^{g+1}_{gld}\}, g \in \mathbb{N}_{> 1}
 \end{multline}
 
 Equation \ref{eq:game_best_score1} expresses that for any player within $J_{kli}$ their highest scores for game $k$ at level $l$, as it is seen by \gls{dc} $i$, is equal to the highest score achieved between all the players for that game an level as it is seen by \gls{dc} $i$.
 \begin{multline} \label{eq:game_best_score1}
-	\lambda_{gld} = \delta_{gldp} ~ \forall ~ g \in \{1,\dots, G\},\\ l \in \{1,\dots, L_{g}\}, d \in \{1,\dots, |DC|\}, p \in J^{1}_{gld}
+	highestScore_{gld} = Score_{gldp} ~ \forall ~ g \in \{1,\dots, |Games|\},\\ l \in \{1,\dots, |Levels_{g}|\}, d \in \{1,\dots, |DC|\}, p \in Players^{1}_{gld}
 \end{multline}
