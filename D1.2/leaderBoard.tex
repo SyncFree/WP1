@@ -15,19 +15,19 @@ A mathematical representation of this use case is represented below, where Table
 		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
 		\hline
 		\hline
-			$DC$ & It is the group of \glspl{dc} and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{N}_{0}$ \\
+%			$DC$ & It is the set of \glspl{dc} and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{Z}_{+}$ \\
+%		\hline
+			$Games$ & It is the set of games and $g$ represents a game in the overall system, $g \in Games$, where $|Games|$ is the number of games. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$Games$ & It is the total number of games and $g$ represents a game in the overall system, $g \in \{1,\dots, |Games|\}$. & $\mathbb{N}_{0}$ \\
+			$Levels_{g}$ & It is the set of levels in game $g$ and $l$ identify a level in game $g$, $l \in Levels_{g}$, where $|levels_{g}|$ is the number of levels in game $g$. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$Levels_{g}$ & It is the levels in game $g$ and $l$ identify a level in game $g$, $l \in \{1,..., |Levels_{g}|\}$. & $\mathbb{N}_{0}$ \\
+			$Players_{gld}$ & It is the set of players which have played at some stage the game $g$ at level $l$, as it is seen by \gls{dc} $d$, and $p$ identifies one of those players, $p \in Players_{gld}$. Where $|Players_{gld}|$ is the number of players which have played at some stage the game $g$ at level $l$. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$Players_{gld}$ & It is the players that has played at some stage the game $g$ at level $l$, as it is seen by \gls{dc} $d$, and $p$ identifies one of those players, $p \in \{1,\dots, |Players_{gld}|\}$. & $\mathbb{N}_{0}$ \\
+			$Score_{gldp}$ & It is the score for player $p$ has achieved at level $l$ of game $p$ as seen by \gls{dc} d. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$Score_{gldp}$ & It is the score for player $p$ has achieved at level $l$ of game $p$ as seen by \gls{dc} d. & $\mathbb{N}_{0}$ \\
+			$highestScore_{gld}$ & It represents the highest score achieved by all players that have played game $g$ at level $l$ as it is seen by \gls{dc} $d$, which calculation is shown in Equation \ref{eq:game_best_score}. & $\mathbb{Z}_{+}$ \\
 		\hline
-			$highestScore_{gld}$ & It represents the highest score achieved by all players that have played game $g$ at level $l$ as it is seen by \gls{dc} $d$, which calculation is shown in Equation \ref{eq:game_best_score}. & $\mathbb{N}_{0}$ \\
-		\hline
-			$Players_{gld}$ & It represents the group of all the players which scores for the game $k$ at level $l$ are not lower than the scores achieved by any of the other players which have played the game $g$ at level $l$ as it is seen by \gls{dc} $d$, represented in Equation \ref{eq:game_top_leader_board}. & $\mathbb{N}^{n}_{0}$ \\
+			$Players_{gld}$ & It represents the group of all the players which scores for the game $k$ at level $l$ are not lower than the scores achieved by any of the other players which have played the game $g$ at level $l$ as it is seen by \gls{dc} $d$, represented in Equation \ref{eq:game_top_leader_board}. & $\mathbb{Z}^{n}_{+}$ \\
 		\hline
 	\end{tabular}
 			
@@ -35,11 +35,11 @@ A mathematical representation of this use case is represented below, where Table
 	\label{tab:leaderBorad_constants_variables}
 \end{table*}
 \begin{multline} \label{eq:game_best_score}
-	highestScore_{gld} = \max\{Score_{gld1},\dots, Score_{gld|Players_{gld}|}\}\\ \forall ~ g \in \{1,\dots, |Games|\}, l \in \{1,\dots, |Levels_{g}|\},\\ d \in \{1,\dots, |DC|\}
+	highestScore_{gld} = \max\{Score_{gld1},\dots, Score_{gld|Players_{gld}|}\}\\ \forall ~ g \in Games, l \in Levels_{g}, d \in DC\}
 \end{multline}
-\begin{multline} \label{eq:game_top_leader_board}
-	Players_{gld} = \{j | Score_{gldj} \ge Score_{gldq}\\ \forall q \in \{1,\dots, |Players_{gld}|\}\}
-\end{multline}
+\begin{equation} \label{eq:game_top_leader_board}
+	Players_{gld} = \{j | Score_{gldj} \ge Score_{gldq} ~ \forall q \in Players_{gld}\}\}
+\end{equation}
 
 Furthermore $Players_{gld}$ could be extended to represent the different positions in the Leader Board, such that $Players^{i}_{gld}$ is the group of players which are at position $i$ on the Leader Board, $i \in \mathbb{Z}_{\ge 1}$, as shown in Equation \ref{eq:game_leader_board}. This means that $Players^{1}_{gld}$, which represent the top position, is equivalent to $Players_{gld}$, such that $Players^{1}_{gld} = Players_{gld}$.
 \begin{multline} \label{eq:game_leader_board}
@@ -48,5 +48,5 @@ Furthermore $Players_{gld}$ could be extended to represent the different positio
 
 Equation \ref{eq:game_best_score1} expresses that for any player within $J_{kli}$ their highest scores for game $k$ at level $l$, as it is seen by \gls{dc} $i$, is equal to the highest score achieved between all the players for that game an level as it is seen by \gls{dc} $i$.
 \begin{multline} \label{eq:game_best_score1}
-	highestScore_{gld} = Score_{gldp} ~ \forall ~ g \in \{1,\dots, |Games|\},\\ l \in \{1,\dots, |Levels_{g}|\}, d \in \{1,\dots, |DC|\}, p \in Players^{1}_{gld}
+	highestScore_{gld} = Score_{gldp} ~ \forall ~ g \in Games, l \in Levels_{g},\\ d \in  DC, p \in Players^{1}_{gld}
 \end{multline}
