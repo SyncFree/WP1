@@ -182,26 +182,26 @@ Consider a "Festival" which it is composed of many acts/events. We start by cons
 \end{table*}
 \begin{equation} \label{eq:attendee_voted_good}
 	\delta^{good}_{d} = \left\{\begin{array}{ll}
-		1 & if \sum^{|People|}_{a=1} G_{da} > 0\\
+		1 & if \sum_{a \in People} G_{da} > 0\\
 		0 & otherwise
 	\end{array}
 	\right.
 \end{equation}
 \begin{equation} \label{eq:total_good_votes}
-	numGood  = \sum^{|People|}_{d=1} \delta^{good}_{d}
+	numGood  = \sum_{d \in People} \delta^{good}_{d}
 \end{equation}
 \begin{equation} \label{eq:local_total_good_votes}
 	numGood_{d}  = \sum^{n_{d}}_{a=1} G_{da} ~ \forall ~ d \in \{1,\dots, |People|\}
 \end{equation}
 \begin{equation} \label{attendee_voted_bad}
 	\delta^{bad}_{d} = \left\{\begin{array}{ll}
-		1 & if \sum^{|People|}_{d=1} B_{da} > 0\\
+		1 & if \sum_{d \in People} B_{da} > 0\\
 		0 & otherwise
 	\end{array}
 	\right.
 \end{equation}
 \begin{equation} \label{eq:total_bad_votes}
-	numBad  = \sum^{|People|}_{d=1} \delta^{bad}_{d}
+	numBad  = \sum_{d \in People} \delta^{bad}_{d}
 \end{equation}
 \begin{equation} \label{eq:local_total_bad_votes}
 	numBad_{d}  = \sum^{n_{d}}_{a=1} B_{da} ~ \forall ~ d \in \{1,\dots, |People|\}
@@ -220,7 +220,7 @@ An attendee may only vote once as expressed in Inequality \ref{ep:vote_not_equal
 
 A measure of the coherence for the copies between an attendee $a$ and another attendee $j$ can be obtained by calculating the number of bits where both versions of voting differ as expressed in Equation \ref{eq:discrepancy_votes}. All the devices are in sync if $\bigtriangleup numAttendees_{dj} = 0 ~ \forall ~ d, j \in \{1,\dots, |People|\}$.
 \begin{multline} \label{eq:discrepancy_votes}
-	\bigtriangleup numAttendees_{dj} = \sum^{|People|}_{i = 1} (G_{di} + G_{ji}) \% 2 + (B_{dj} + B_{ji}) \% 2\\ \forall ~ d, j \in \{1,\dots, |People|\}
+	\bigtriangleup numAttendees_{dj} = \sum_{i \in People} ((G_{di} + G_{ji}) \% 2 + (B_{dj} + B_{ji}) \% 2)\\ \forall ~ d, j \in \{1,\dots, |People|\}
 \end{multline}
 
 This can be extended to multiple events/acts by introducing a new index that represent each of these events/acts.
