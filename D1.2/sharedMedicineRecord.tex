@@ -1,5 +1,30 @@
 \subsection{Shared Medicine Record (FMK)}
-At the surface, this is a quite simple online system: for each person, maintain a list of current treatments, which may involve one or more prescriptions, and additionally a set of events that has occurred for the given treatment.
+At the surface, this is a quite simple online system: for each person, maintain a list of current treatments, which may involve one or more prescriptions, and additionally a set of events that has occurred for the given treatment, which components are defined in Table \ref{tab:fmk_constants_variables}.
+\begin{table*}[!ht]
+	\begin{tabular}{|p{2.4cm}|p{13.2cm}|r| }
+		\hline
+		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
+		\hline
+		\hline
+		$Patients_{d}$ & It is the set of patients part of the system (FMK) as seen by \gls{dc} $d$ and $p$ represents one of those patients as seen by \gls{dc} $d$ ($p \in Patients$), with $|Patients_{d}|$ corresponding to the number of patients as seen by \gls{dc} $d$. & $p \in \mathbb{Z}_{+}$ \\
+		\hline
+		$Treatments_{dp}$ & It is the set of treatments for patient $p$ as seen by \gls{dc} $d$, where $|Treatments_{dp}|$ corresponds to the number of treatments already registered for patient $p$ as seen by \gls{dc} $d$. &  \\
+		\hline
+		$Prescriptions_{dpt}$ & It is the set of prescriptions for treatment $t$ and patient $p$ as seen by \gls{dc}, where $|Prescriptions_{dpt}|$ corresponds to the number of prescriptions for treatment $t$ of patient $p$ as seen by \gls{dc} $d$. &  \\
+		\hline
+		$Prescriptions_{dptr}$ & It is the prescription $r$ in treatment $t$ for patient $p$ as seen by \gls{dc} $d$ ($Prescriptions_{dptr} \in Prescriptions_{dpt}$ and $r \in \{1,\dots, |Prescriptions_{dpt}|\}$). & $r \in \mathbb{Z}_{+}$ \\
+		\hline
+		$Events_{dpt}$ & It is the set of prescriptions for treatment $t$ and patient $p$ as seen by \gls{dc} $d$ ($e \in Events_{dpt}$), where $|Events{dpt}|$ corresponds to the number of events for treatment $t$ of patient $p$ as seen by \gls{dc} $d$. &  \\
+		\hline
+		$Events_{dpte}$ & It is the prescription $e$ for treatment $t$ of patient $p$ as seen by \gls{dc} $d$ ($Events_{dpte} \in Events_{dpt}$ and $e \in \{1,\dots, |Events_{dpt}|\}$). & $e \in \mathbb{Z}_{+}$ \\
+		\hline
+		$Treatments_{dpt}$ & It is the treatment $t$ for patient $p$ as seen by \gls{dc} $d$ ($Treatments_{dpt} \in Treatments_{dp}$ and $t \in \{1,\dots, |Treatments_{dp}|\}$). It is also a tuple composed of prescriptions ($Prescriptions_{dpt}$) and events ($Events_{dpt}$) part of the treatment $t$ for patient $p$ as seen by \gls{dc} $d$. & $t \in \mathbb{Z}_{+}$ \\
+		\hline
+	\end{tabular}
+	
+	\caption{FMK Constants and Variables.}
+	\label{tab:fmk_constants_variables}
+\end{table*}
 
 Not all treatments require prescriptions, i.e. the doctor can tell you to drink water, or take calcium tablets which you can get without a prescription, but he may make a prescription on these too. Everything prescribed will be in the system. Events are things that have happen in the real world, such as a drug being administered to a patient by a nurse, or a drug being handed out at a pharmacy. 
 
@@ -18,3 +43,43 @@ The system is made up of geographically separated \glspl{dc}, set up in master-m
 
 \subsubsection{Conflict Situations}
 Because of the asynchronous client system interfaces, and distributed \glspl{dc}, two doctors can prescribe conflicting medicines to the same patient simultaneously. A real-life example of this is right after a patient is discharged from hospital and visits his \gls{gp}. The medicines that a patient was prescribed in the hospital is sometimes carried over from the hospital patient journal to \href{https://www.trifork.com/news/a-prestigious-prize-trifork-public}{FMK} after his discharge, and can coincide with the prescription of new medicine by a \gls{gp}. Because the system is \gls{ec}, it is not always visible, that all updates have not yet propagated throughout. This means that conflicts can be detected after the conflicting changes were made. \textquotedblleft Conflicting medicine\textquotedblright{} may be multiple prescriptions of drugs containing the same active substance, or two drugs which interact poorly. Optimally, a doctor making or adjusting a prescription has full overview of the patient\textquoteright s existing prescriptions when he/she does so.
+
+
+\subsubsection{Format Representation (work in progress)}
+\begin{itemize}
+	\item {\bf Create Treatment}: when creating a new treatment for a patient $p$ through \gls{dc} $d$ the new treatment will be part of the list of treatments for that patient $Treatments_{dp}$, as shown in Equation \ref{eq:create_treatement}. Also the patient must already exist.
+		\begin{multline} \label{eq:create_treatement}
+			Treatments_{dp} = Treatments_{dp} \cup Treatments_{dpt} \\ \text{ such that } d \in \{1,\dots, |DC|\}, p \in \{1,\dots, |Patients_{d}|\}, \\ t \not\in Treatments_{dp}
+		\end{multline}
+	\item {\bf Add Prescription}: when creating a new prescription $r$ for treatment $t$ of patient $p$ through \gls{dc} $d$ the new prescription will be part of the list of prescriptions for such treatment ($Prescriptions_{dpt}$) , as shown in Equation \ref{eq:add_prescription}. Also the patient and treatment must already exist.
+		\begin{multline} \label{eq:add_prescription}
+			Prescriptions_{dpt} = Prescriptions_{dpt} \cup Prescription_{dptr}\\ \text{ such that } d \in \{1,\dots, |DC|\}, p \in \{1,\dots, |Patients_{d}|\}, \\ t \in \{1,\dots, |Treatments_{dp}|\}, \\ r \not\in Prescription_{dpt}
+		\end{multline}
+	\item {\bf Add Event}: when creating a new event $r$ for treatment $t$ of patient $p$ through \gls{dc} $d$ the new event will be part of the list of events for such treatment ($Events_{dpt}$) , as shown in Equation \ref{eq:add_event}. Also the patient and treatment must already exist.
+		\begin{multline} \label{eq:add_event}
+			Events_{dpt} = Events_{dpt} \cup Events_{dpte}\\ \text{ such that } d \in \{1,\dots, |DC|\}, p \in \{1,\dots, |Patients_{d}|\}, \\ t \in \{1,\dots, |Treatments_{dp}|\} e \not\in Events_{dpt}	
+		\end{multline}
+\end{itemize}
+
+Given that prescriptions and events corresponds to things that have already happened then they cannot be removed from a patient treatment, so no need for delete operations.
+
+The record for a patient is said to be out of sync if there is a discrepancy between the treatments for that patient as seen by different \glspl{dc} in the system:
+\begin{enumerate}
+	\item Different treatment(s) in either or both of the records seen by any two \glspl{dc} $d$ and $q$. Equation \ref{eq:diff_treatement} states that for a patient $p$ exists a treatment, $t$, in his/her record presented by \gls{dc} $d$ that does not exist in the record for the same person shown by \gls{dc} $q$.
+		\begin{multline} \label{eq:diff_treatement}
+			\exists ~ t \in {1,\dots, |Treatments_{dp}|}, \\ \text{  } Treatments_{dpt} \not\in Treatments_{qp}
+		\end{multline}
+	\item Differences within the same treatment for the same person are shown between any two \gls{dc} in the system:
+		\begin{enumerate}
+			\item Difference(s) between the prescriptions within a treatment $t$ for a patient $p$. Equation \ref{eq:diff_prescription} states that for a treatment $t$ of a patient $p$ exists a prescription, $r$, in his/her record presented by \gls{dc} $d$ that does not exist in the record for the same person shown by \gls{dc} $q$.
+				\begin{multline} \label{eq:diff_prescription}
+					\exists ~ r \in {1,\dots, |Prescriptions_{dp}|}, \\ \text{  } Prescriptions_{dptr} \not\in Prescriptions{qpt}
+				\end{multline}
+			\item Difference(s) between the events within a treatment $t$ for a patient $p$. Equation \ref{eq:diff_events} states that for a treatment $t$ of a patient $p$ exists an event, $e$, in his/her record presented by \gls{dc} $d$ that does not exist in the record for the same person shown by \gls{dc} $q$.
+				\begin{multline} \label{eq:diff_events}
+					\exists ~ e \in {1,\dots, |Events_{dp}|}, \\ \text{  } Events_{dpte} \not\in Events_{qpt}
+				\end{multline}
+		\end{enumerate}
+\end{enumerate}
+
+So a patient record is out of sync if any combination of the cases above appear for a patient between different \glspl{dc}.
