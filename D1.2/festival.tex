@@ -133,17 +133,17 @@ Bitwise OR operator is represented as | in this document.
 \end{itemize}
 
 
-\subsubsection{Festival use case with Mark-Counters} \\
+\subsubsection{Festival use case with Mark-Counters} 
 Consider a "Festival" which it is composed of many acts/events. We start by considering the case of a "Festival" composed only of one act that later will be extended to many. To simplify, without losing generality, it is considered the case of an event in a theatre and the constants and variables used are presented in Table \ref{tab:festival_constants_variables}.
 \begin{table*}[!ht]
-	\begin{tabular}{|p{2.4cm}|p{13.4cm}|r| }
+	\begin{tabular}{|p{2.4cm}|p{13.2cm}|r| }
 		\hline
 		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
 		\hline
 		\hline
-			$DC$ & It is the group of \glspl{dc} through which an event must be distributed and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{Z}_{+}$ \\
-		\hline
-			$People$ & It is the group of people attending the "Festival", with $|People|$ representing the number of people attending and the size of the array of bits. & $\mathbb{Z}_{+}$ \\
+%			$DC$ & It is a set of \glspl{dc} through which an event must be distributed and $d$ identifies one of the \gls{dc}, $d \in \{1,\dots, |DC|\}$. & $\mathbb{Z}_{+}$ \\
+%		\hline
+			$People$ & It is the set of people attending the "Festival" and $p$ represent one of those people ($p \in People$), with $|People|$ representing the number of people attending and the size of the array of bits. & $p \in \mathbb{Z}_{+}$ \\
 		\hline
 			$n_{d}$ & It refers to the highest attendee's index to the "Festival" that the device $d$ has information about,  $d \in \{1,\dots, |People|\}$. Also $1 \le n_{d} \le |People| ~ \forall ~ d \in \{1,\dots, |People|\}$. & $\mathbb{Z}_{+}$ \\
 		\hline
