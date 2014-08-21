@@ -25,13 +25,13 @@ Bitwise OR operator is represented as | in this document.
 
 {\bf Operations}:
 \begin{itemize}
-	\item Set a bit in a Mark-Counter: a bit may change individually from 0 to 1 but may not be reset back to zero by this operator.
+	\item \underline{Set} a bit in a Mark-Counter: a bit may change individually from 0 to 1 but may not be reset back to zero by this operator.
 	
-	\item Merge Mark-Counters (bitwise OR operator, |): given two Mark-Counters $B, C \in A^{n}$, their merger is defined as $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, n\}\}$.
+	\item \underline{Merge} Mark-Counters (bitwise OR operator, |): given two Mark-Counters $B, C \in A^{n}$, their merger is defined as $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, n\}\}$.
 	
 	If both arrays have different sizes, i.e. $|B|$ and $|C|$, then $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, \max{\{|B|, |C|\}}\} \text{ with } B_{j} = 0 ~ \forall ~ j > |B|, C_{k} = 0 ~ \forall ~ k > |C|\}$ and the size of $D$ would be $|D| = \max{\{|B|, |C|\}}$.
 	
-	\item Count: given a Mark-Counter $B$ the count corresponds to the number of bits that have been set to 1, $\sum^{|B|}_{i = 1} B_{i}$. Similarly, once it is know the number of 1s it is also known the number of zeros for a given array size.
+	\item \underline{Count}: given a Mark-Counter $B$ the count corresponds to the number of bits that have been set to 1, $\sum^{|B|}_{i = 1} B_{i}$. Similarly, once it is know the number of 1s it is also known the number of zeros for a given array size.
 \end{itemize}
 
 
