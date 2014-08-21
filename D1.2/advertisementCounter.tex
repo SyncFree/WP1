@@ -110,13 +110,13 @@ The life statistics nodes serve the entire state of all campaigns. They hold a c
 
 \subsubsection{Multiple Data Centres}
 The campaign counter could also be split between the different \glspl{dc} in each country which will improve the accuracy of the counter, Figure \ref{fig:ads_countert_}. At each \gls{dc} a part of the overall counter would be assigned to each \gls{dc}, which will only be able to service this number of times the specific ad. The changes to the ad counters are replicated in the other \glspl{dc} at different intervals.
-\begin{figure}[ht!]
+\begin{figure*}[ht!]
 	\centering
 	\includegraphics[width=1\linewidth]{figures/AdsServiceSpread2DCs.png}
 
 	\caption{Overview for the distribution of counters with three \glspl{dc}, $|DC| = 3$.}
 	\label{fig:ads_countert_}
-\end{figure}
+\end{figure*}
 
 The distribution of the counter could be based on different criterion, e.g. population size covered by each \gls{dc}, existing statistics from previous campaigns or studies, costumer preferences, intention of the campaign like the increase in the market share in an already established part of the territory or entering a new area to extend the territory covered.
 
