@@ -24,3 +24,6 @@
 *.gz
 *.pdf
 *.launch
+*.project
+*.settings
+*.prefs
