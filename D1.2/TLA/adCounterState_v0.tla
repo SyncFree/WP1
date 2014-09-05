@@ -93,7 +93,7 @@ Merge(d1, d2) ==
              views |-> [a \in AD |-> [d \in DC |-> 
                         Max(state1.views[a][d],state2.views[a][d])]],
              viewsPerDevice |-> [a \in AD |-> [g \in DV |-> 
-                        Max(state1.viewsPerDevice[a][g],state2.viewsPerDevice[a][g])]]]
+                            Max(state1.viewsPerDevice[a][g],state2.viewsPerDevice[a][g])]]]
   IN configuration' = [configuration EXCEPT ![d1] = new_state1] 
   
 
@@ -127,5 +127,5 @@ THEOREM Spec => TypeInvariant /\ Consistency
 
 ==========================================================================================
 \* Modification History
-\* Last modified Thu Sep 04 09:15:38 WEST 2014 by carlaferreira
+\* Last modified Thu Sep 04 17:35:05 WEST 2014 by carlaferreira
 \* Created Tue Sep 02 07:36:31 WEST 2014 by carlaferreira
