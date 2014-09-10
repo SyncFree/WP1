@@ -2,7 +2,7 @@
 % Definitions
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \def\firstUserCase{0} % set to 1 to build user cases on their own pages
-\def\withAppendix{0} % set to 1 to build appendixes
+\def\withAppendix{1} % set to 1 to build appendixes
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 %%  Using official ACM format
 %% Do not edit unless you really know what you are doing.
@@ -13,6 +13,8 @@
 		hidelinks,colorlinks=true, linkcolor=black, citecolor=cyan, filecolor=green, urlcolor=blue]{hyperref}
 \usepackage{mathtools}
 \usepackage{amssymb}
+%\usepackage{TLA/tla2}
+\usepackage{TLA/sverb}
 
 \input{../glossaries}
 \glsdisablehyper
