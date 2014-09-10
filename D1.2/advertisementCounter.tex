@@ -114,7 +114,7 @@ The campaign counter could also be split between the different \glspl{dc} in eac
 	\centering
 	\includegraphics[width=1\linewidth]{figures/AdsServiceSpread2DCs.png}
 
-	\caption{Overview for the distribution of counters with three \glspl{dc}, $|DC| = 3$.}
+	\caption{Overview for the distribution of counters with three \glspl{dc}, $|DC| = 3$, $m_{ad} \equiv targetMaxViews(a, d)$, $C_{ad} \equiv maxViewsPerDevice(a)$ and $h(a, g) \equiv views(a, d, g)$.}
 	\label{fig:ads_countert_}
 \end{figure*}
 
@@ -238,3 +238,25 @@ The total counter is said to be consistent throughout all the \glspl{dc} if ther
 \begin{equation} \label{eq:dc_total_counter_coherent}
 	\Delta totalViewsDiscrepancy(a, d) = 0
 \end{equation}
+
+
+\subsubsection{Notes}
+The number of times an ad should be shown on a device (formally $numViewsPerDevice(a)$) could also depends on the \gls{dc} associated with it, $numViewsPerDevice(a, d)$, as shown in Figure \ref{fig:ads_countert_}.
+
+Another consideration is what happen when a device moves between \glspl{dc}. An approach would be that when the device moves from one \gls{dc} to another its details are also migrated to the new \gls{dc}, of course if the connection is available. Otherwise $h(a, d, g)$ would be $h(a, g)$.
+
+Some options:
+\begin{itemize}
+	\item The new associated \gls{dc} will create a record for the device without knowledge of the device previous association to any other \gls{dc} (simple case).
+	
+	\item The details of the device are moved from the old to the new \gls{dc} for when there is connection between \glspl{dc}, otherwise apply previous option. This could also be approached in multiple ways, some of which are:
+	\begin{itemize}
+	 	\item  The device stores on its own internal storage the \gls{dc} it is associated with and passes the \gls{dc} servicing it within each transaction so if it is serviced by a different \gls{dc} that \gls{dc} will try to get the device's data from the current associated \gls{dc}. Also any response will return the ID of the \gls{dc} that replied which will be used in the subsequent request submitted by the device.
+	 	
+	 	\item Each new association provides new clean details so a device that moves from one \gls{dc} to another could potentially see the same ad twice the maximum allowed number of times per device, Inequality \ref{inq:moving_device_limit}.
+	 	\begin{multline}
+	 		h(a, d_{1}, g) + h(a, d_{2}, g) \le maxViewsPerDevice(a, d_{1}) \\+ maxViewsPerDevice(a, d_{2})
+	 		\label{inq:moving_device_limit}
+	 	\end{multline}
+	\end{itemize}
+\end{itemize}
