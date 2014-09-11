@@ -73,7 +73,7 @@ The record for a patient is said to be out of sync if there is a discrepancy bet
 		\begin{enumerate}
 			\item Difference(s) between the prescriptions within a treatment $t$ for a patient $p$. Equation \ref{eq:diff_prescription} states that for a treatment $t$ of a patient $p$ exists a prescription, $r$, in his/her record presented by \gls{dc} $d$ that does not exist in the record for the same person shown by \gls{dc} $q$.
 				\begin{multline} \label{eq:diff_prescription}
-					\exists ~ r \in {1,\dots, |Prescriptions_{dp}|}, \\ \text{  } Prescriptions_{dptr} \not\in Prescriptions{qpt}
+					\exists ~ r \in {1,\dots, |Prescriptions_{dp}|}, \\ \text{  } Prescriptions_{dptr} \not\in Prescriptions_{qpt}
 				\end{multline}
 			\item Difference(s) between the events within a treatment $t$ for a patient $p$. Equation \ref{eq:diff_events} states that for a treatment $t$ of a patient $p$ exists an event, $e$, in his/her record presented by \gls{dc} $d$ that does not exist in the record for the same person shown by \gls{dc} $q$.
 				\begin{multline} \label{eq:diff_events}

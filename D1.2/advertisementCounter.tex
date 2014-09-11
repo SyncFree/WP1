@@ -254,9 +254,10 @@ Some options:
 	 	\item  The device stores on its own internal storage the \gls{dc} it is associated with and passes the \gls{dc} servicing it within each transaction so if it is serviced by a different \gls{dc} that \gls{dc} will try to get the device's data from the current associated \gls{dc}. Also any response will return the ID of the \gls{dc} that replied which will be used in the subsequent request submitted by the device.
 	 	
 	 	\item Each new association provides new clean details so a device that moves from one \gls{dc} to another could potentially see the same ad twice the maximum allowed number of times per device, Inequality \ref{inq:moving_device_limit}.
-	 	\begin{multline}
-	 		h(a, d_{1}, g) + h(a, d_{2}, g) \le maxViewsPerDevice(a, d_{1}) \\+ maxViewsPerDevice(a, d_{2})
-	 		\label{inq:moving_device_limit}
-	 	\end{multline}
 	\end{itemize}
 \end{itemize}
+
+\begin{multline}
+h(a, d_{1}, g) + h(a, d_{2}, g) \le maxViewsPerDevice(a, d_{1}) \\+ maxViewsPerDevice(a, d_{2})
+\label{inq:moving_device_limit}
+\end{multline}
