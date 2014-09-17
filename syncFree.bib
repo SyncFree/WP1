@@ -27,6 +27,37 @@ This paper recounts portions of the evolution of these trends, attempts to show 
 The paper argues that app developers cannot be shielded from the complexity in which the application has logic for reconciling inconsistent.}
 }
 
+@InProceedings{Abad2011a,
+  Title                    = {DARE: Adaptive Data Replication for Efficient Cluster Scheduling},
+  Author                   = {Abad, Cristina L. and Lu, Yi and Campbell, Roy H.},
+  Booktitle                = {Proceedings of the 2011 IEEE International Conference on Cluster Computing},
+  Year                     = {2011},
+
+  Address                  = {Washington, DC, USA},
+  Note                     = {Printed},
+  Pages                    = {159--168},
+  Publisher                = {IEEE Computer Society},
+  Series                   = {CLUSTER '11},
+
+  Abstract                 = {Placing data as close as possible to computation is a common practice of data intensive systems, commonly referred to as the data locality problem. By analyzing existing production systems, we confirm the benefit of data locality and find that data have different popularity and varying correlation of accesses. We propose DARE, a distributed adaptive data replication algorithm that aids the scheduler to achieve better data locality. DARE solves two problems, how many replicas to allocate for each file and where to place them, using probabilistic sampling and a competitive aging algorithm independently at each node. It takes advantage of existing remote data accesses in the system and incurs no extra network usage. Using two mixed workload traces from Face book, we show that DARE improves data locality by more than 7 times with the FIFO scheduler in Hadoop and achieves more than 85% data locality for the FAIR scheduler with delay scheduling. Turnaround time and job slowdown are reduced by 19% and 25\%, respectively.},
+  Acmid                    = {2065769},
+  Comment                  = {http://dx.doi.org/10.1109/CLUSTER.2011.26},
+  Doi                      = {10.1109/CLUSTER.2011.26},
+  ISBN                     = {978-0-7695-4516-5},
+  Keywords                 = {MapReduce, replication, scheduling, locality, adaptive data replication},
+  Numpages                 = {10},
+  Review                   = {"uses the ElephantTrap structure to replicate popular files in a distributed manner."
+"Data with correlated acesses are distributed over different nodes as new replicas are created and old replicas expire."
+Thrasing is minimised by using sampling and an aging algorithm.
+
+Uses the Hadoop framework (Appache's open source implementation of MapReduce).
+
+uses: budget, threshold and p (probability).
+
+Thrashing: it is a high rate of replica creation and eviction.},
+  Url                      = {https://wiki.engr.illinois.edu/download/attachments/194990492/cluster11.pdf}
+}
+
 @Article{Abadi2012consistency,
   Title                    = {Consistency Tradeoffs in Modern Distributed Database System Design: CAP is Only Part of the Story},
   Author                   = {Abadi, D.},
@@ -73,7 +104,7 @@ Autonomous Mobile Computing},
   Author                   = {Carlos Baquero and Francisco Moura},
   Institution              = {Departamento de Inform{\'a}tica, Universidade do Minho},
   Year                     = {1997},
-  Month                    = october,
+  Month                    = October,
 
   Abstract                 = {Abstract Traditional replica control mechanisms such as quorum consensus, primary replicas and other strong consistency approaches are unable to provide a useful level of availability on unconstrained mobile environments. We define an environment thats exploits pair-wise communication and allows autonomous creation and joining of replicas while ensuring eventual convergence. A set of composable components (ADTs) are formally specified using the SETS Calculus. These components can be used to build simple distributed applications that take advantage of peer-to-peer communication between mobile hosts.},
   Key                      = {scadt4},
@@ -201,6 +232,17 @@ Autonomous Mobile Computing},
   Date-modified            = {2014-07-09 11:41:50 +0000}
 }
 
+@Article{Dao1999a,
+  Title                    = {Semantic Multicast: Intelligently Sharing Collaborative Sessions},
+  Author                   = {Son K. Dao and Brad Perry and Eddie C. Shek and Asha Vellaikal and Richard R. Muntz and Lixia Zhang and Miodrag Potkonjak and Ouri Wolfson},
+  Journal                  = {ACM Computing Surveys},
+  Year                     = {1999},
+  Volume                   = {3},
+
+  Abstract                 = {We present novel methods for efficiently sharing the content produced during collaborative interactions among internetworked users. We introduce the concept of semantic multicast to implement a large-scale shared interaction infrastructure providing mechanisms for collecting, indexing, and disseminating the information produced in collaborative sessions. This infrastructure captures the interactions between users (as video, text, audio, and data streams) and promotes a philosophy of filtering, archiving, and correlating collaborative sessions in user and context sensitive subgroupings. The semantic multicast service efficiently disseminate every piece of potentially relevant information to every user engaged in the collaborative session, making the aggregated streams of the collaborative session available to the correct users at the right amount of detail. Given a collaborative session of many overlapping streams, semantic multicast helps decide which streams should be propagated to an...},
+  Url                      = {http://www.cs.uic.edu/~wolfson/mobile_ps/acmsurvey99.pdf}
+}
+
 @Article{DeCandia2007a,
   Title                    = {Dynamo: Amazon's Highly Available Key-value Store},
   Author                   = {DeCandia, Giuseppe and Hastorun, Deniz and Jampani, Madan and Kakulapati, Gunavardhan and Lakshman, Avinash and Pilchin, Alex and Sivasubramanian, Swaminathan and Vosshall, Peter and Vogels, Werner},
@@ -319,8 +361,38 @@ Autonomous Mobile Computing},
   Year                     = {2007},
   Pages                    = {132--141},
 
+  Abstract                 = {This paper describes the design of ElephantTrap, a device which aims to cache the largest flows (the “elephants”) on a network link. ElephantTrap differs from previous work on identifying large flows in one crucial sense: it does not attempt to accurately estimate the size of the flows it is trapping. This leads to an extremely lightweight design and a surprisingly good performance. ElephantTrap can be employed in the line cards of switches and routers and be used for diagnostics, anomaly detection and traffic engineering.},
   Date-added               = {2014-07-09 12:41:01 +0000},
   Date-modified            = {2014-07-09 12:41:01 +0000}
+}
+
+@TechReport{Hey2009a,
+  Title                    = {The Fourth Paradigm: Data-Intensive Scientific Discovery},
+  Author                   = {T. Hey and S, Tansley and K. Tolle},
+  Institution              = {Microsoft Research},
+  Year                     = {2009},
+
+  Owner                    = {aas},
+  Timestamp                = {2014.09.15}
+}
+
+@Article{Jeon2014a,
+  Title                    = {A Priority based Adaptive Data Replication Strategy for Hierarchical Cluster Grids},
+  Author                   = {Junsang Kim; Won Joo Lee; Changho Jeon},
+  Journal                  = {International Journal of Multimedia \& Ubiquitous Engineering},
+  Year                     = {2014},
+  Number                   = {6},
+  Pages                    = {127--140},
+  Volume                   = {9},
+
+  Abstract                 = {In this paper, we propose the priority based adaptive data replication strategy for the reduction of the processing time in hierarchical cluster grids. Because the proposed replication strategy reflects data access patterns of users in real-time, job execution time increment due to changes in the access pattern can be reduced. We assign a Priority Value (PV) to all replicas for implementation of the replication strategy and use it for criteria of replica generation/deletion.
+The PV reflects the access pattern because it is calculated from an access count and capacity of the replica. And the PV is re-calculated in real-time whenever data is requested by users. Therefore the proposed replication strategy can be reduced job execution time in data grids to recover low data availability due to changes in the access pattern.
+We compare the performances of priority based adaptive data replication strategy and Popular File Replicate First (PFRF) algorithm. For this simulation, we generate 200 files sized 1GB on average and 6000 jobs, and assign these to users in each cluster. The results from simulation show that average job execution time of the proposed strategy was reduced from the no-replication by approximately 37\% and the PFRF algorithm by approximately 21\%.},
+  Keywords                 = {Data grids, Replication strategy, PADRE strategy, Hierarchical cluster grids},
+  Owner                    = {aas},
+  Review                   = {They only compare their algorithm to the case where no-replication but not with other already available approaches, i.e. DARE.},
+  Timestamp                = {2014.09.15},
+  Url                      = {http://www.sersc.org/journals/IJMUE/vol9_no6_2014/13.pdf}
 }
 
 @InProceedings{rep:1507,
@@ -363,6 +435,20 @@ Autonomous Mobile Computing},
   Numpages                 = {8},
   Publisher                = {ACM},
   Url                      = {http://doi.acm.org/10.1145/2596624}
+}
+
+@InProceedings{Lu2007a,
+  Title                    = {ElephantTrap: A low cost device for identifying large flows},
+  Author                   = {Yi Lu and Mei Wang and Prabhakar, B. and Bonomi, F.},
+  Booktitle                = {High-Performance Interconnects, 2007. HOTI 2007. 15th Annual IEEE Symposium on},
+  Year                     = {2007},
+  Month                    = {Aug},
+  Pages                    = {99-108},
+
+  Doi                      = {10.1109/HOTI.2007.13},
+  ISSN                     = {1550-4794},
+  Keywords                 = {telecommunication links;telecommunication network management;ElephantTrap;anomaly detection;large flows;low cost device;traffic engineering;Bandwidth;Costs;Counting circuits;Forensics;Load management;Mice;Monitoring;State estimation;Switches;Telecommunication traffic},
+  Url                      = {http://web.stanford.edu/~balaji/papers/07elephanttrap.pdf}
 }
 
 @InProceedings{app:sh137,
@@ -430,6 +516,29 @@ Autonomous Mobile Computing},
   Url                      = {http://doi.acm.org/10.1145/1394127.1394128}
 }
 
+@Article{Rinard2003a,
+  Title                    = {Eliminating Synchronization Bottlenecks Using Adaptive Replication},
+  Author                   = {Rinard, Martin C. and Diniz, Pedro C.},
+  Journal                  = {ACM Trans. Program. Lang. Syst.},
+  Year                     = {2003},
+
+  Month                    = {May},
+  Number                   = {3},
+  Pages                    = {316--359},
+  Volume                   = {25},
+
+  Abstract                 = {This article presents a new technique, adaptive replication, for automatically eliminating synchronization bottlenecks in multithreaded programs that perform atomic operations on objects. Synchronization bottlenecks occur when multiple threads attempt to concurrently update the same object. It is often possible to eliminate synchronization bottlenecks by replicating objects. Each thread can then update its own local replica without synchronization and without interacting with other threads. When the computation needs to access the original object, it combines the replicas to produce the correct values in the original object. One potential problem is that eagerly replicating all objects may lead to performance degradation and excessive memory consumption.Adaptive replication eliminates unnecessary replication by dynamically detecting contention at each object to find and replicate only those objects that would otherwise cause synchronization bottlenecks. We have implemented adaptive replication in the context of a parallelizing compiler for a subset of C++. Given an unannotated sequential program written in C++, the compiler automatically extracts the concurrency, determines when it is legal to apply adaptive replication, and generates parallel code that uses adaptive replication to efficiently eliminate synchronization bottlenecks.In addition to automatic parallelization and adaptive replication, our compiler also implements a lock coarsening transformation that increases the granularity at which the computation locks objects. The advantage is a reduction in the frequency with which the computation acquires and releases locks; the potential disadvantage is the introduction of new synchronization bottlenecks caused by increases in the sizes of the critical sections. Because the adaptive replication transformation takes place at lock acquisition sites, there is a synergistic interaction between lock coarsening and adaptive replication. Lock coarsening drives down the overhead of using adaptive replication, and adaptive replication eliminates synchronization bottlenecks associated with the overaggressive use of lock coarsening.Our experimental results show that, for our set of benchmark programs, the combination of lock coarsening and adaptive replication can eliminate synchronization bottlenecks and significantly reduce the synchronization and replication overhead as compared to versions that use none or only one of the transformations.},
+  Acmid                    = {641911},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1145/641909.641911},
+  ISSN                     = {0164-0925},
+  Issue_date               = {May 2003},
+  Keywords                 = {Atomic operations, commutativity analysis, parallel computing, parallelizing compilers, replication, synchronization},
+  Numpages                 = {44},
+  Publisher                = {ACM},
+  Url                      = {http://people.csail.mit.edu/rinard/paper/toplas03AdaptiveReplication.pdf}
+}
+
 @Article{Saito2005a,
   Title                    = {Optimistic Replication},
   Author                   = {Yasushi Saito and Marc Shapiro},
@@ -450,11 +559,11 @@ Autonomous Mobile Computing},
   Url                      = {http://lip6.fr/Marc.Shapiro/papers/Optimistic_Replication_Computing_Surveys_2005-03_cameraready.pdf}
 }
 
-@InCollection{opt:db:sh129,
+@InCollection{Shapiro2009a,
   Title                    = {Optimistic Replication and Resolution},
   Author                   = {Marc Shapiro},
   Booktitle                = {Encyclopedia of Database Systems (online and print)},
-  Publisher                = springer,
+  Publisher                = {Springer},
   Year                     = {2009},
   Editor                   = {{\"O}zsu, M. Tamer and Liu, Ling},
   Month                    = {October},
@@ -514,11 +623,11 @@ Autonomous Mobile Computing},
   Url                      = {http://dx.doi.org/10.1007/11516798_24}
 }
 
-@InCollection{Shapiro2009a,
+@InCollection{Shapiro2009,
   Title                    = {Eventual Consistency},
   Author                   = {Marc Shapiro and Bettina Kemme},
   Booktitle                = {Encyclopedia of Database Systems (online and print)},
-  Publisher                = springer,
+  Publisher                = Springer,
   Year                     = {2009},
   Editor                   = {{\"O}zsu, M. Tamer and Liu, Ling},
   Month                    = {Octuber},
@@ -554,14 +663,14 @@ Autonomous Mobile Computing},
 @InProceedings{shapiro11conflictfree,
   Title                    = {Conflict-free Replicated Data Types},
   Author                   = {Marc Shapiro and Nuno Pregui{\c c}a and Carlos Baquero and Marek Zawirski},
-  Booktitle                = intsympon # {Stabilization, Safety, and Security of Distributed Systems (SSS)},
+  Booktitle                = {Stabilization, Safety, and Security of Distributed Systems (SSS)},
   Year                     = {2011},
 
   Address                  = {Grenoble, France},
   Editor                   = {Xavier D{\'e}fago and Franck Petit and V. Villain},
   Month                    = oct,
   Pages                    = {386--400},
-  Publisher                = springer,
+  Publisher                = Springer,
   Series                   = lncs,
   Volume                   = {6976},
 
@@ -590,6 +699,24 @@ Autonomous Mobile Computing},
   Language                 = {Anglais},
   Pages                    = {50},
   Url                      = {http://hal.inria.fr/inria-00555588}
+}
+
+@TechReport{Silvestre2012a,
+  Title                    = {{Caju: a content distribution system for edge networks}},
+  Author                   = {Silvestre, Guthemberg and Monnet, S{\'e}bastien and Krishnaswamy, Ruby and Sens, Pierre},
+  Institution              = {INRIA},
+  Year                     = {2012},
+  Month                    = {June},
+  Note                     = {Printed},
+  Number                   = {RR-8006},
+  Type                     = {Research Report},
+
+  Abstract                 = {More and more, users store their data in the cloud. While the content is then retrieved, the retrieval has to respect quality of service (QoS) constraints. In order to reduce transfer latency, data is replicated. The idea is make data close to users and to take advantage of providers home storage. However to minimize the cost of their platform, cloud providers need to limit the amount of storage usage. This is still more crucial for big contents. This problem is hard, the distribution of the popularity among the stored pieces of data is highly non-uniform: several pieces of data will never be accessed while others may be retrieved thousands of times. Thus, the trade-off between storage usage and QoS of data retrieval has to take into account the data popularity. This report presents our architecture gathering several storage domains composed of small-sized datacenters and edge devices; and it shows the importance of adapting the replication degree to data popularity. Our simulations, using realistic workloads, show that a simple cache mechanism provides a eight-fold ecrease in the number of SLA violations, requires up to 10 times less of storage capacity for replicas, and reduces aggregate bandwidth and number of flows by half.},
+  Affiliation              = {Laboratoire d'Informatique de Paris 6 - LIP6 , Orange Labs [Issy les Moulineaux] , REGAL - INRIA Paris-Rocquencourt},
+  Hal_id                   = {hal-00712990},
+  Language                 = {English},
+  Pdf                      = {http://hal.inria.fr/hal-00712990/PDF/RR-8006.pdf},
+  Url                      = {http://hal.inria.fr/hal-00712990}
 }
 
 @Article{Stankovic1999a,
@@ -649,6 +776,29 @@ Autonomous Mobile Computing},
   Url                      = {http://doi.acm.org/10.1145/1435417.1435432}
 }
 
+@Article{Wang2012a,
+  Title                    = {A Novel Dynamic Network Data Replication Scheme Based on Historical Access Record and Proactive Deletion},
+  Author                   = {Wang, Zhe and Li, Tao and Xiong, Naixue and Pan, Yi},
+  Journal                  = {J. Supercomput.},
+  Year                     = {2012},
+
+  Month                    = oct,
+  Number                   = {1},
+  Pages                    = {227--250},
+  Volume                   = {62},
+
+  Abstract                 = {Data replication is becoming a popular technology in many fields such as cloud storage, Data grids and P2P systems. By replicating files to other servers/nodes, we can reduce network traffic and file access time and increase data availability to react natural and man-made disasters. However, it does not mean that more replicas can always have a better system performance. Replicas indeed decrease read access time and provide better fault-tolerance, but if we consider write access, maintaining a large number of replications will result in a huge update overhead. Hence, a trade-off between read access time and write updating cost is needed. File popularity is an important factor in making decisions about data replication. To avoid data access fluctuations, historical file popularity can be used for selecting really popular files. In this research, a dynamic data replication strategy is proposed based on two ideas. The first one employs historical access records which are useful for picking up a file to replicate. The second one is a proactive deletion method, which is applied to control the replica number to reach an optimal balance between the read access time and the write update overhead. A unified cost model is used as a means to measure and compare the performance of our data replication algorithm and other existing algorithms. The results indicate that our new algorithm performs much better than those algorithms.},
+  Acmid                    = {2385315},
+  Address                  = {Hingham, MA, USA},
+  Doi                      = {10.1007/s11227-011-0708-z},
+  ISSN                     = {0920-8542},
+  Issue_date               = {October 2012},
+  Keywords                 = {Data replication, Historical access record, Proactive deletion, Read overhead, Update overhead},
+  Numpages                 = {24},
+  Publisher                = {Kluwer Academic Publishers},
+  Url                      = {http://dx.doi.org/10.1007/s11227-011-0708-z}
+}
+
 @Article{weiss10logootundo,
   Title                    = {Logoot-Undo: Distributed Collaborative Editing System on P2P Networks},
   Author                   = {Stephane Weiss and Pascal Urso and Pascal Molli},
@@ -666,14 +816,45 @@ Autonomous Mobile Computing},
   Publisher                = {IEEE Computer Society}
 }
 
+@TechReport{Weiss2008a,
+  Title                    = {{Logoot: a P2P collaborative editing system}},
+  Author                   = {Weiss, St{\'e}phane and Urso, Pascal and Molli, Pascal},
+  Institution              = {INRIA},
+  Year                     = {2008},
+  Number                   = {RR-6713},
+  Type                     = {Rapport de recherche},
+
+  Abstract                 = {{Massive collaborative editing becomes a reality through leading projects such as the Wikipedia. Such massive collaboration is currently supported with costly central service. To avoid such costs, we aim to provide a peer-to-peer collaborative editing system. Existing approaches that propose distributed collaborative distributed either do not scale in term of users number or in term of editions number. We present the Logoot approach that scales in these both dimensions while ensuring causality, consistency and intention criteria. We evaluate the Logoot approach and compare it to others with a corpus of all the editions applied on a set of the most edited and biggest page of the Wikipedia.}},
+  Affiliation              = {ECOO - INRIA Lorraine - LORIA},
+  File                     = {main.pdf:http\://hal.inria.fr/inria-00336191/PDF/main.pdf:PDF},
+  Hal_id                   = {inria-00336191},
+  Keywords                 = {P2P;collaborative editing;optimistic replication;scalability},
+  Language                 = {Anglais},
+  Pages                    = {13},
+  Review                   = {Used for colaborative editing},
+  Url                      = {http://hal.inria.fr/docs/00/34/59/11/PDF/main.pdf}
+}
+
+@TechReport{Wolfson1990a,
+  Title                    = {A Distributed Algorithm for Adaptive Replication of Data},
+  Author                   = {Ouri Wolfson},
+  Institution              = {Department of Computer Science, Columbia University},
+  Year                     = {1990},
+
+  Abstract                 = {We present a distributed algorithm for replication of a data-item in a set of processors interconnected by a tree network. The algorithm is adaptive in the sense that the replication scheme of the item (i.e. the set of processors. each of which stores a replica of the data-item). changes as the read-write pattern of the processors in the network changes. The algorithm is optimal in the sense that when the replication scheme stabilizes, the total number of messages required for the reads and writes is minimal.},
+  Owner                    = {aas},
+  Timestamp                = {2014.09.12},
+  Url                      = {http://hdl.handle.net/10022/AC:P:21285}
+}
+
 @comment{jabref-meta: groupsversion:3;}
 
 @comment{jabref-meta: groupstree:
 0 AllEntriesGroup:;
 1 ExplicitGroup:Eventual Consistency\;0\;Baquero1997a\;Preguica2009a\;
-Saito2005a\;Shapiro2004a\;Shapiro2009a\;app:rep:optim:1608\;app:sh137\
-;app:syn:optim:1487\;formel:rep:1529\;opt:db:sh129\;optim:rep:syn:1498
-\;rep:1507\;rep:optim:sh126\;rep:sh133\;rep:syn:optim:1491\;shapiro11c
-onflictfree\;syn:rep:1580\;;
+Saito2005a\;Shapiro2004a\;Shapiro2009\;Shapiro2009a\;app:rep:optim:160
+8\;app:sh137\;app:syn:optim:1487\;formel:rep:1529\;optim:rep:syn:1498\
+;rep:1507\;rep:optim:sh126\;rep:sh133\;rep:syn:optim:1491\;shapiro11co
+nflictfree\;syn:rep:1580\;;
 }
 
