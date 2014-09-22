@@ -437,6 +437,43 @@ We compare the performances of priority based adaptive data replication strategy
   Url                      = {http://doi.acm.org/10.1145/2596624}
 }
 
+@Article{Loukopoulos2004a,
+  Title                    = {Static and Adaptive Distributed Data Replication Using Genetic Algorithms},
+  Author                   = {Loukopoulos, Thanasis and Ahmad, Ishfaq},
+  Journal                  = {J. Parallel Distrib. Comput.},
+  Year                     = {2004},
+
+  Month                    = nov,
+  Number                   = {11},
+  Pages                    = {1270--1285},
+  Volume                   = {64},
+
+  Abstract                 = {Fast dissemination and access of information in large distributed systems, such as the Internet, has become a norm of our daily life. However, undesired long delays experienced by end-users, especially during the peak hours, continue to be a common problem. Replicating some of the objects at multiple sites is one possible solution in decreasing network traffic. The decision of what to replicate where, requires solving a constraint optimization problem which is NP-complete in general. Such problems are known to stretch the capacity of a Genetic Algorithm (GA) to its limits. Nevertheless, we propose a GA to solve the problem when the read/write demands remain static and experimentally prove the superior solution quality obtained compared to an intuitive greedy method. Unfortunately, the static GA approach involves high running time and may not be useful when read/write demands continuously change, as is the case with breaking news. To tackle such case we propose a hybrid GA that takes as input the current replica distribution and computes a new one using knowledge about the network attributes and the changes occurred. Keeping in view more pragmatic scenarios in today's distributed information environments, we evaluate these algorithms with respect to the storage capacity constraint of each site as well as variations in the popularity of objects, and also examine the trade-off between running time and solution quality.},
+  Acmid                    = {1052118},
+  Address                  = {Orlando, FL, USA},
+  Doi                      = {10.1016/j.jpdc.2004.04.005},
+  ISSN                     = {0743-7315},
+  Issue_date               = {November 2004},
+  Keywords                 = {Data replication, Genetic algorithms, Greedy method, Internet, Static and dynamic allocation, Worldwide web},
+  Numpages                 = {16},
+  Publisher                = {Academic Press, Inc.},
+  Url                      = {http://pdf.aminer.org/000/297/337/static_and_adaptive_data_replication_algorithms_for_fast_information_access.pdf}
+}
+
+@InProceedings{Loukopoulos2000a,
+  Title                    = {Static and adaptive data replication algorithms for fast information access in large distributed systems},
+  Author                   = {Loukopoulos, T. and Ahmad, I},
+  Booktitle                = {Distributed Computing Systems, 2000. Proceedings. 20th International Conference on},
+  Year                     = {2000},
+  Pages                    = {385-392},
+
+  Abstract                 = {Creating replicas of frequently accessed objects across a read-intensive network can result in large bandwidth savings which, in turn, can lead to reduction in user response time. On the contrary, data replication in the presence of writes incurs extra cost due to multiple updates. The set of sites at which an object is replicated constitutes its replication scheme. Finding an optimal replication scheme that minimizes the amount of network traffic given read and write frequencies for various objects, is NP-complete in general. We propose two heuristics to deal with this problem for static read and write patterns. The first is a simple and fast greedy heuristic that yields good solutions when the system is predominantly read-oriented. The second is a genetic algorithm that through an efficient exploration of the solution space provides better solutions for cases where the greedy heuristic does not perform well. We also propose an extended genetic algorithm that rapidly adapts to the dynamically changing characteristics such as the frequency of reads and writes for particular objects},
+  Doi                      = {10.1109/ICDCS.2000.840950},
+  ISSN                     = {1063-6927},
+  Keywords                 = {database theory;distributed algorithms;genetic algorithms;heuristic programming;replicated databases;NP-complete;adaptive data replication algorithms;bandwidth;data replication;fast information access;frequently accessed object replicas;genetic algorithm;greedy heuristic;heuristics;large distributed systems;network traffic;read patterns;read-intensive network;static data replication algorithms;user response time;write patterns;Broadcasting;Communication system control;Computer science;Constraint optimization;Costs;Equations;Marine vehicles;Writing},
+  Url                      = {http://ranger.uta.edu/~iahmad/conf-papers/%5BC65%5D%20Static%20and%20Adaptive%20Data%20Replication%20Algorithms%20for%20Fast%20Information%20Access%20in%20Large%20Distributed%20Systems%20.pdf}
+}
+
 @InProceedings{Lu2007a,
   Title                    = {ElephantTrap: A low cost device for identifying large flows},
   Author                   = {Yi Lu and Mei Wang and Prabhakar, B. and Bonomi, F.},
@@ -713,9 +750,9 @@ We compare the performances of priority based adaptive data replication strategy
 
   Abstract                 = {More and more, users store their data in the cloud. While the content is then retrieved, the retrieval has to respect quality of service (QoS) constraints. In order to reduce transfer latency, data is replicated. The idea is make data close to users and to take advantage of providers home storage. However to minimize the cost of their platform, cloud providers need to limit the amount of storage usage. This is still more crucial for big contents. This problem is hard, the distribution of the popularity among the stored pieces of data is highly non-uniform: several pieces of data will never be accessed while others may be retrieved thousands of times. Thus, the trade-off between storage usage and QoS of data retrieval has to take into account the data popularity. This report presents our architecture gathering several storage domains composed of small-sized datacenters and edge devices; and it shows the importance of adapting the replication degree to data popularity. Our simulations, using realistic workloads, show that a simple cache mechanism provides a eight-fold ecrease in the number of SLA violations, requires up to 10 times less of storage capacity for replicas, and reduces aggregate bandwidth and number of flows by half.},
   Affiliation              = {Laboratoire d'Informatique de Paris 6 - LIP6 , Orange Labs [Issy les Moulineaux] , REGAL - INRIA Paris-Rocquencourt},
+  File                     = {RR-8006.pdf:http\://hal.inria.fr/hal-00712990/PDF/RR-8006.pdf:PDF},
   Hal_id                   = {hal-00712990},
   Language                 = {English},
-  Pdf                      = {http://hal.inria.fr/hal-00712990/PDF/RR-8006.pdf},
   Url                      = {http://hal.inria.fr/hal-00712990}
 }
 
@@ -856,5 +893,8 @@ Saito2005a\;Shapiro2004a\;Shapiro2009\;Shapiro2009a\;app:rep:optim:160
 8\;app:sh137\;app:syn:optim:1487\;formel:rep:1529\;optim:rep:syn:1498\
 ;rep:1507\;rep:optim:sh126\;rep:sh133\;rep:syn:optim:1491\;shapiro11co
 nflictfree\;syn:rep:1580\;;
+1 KeywordGroup:Genetic algorithm\;0\;keywords\;Genetic algorithm\;0\;0
+\;;
+1 KeywordGroup:Replication\;0\;keywords\;replication\;0\;0\;;
 }
 
