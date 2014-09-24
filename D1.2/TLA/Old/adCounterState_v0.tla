@@ -56,7 +56,7 @@ Init ==
                        devices |-> {g \in DV : deviceAssignment[g] = d}, 
                        views |-> [a \in AD |-> [dc1 \in DC |-> 0]],
                        viewsPerDevice |-> [a \in AD |-> [g \in DV |-> 0]]]] 
-                       
+                       /Users/carlaferreira/GitHub/WP1/D1.2/TLA/adCounterState_v0.tla
 ------------------------------------------------------------------------------------------     
     
 \* Local operation at data center d that represents a visualisation of 
