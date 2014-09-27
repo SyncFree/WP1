@@ -220,6 +220,66 @@ Autonomous Mobile Computing},
   Url                      = {http://doi.acm.org/10.1145/343477.343502}
 }
 
+@MastersThesis{Briquemont2014a,
+  Title                    = {Optimising Client-side Geo-replication with Partially Replicated Data Structures},
+  Author                   = {Iwan Briquemont},
+  School                   = {Louvain-la-Neuve},
+  Year                     = {2014},
+  Month                    = {September},
+
+  Abstract                 = {Current mobile and web applications replicate data increasingly at the client-side to reduce latency and to tolerate network issues. Mobile devices have however limited storage and network capabilities. Thus large data structures at the server-side need to be split before being sent to the client and reintegrated when modified, in order to keep a low memory and network usage. Ad-hoc solutions tend to be poorly integrated with server-side storage, and do not have well-defined consistency guarantees.
+We propose a replication mechanism built upon conflict-free replicated data types (CRDT) to seamlessly replicate parts of large data structures. We define partial replication and give an approach to keep the strong eventual consistency properties of CRDTs with par- tial replicas. We integrate our mechanism into SwiftCloud, a transactional system that brings geo-replication to the client. We evaluate the solution with a content-sharing ap- plication. Our results show improvements in bandwidth, memory, and latency usage over both classical geo-replication and the existing SwiftCloud solution.},
+  Keywords                 = {partial replication, CRDT, CPRDT},
+  Owner                    = {aas},
+  Timestamp                = {2014.09.23},
+  Url                      = {http://www.info.ucl.ac.be/~pvr/MemoireIwanBriquemont.pdf}
+}
+
+@Proceedings{Briquemont2015a,
+  Title                    = {Conflict-free Partially Replicated Data Types},
+  Year                     = {2015},
+  Organization             = {PPoPP},
+
+  Abstract                 = {Designers of large user-oriented distributed applications, such as social networks and mobile applications, have adopted measures to improve the responsiveness of their applications. Latency is a ma- jor concern as people are very sensitive to it. Geo-replication is a commonly used mechanism to bring the data closer to the clients. Nevertheless, reaching the closest datacenter can still be consid- erably slow. Thus, in order to further reduce the access latency, mobile and web applications may be forced to replicate data at the client-side. Nevertheless, fully replicating large data structures may still be a waste of resources, specially for thin-clients.
+We propose a replication mechanism built upon conflict-free replicated data types (CRDT) to seamlessly replicate parts of large data structures. We define partial replication and give an approach to keep the strong eventual consistency properties of CRDTs with partial replicas. We integrate our mechanism into SwiftCloud, a transactional system that brings geo-replication to the client. We evaluate the solution with a content-sharing application. Our results show improvements in bandwidth, memory, and latency usage over both classical geo-replication and the existing SwiftCloud solution.},
+  Author                   = {Iwan Briquemont and Manuel Bravo and Zhongmiao Li and Peter Van Roy},
+  Comment                  = {Printed},
+  File                     = {:/Users/aas/Documents/Projects/Documents/Papers/ppopp15-briquemont.pdf:PDF},
+  Keywords                 = {Partial Replication, CRDT, CPRDT, Distributed Data Structures},
+  Owner                    = {aas},
+  Review                   = {The general idea is to distribute the data and only replicate the data parts in each part of the system. This reduces the bandwidth, latency and memory.
+
+But CPRDTs (Conflict-free Partially Replicated Data Types) have a negative impact on the cache hit rate, which has to be weighted against the upper bound on the latency it provides.},
+  Timestamp                = {2014.09.23}
+}
+
+@TechReport{Chanthadavong2014a,
+  Title                    = {Internet of Things to drive explosion of useful data: EMC},
+  Author                   = {Aimee Chanthadavong},
+  Institution              = {ZDNet},
+  Year                     = {2014},
+  Month                    = {April},
+
+  Abstract                 = {More than one-third of useful data that businesses will use is set be collected from the Internet of Things (IoT), according to a recent study by EMC.},
+  Owner                    = {aas},
+  Timestamp                = {2014.09.24},
+  Url                      = {http://www.zdnet.com/internet-of-things-to-drive-explosion-of-useful-data-emc-7000028376/}
+}
+
+@TechReport{Cisco2014a,
+  Title                    = {The Zettabyte Era-Trends and Analysis},
+  Author                   = {Cisco},
+  Institution              = {Cisco},
+  Year                     = {2014},
+  Month                    = {June},
+
+  Abstract                 = {This document is part of the Cisco® Visual Networking Index (VNI), an ongoing initiative to track and forecast the impact of visual networking applications. The document presents some of the main findings of Cisco’s global IP traffic forecast and explores the implications of IP traffic growth for service providers. For a more detailed look at the forecast and the methodology behind it},
+  Keywords                 = {IP traffic},
+  Owner                    = {aas},
+  Timestamp                = {2014.09.24},
+  Url                      = {http://www.cisco.com/c/en/us/solutions/collateral/service-provider/visual-networking-index-vni/VNI_Hyperconnectivity_WP.pdf}
+}
+
 @Misc{FMK,
   Title                    = {{FMK}},
 
@@ -283,6 +343,17 @@ Autonomous Mobile Computing},
   Keywords                 = {eventual consistency, data replication, distributed systems},
   Numpages                 = {10},
   Url                      = {http://dx.doi.org/10.1109/ICDCS.2013.10}
+}
+
+@PhdThesis{dorigo1992a,
+  Title                    = {{Optimization, Learning and Natural Algorithms}},
+  Author                   = {Dorigo, M.},
+  School                   = {Politecnico di Milano, Italy},
+  Year                     = {1992},
+
+  Citeulike-article-id     = {6415913},
+  Keywords                 = {ant, learning, swarm},
+  Posted-at                = {2009-12-21 09:47:17}
 }
 
 @Misc{syncfree,
@@ -451,12 +522,16 @@ We compare the performances of priority based adaptive data replication strategy
   Abstract                 = {Fast dissemination and access of information in large distributed systems, such as the Internet, has become a norm of our daily life. However, undesired long delays experienced by end-users, especially during the peak hours, continue to be a common problem. Replicating some of the objects at multiple sites is one possible solution in decreasing network traffic. The decision of what to replicate where, requires solving a constraint optimization problem which is NP-complete in general. Such problems are known to stretch the capacity of a Genetic Algorithm (GA) to its limits. Nevertheless, we propose a GA to solve the problem when the read/write demands remain static and experimentally prove the superior solution quality obtained compared to an intuitive greedy method. Unfortunately, the static GA approach involves high running time and may not be useful when read/write demands continuously change, as is the case with breaking news. To tackle such case we propose a hybrid GA that takes as input the current replica distribution and computes a new one using knowledge about the network attributes and the changes occurred. Keeping in view more pragmatic scenarios in today's distributed information environments, we evaluate these algorithms with respect to the storage capacity constraint of each site as well as variations in the popularity of objects, and also examine the trade-off between running time and solution quality.},
   Acmid                    = {1052118},
   Address                  = {Orlando, FL, USA},
+  Comment                  = {Printed},
   Doi                      = {10.1016/j.jpdc.2004.04.005},
   ISSN                     = {0743-7315},
   Issue_date               = {November 2004},
-  Keywords                 = {Data replication, Genetic algorithms, Greedy method, Internet, Static and dynamic allocation, Worldwide web},
+  Keywords                 = {Data replication, Genetic algorithm, Greedy method, Internet, Static and dynamic allocation, Worldwide web},
   Numpages                 = {16},
   Publisher                = {Academic Press, Inc.},
+  Review                   = {The cost function is too expensive to be used in Big Data this together with the operational cost of the algorithm as it needs to calculate multiple solutions to choose the best make it not appropiate for this type of problems.
+
+Also the rapid changes in the load of system do not help either.},
   Url                      = {http://pdf.aminer.org/000/297/337/static_and_adaptive_data_replication_algorithms_for_fast_information_access.pdf}
 }
 
@@ -468,6 +543,7 @@ We compare the performances of priority based adaptive data replication strategy
   Pages                    = {385-392},
 
   Abstract                 = {Creating replicas of frequently accessed objects across a read-intensive network can result in large bandwidth savings which, in turn, can lead to reduction in user response time. On the contrary, data replication in the presence of writes incurs extra cost due to multiple updates. The set of sites at which an object is replicated constitutes its replication scheme. Finding an optimal replication scheme that minimizes the amount of network traffic given read and write frequencies for various objects, is NP-complete in general. We propose two heuristics to deal with this problem for static read and write patterns. The first is a simple and fast greedy heuristic that yields good solutions when the system is predominantly read-oriented. The second is a genetic algorithm that through an efficient exploration of the solution space provides better solutions for cases where the greedy heuristic does not perform well. We also propose an extended genetic algorithm that rapidly adapts to the dynamically changing characteristics such as the frequency of reads and writes for particular objects},
+  Comment                  = {Printed},
   Doi                      = {10.1109/ICDCS.2000.840950},
   ISSN                     = {1063-6927},
   Keywords                 = {database theory;distributed algorithms;genetic algorithms;heuristic programming;replicated databases;NP-complete;adaptive data replication algorithms;bandwidth;data replication;fast information access;frequently accessed object replicas;genetic algorithm;greedy heuristic;heuristics;large distributed systems;network traffic;read patterns;read-intensive network;static data replication algorithms;user response time;write patterns;Broadcasting;Communication system control;Computer science;Constraint optimization;Costs;Equations;Marine vehicles;Writing},
@@ -854,14 +930,14 @@ We compare the performances of priority based adaptive data replication strategy
 }
 
 @TechReport{Weiss2008a,
-  Title                    = {{Logoot: a P2P collaborative editing system}},
+  Title                    = {Logoot: a P2P collaborative editing system},
   Author                   = {Weiss, St{\'e}phane and Urso, Pascal and Molli, Pascal},
   Institution              = {INRIA},
   Year                     = {2008},
   Number                   = {RR-6713},
   Type                     = {Rapport de recherche},
 
-  Abstract                 = {{Massive collaborative editing becomes a reality through leading projects such as the Wikipedia. Such massive collaboration is currently supported with costly central service. To avoid such costs, we aim to provide a peer-to-peer collaborative editing system. Existing approaches that propose distributed collaborative distributed either do not scale in term of users number or in term of editions number. We present the Logoot approach that scales in these both dimensions while ensuring causality, consistency and intention criteria. We evaluate the Logoot approach and compare it to others with a corpus of all the editions applied on a set of the most edited and biggest page of the Wikipedia.}},
+  Abstract                 = {Massive collaborative editing becomes a reality through leading projects such as the Wikipedia. Such massive collaboration is currently supported with costly central service. To avoid such costs, we aim to provide a peer-to-peer collaborative editing system. Existing approaches that propose distributed collaborative distributed either do not scale in term of users number or in term of editions number. We present the Logoot approach that scales in these both dimensions while ensuring causality, consistency and intention criteria. We evaluate the Logoot approach and compare it to others with a corpus of all the editions applied on a set of the most edited and biggest page of the Wikipedia.},
   Affiliation              = {ECOO - INRIA Lorraine - LORIA},
   File                     = {main.pdf:http\://hal.inria.fr/inria-00336191/PDF/main.pdf:PDF},
   Hal_id                   = {inria-00336191},
@@ -879,7 +955,11 @@ We compare the performances of priority based adaptive data replication strategy
   Year                     = {1990},
 
   Abstract                 = {We present a distributed algorithm for replication of a data-item in a set of processors interconnected by a tree network. The algorithm is adaptive in the sense that the replication scheme of the item (i.e. the set of processors. each of which stores a replica of the data-item). changes as the read-write pattern of the processors in the network changes. The algorithm is optimal in the sense that when the replication scheme stabilizes, the total number of messages required for the reads and writes is minimal.},
+  Comment                  = {Read},
   Owner                    = {aas},
+  Review                   = {Good for its simplicity.
+With issues when the connected DC are in a ring (circule), without leafs.
+Maybe it could be extended},
   Timestamp                = {2014.09.12},
   Url                      = {http://hdl.handle.net/10022/AC:P:21285}
 }
