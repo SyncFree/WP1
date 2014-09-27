@@ -9,7 +9,7 @@ The balance and the counts of the vouchers in the wallets are integers instead o
 \verbinput{TLA/walletNat.tla}
 
 
-\subsubsection{Wallet using No Atomic Operations}
+\subsubsection{Wallet use case using No Atomic Operations}
 In here it is presented the scenario in which buying some vouchers is not an atomic operation. For this model, it is defined two operators so that PN-Counters, which keep the balance and voucher counts, could be merged separately. As expected again, some money is lost and some properties are not satisfied. The TLA+ representation for this particular example is presented bellow.
 
 \verbinput{TLA/walletWOTx.tla}
