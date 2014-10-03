@@ -21,11 +21,6 @@
 *.mtc1
 *.out
 *.synctex.gz
+*.snm
 *.gz
-*.pdf
-*.launch
-*.project
-*.settings
-*.prefs
-fancyvrb
-Old
+*.xdy
