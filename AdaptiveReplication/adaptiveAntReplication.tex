@@ -80,6 +80,10 @@ In general terms any read operation in a \gls{dc} reinforces the need for a repl
 		\hline
 		$M_{k}$           & Minimum number of replicas of data k, default $M_{k} = 1$. & $M_{k} \in \mathbb{N}_{0}$ \\
 		\hline
+		$F_{k}$            & The replication strength for data $k$, $F_{k} \le L_{k}$. & $F_{k} \in \mathbb{R}_{0}$ \\
+		\hline
+		$L_{k}$            & The maximum replication strength for data $k$, $F_{k} \le L_{k}$. & $L_{k} \in \mathbb{R}_{0}$ \\
+		\hline
 	\end{tabular}
 	
 	\caption{List of variables and constants.}
@@ -102,7 +106,7 @@ R_{k} = \sum^{|DC|}_{d = 1} c_{dk}
 
 $F_{kd}$ represents the full strength of the replication of the data $k$ in \gls{dc} $d$, which it is expressed in Equation \ref{eq:replication_strength}.
 \begin{equation}  \label{eq:replication_strength}
-	 F_{kd} = r_{kd} * \Delta r_{k} + w_{kd} * \Delta w_{k} - \sum^{|DC|}_{i = 1, i \neq d} w_{kd} * \Delta w_{kdi} - c_{kd} * \Gamma
+	 F_{kd} = \min(r_{kd} * \Delta r_{k} + w_{kd} * \Delta w_{k} - \sum^{|DC|}_{i = 1, i \neq d} w_{kd} * \Delta w_{kdi} - c_{kd} * \Gamma, L_{k})
 \end{equation}
 
 %\begin{equation}  \label{eq:inter_dc_decay}
