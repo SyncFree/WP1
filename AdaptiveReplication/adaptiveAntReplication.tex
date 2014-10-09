@@ -52,7 +52,7 @@
 The general idea of this algorithm is to decide without the need of human intervention where and when to replicate with the main objective of reducing the latency and network traffic (reduce usage of bandwidth).
 
 In general terms any read operation in a \gls{dc} reinforces the need for a replica of the data in such \gls{dc}, similarly but perhaps with a different degree it happens with the write operations, but write operations decrease the need for a replica of the data in the other \glspl{dc} with replicas of the data, so eventually these \glspl{dc} will not have any replica of the data. Given that we do not want to keep replicas if it is not necessary then the need for such replica will decay as time pass, but always making sure that the data is present (replicated) at least in one of the \glspl{dc}. This algorithm is further explained below together with a mathematical representation. The variables and constants used in the algorithm are summarised in Table \ref{tbl:vars_consts}.
-\begin{table}[ht]
+\begin{table}[ht!]
 	\begin{tabular}{ |l|p{7.8cm}|l|}
 		\hline
 		{\bf Variable}    & {\bf Description} & {\bf Type} \\
