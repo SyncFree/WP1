@@ -1,21 +1,26 @@
 ----------------------------- MODULE fmk -----------------------------
-EXTENDS Naturals
+EXTENDS Naturals, Sequences
 CONSTANTS 	DC,		\* Set of all DataCenters
- 			Phar,	\* Set of all Pharmacies
+ 			Pha,	\* Set of all Pharmacies
  			Pat,	\* Set of all Patients
  			Tre,	\* Set of all Treatments
- 			Pres	\* Set of all Prescriptions
+ 			Pre,	\* Set of all Prescriptions
+ 			Doc,    \* Set of all Doctors
+ 			MAX     \* maximun clock
 
 VARIABLE patientdb, clock
 
+ASSUME MAX \in Nat
 
+
+TimeStamps == DC \times (1..MAX)
+
+\* Initialize Variables
 Init == 
-	/\ patientdb = [ p \in Pat |-> [treat |-> {}, 
-								presc |-> {},
-								taken |-> {} ]
-								]
-	/\ clock = [d \in DC |-> 0 ]
-
+	/\ patientdb = [d \in DC |-> [ p \in Pat |-> [treat |-> {}, 
+								                  presc |-> {},
+								                  taken |-> {} ] ] ]
+	/\ clock = [ d \in DC |-> 0 ]
 
 
 \* Local Operation at the datacenter d that represents adding a treatment t to patient p by doctor doc 
@@ -23,15 +28,14 @@ Init ==
 \* Post:	- The patient p treatment t is updated in the local DC d.
 \*			- The logical clock is incremented by one.
 
-addTreatment(d, doc, p, t) ==
+addTreatment(dc, patient, doctor, treatment) ==
 	LET 
-		date == clock[d]+1
-		s == patientdb[d]
-		treatment == <<doc, p, date>>
-		ns == [ treat |-> s[p].treat \cup {treatment}]
+		timestamp == << dc, clock[dc] + 1 >>
+		s == patientdb[dc]
+		t == << doctor, treatment, timestamp >>
 	IN
-		/\ patientdb' = [ patientdb EXCEPT ![d][p] = ns]
-		/\ clock' = [clock EXCEPT ![d] = date]
+		/\ patientdb' = [ patientdb EXCEPT ![dc][patient].treat = s[patient].treat \cup {t} ]
+		/\ clock' = [clock EXCEPT ![dc] = clock[dc] + 1]
 
 
 
@@ -39,40 +43,55 @@ addTreatment(d, doc, p, t) ==
 \* Pre:		- doc, pres, t all exist and belong to their set.
 \* Post:	- If the <<doc, t, date>> exists it adds a the prescription.
 
-addPrescription(dc, doctor, treatment, date, prescription, patient) == 
+addPrescription(dc, patient, doctor, treatment, timestamp, prescription) == 
 	LET 
-		p == << doctor, treatment, date, prescription>>
+		p == << doctor, treatment, timestamp, prescription>>
 		s == patientdb[dc]
-
-		ns == [ treat |-> s[patient].treatment, \* Use this to check is the same treatment, or that it exists
-			   presc |-> {p} \cup s[patient].prescription,
-			   taken |-> s[patient].taken
-			 ]
 	IN
-	    /\ <<doctor, treatment, date>> \in s[patient].treatment
-		/\ patientdb' = [patientdb EXCEPT ![dc][patient] = ns]
+	    /\ << doctor, treatment, timestamp >> \in s[patient].treat
+        /\ p \notin s[patient].presc
+        /\ patientdb' = [patientdb EXCEPT ![dc][patient].presc = s[patient].presc \cup {p} ]
+		/\ UNCHANGED<<clock>>
 
 \* Local Operation at the datacenter d that represents consuming a prescription pres in a pharmacy f by a patient p
 \* Pre:		- f, p, pres all exists and belongs to their set.
 \* Post: 	- 
 
-giveDrug(dc, pharmacy, patient, doctor, treatment, date, prescription) ==
+giveDrug(dc, patient, doctor, treatment, timestamp, prescription, pharmacy) ==
 	LET
-	    p ==  << doctor, treatment, date, prescription, pharmacy>>
+        timestamp2 == << dc, clock[dc] + 1 >>
+        p ==  << doctor, treatment, timestamp, prescription, pharmacy, timestamp2 >>
 		s == patientdb[dc]
-		ns == [	treat |-> s[patient].treat,
-				presc |-> s[patient].presc,
-				taken |-> {p} \cup s[patient].taken
-			]
 	IN
-		patientdb' = [ patientdb EXCEPT ![dc][patient] = ns ]
+		/\ << doctor, treatment, timestamp, prescription>> \in s[patient].presc
+        /\ \E ts \in TimeStamps : << doctor, treatment, timestamp, prescription, pharmacy, ts >> \in s[patient].taken
+        /\ patientdb' = [ patientdb EXCEPT ![dc][patient].taken = s[patient].taken \cup {p} ]
+		/\ clock' = [clock EXCEPT ![dc] = clock[dc] + 1]
 
 
-Consistency == TRUE \*This has to be defined
+\* Merge two datacenter databases
+merge(dc1, dc2) ==
+    LET 
+        s1 == patientdb[dc1]
+        s2 == patientdb[dc2]
+        ns == [ p \in Pat |-> [treat |-> s1[p].treat \cup s2[p].treat, 
+                                presc |-> s1[p].presc \cup s2[p].presc,
+                                taken |-> s1[p].taken \cup s2[p].taken ] ]
+    IN
+        /\ patientdb' = [ patientdb EXCEPT ![dc1] = ns, ![dc2] = ns]
+        /\ UNCHANGED<<clock>>
+
+NoDrugGivenTwice == \A d \in DC : \E p \in Pat: \E t1 \in patientdb[d][p].taken, t2 \in patientdb[d][p].taken :
+    t1 /= t2 /\ SubSeq(t1, 1, 5) =  SubSeq(t2, 1, 5)     \*  DO NOT HOLD	
 	
-Next == <<patientdb>>
-
+Next == 
+    \/ \E dc \in DC, patient \in Pat, doctor \in Doc, treatment \in Tre : addTreatment(dc,patient,doctor,treatment) 
+    \/ \E dc \in DC, patient \in Pat, doctor \in Doc, treatment \in Tre, ts \in TimeStamps, prescription \in Pre : 
+            addPrescription(dc,patient,doctor,treatment,ts,prescription) 
+    \/ \E dc \in DC, patient \in Pat, doctor \in Doc, treatment \in Tre, ts \in TimeStamps, prescription \in Pre, pharmacy \in Pha : 
+            giveDrug(dc,patient,doctor,treatment,ts,prescription,pharmacy)         
+    
 Spec == Init /\ [][Next]_<<patientdb,clock>>
 
-THEOREM Spec => TRUE \*This has to be defined
+THEOREM Spec => []NoDrugGivenTwice \*This has to be defined
 =============================================================================
