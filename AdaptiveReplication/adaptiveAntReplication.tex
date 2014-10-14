@@ -106,7 +106,7 @@ R_{k} = \sum^{|DC|}_{d = 1} c_{dk}
 
 $F_{kd}$ represents the full strength of the replication of the data $k$ in \gls{dc} $d$, which it is expressed in Equation \ref{eq:replication_strength}.
 \begin{equation}  \label{eq:replication_strength}
-	 F_{kd} = \min(r_{kd} * \Delta r_{k} + w_{kd} * \Delta w_{k} - \sum^{|DC|}_{i = 1, i \neq d} w_{kd} * \Delta w_{kdi} - c_{kd} * \Gamma, L_{k})
+	 F_{kd} = \max(0, \min(L_{k}, r_{kd} * \Delta r_{k} + w_{kd} * \Delta w_{k} - \sum^{|DC|}_{i = 1, i \neq d} w_{kd} * \Delta w_{kdi} - c_{kd} * \Gamma))
 \end{equation}
 
 %\begin{equation}  \label{eq:inter_dc_decay}
