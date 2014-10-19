@@ -1,12 +1,12 @@
 \subsection{Festival}
 The \href{https://www.trifork.com/news/roskilde-festival}{Trifrok Festival} application is an existing App developed for Android and iOS, Figure \ref{fig:relai_layout}. It allows festival participants to see the concert schedule and other centrally updated information as well as distribution of user-created content. The application has been operational for years while each year new features have been added. The specific use case we are addressing here is the ability to conduct polls where participants can vote for a concert. The challenge is that we cannot see if we receive a vote twice, we don't know who the vote came from, and we do not have a reliable network with a \gls{dc} in the middle.
-\begin{figure*}[!ht]
+\begin{figure}[!ht]
 	\centering
-	\includegraphics[width=1\textwidth]{figures/TriforkRelai.png}
+	\includegraphics[width=1.05\textwidth]{figures/TriforkRelai.png}
 	
 	\caption{Overview of current Festival implementation which uses Trifork's Relai.}
 	\label{fig:relai_layout}
-\end{figure*}
+\end{figure}
 
 Massive events like conferences, sport events, and music festivals encounters may saturate the mobile bandwidth which would result in loss of cellular radio connectivity. Based on Trifork Relai local data are updated via not only cellular radio connectivity but also Blue-tooth and WiFi Direct with other devices in a peer-to-peer fashion. So although you may not be able to connect to a \gls{dc} you can still post your votes to peer devices just as you can get more up to date data from these.
 
@@ -29,7 +29,7 @@ Bitwise OR operator is represented as | in this document.
 	
 	\item \underline{Merge} Mark-Counters (bitwise OR operator, |): given two Mark-Counters $B, C \in A^{n}$, their merger is defined as $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, n\}\}$.
 	
-	If both arrays have different sizes, i.e. $|B|$ and $|C|$, then $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, \max{\{|B|, |C|\}}\} \text{ with } B_{j} = 0 ~ \forall ~ j > |B|, C_{k} = 0 ~ \forall ~ k > |C|\}$ and the size of $D$ would be $|D| = \max{\{|B|, |C|\}}$.
+	If both arrays have different sizes, i.e. $|B|$ and $|C|$, then $D = \{D_{i} = B_{i} | C_{i}, i \in \{1,\dots, \max{\{|B|, |C|\}}\}$ $\text{ with } B_{j} = 0 ~ \forall ~ j > |B|, C_{k} = 0 ~ \forall ~ k > |C|\}$ and the size of $D$ would be $|D| = \max{\{|B|, |C|\}}$.
 	
 	\item \underline{Count}: given a Mark-Counter $B$ the count corresponds to the number of bits that have been set to 1, $\sum^{|B|}_{i = 1} B_{i}$. Similarly, once it is know the number of 1s it is also known the number of zeros for a given array size.
 \end{itemize}
@@ -136,7 +136,7 @@ Bitwise OR operator is represented as | in this document.
 \subsubsection{Festival use case with Mark-Counters} 
 Consider a "Festival" which it is composed of many acts/events. We start by considering the case of a "Festival" composed only of one act that later will be extended to many. To simplify, without losing generality, it is considered the case of an event in a theatre and the constants and variables used are presented in Table \ref{tab:festival_constants_variables}.
 \begin{table*}[!ht]
-	\begin{tabular}{|p{2.4cm}|p{13.2cm}|r| }
+	\begin{tabular}{|p{2.4cm}|p{11.2cm}|r| }
 		\hline
 		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
 		\hline
@@ -219,9 +219,9 @@ An attendee may only vote once as expressed in Inequality \ref{ep:vote_not_equal
 \end{equation}
 
 A measure of the coherence for the copies between an attendee $a$ and another attendee $j$ can be obtained by calculating the number of bits where both versions of voting differ as expressed in Equation \ref{eq:discrepancy_votes}. All the devices are in sync if $\bigtriangleup numAttendees_{dj} = 0 ~ \forall ~ d, j \in \{1,\dots, |People|\}$.
-\begin{multline} \label{eq:discrepancy_votes}
-	\bigtriangleup numAttendees_{dj} = \sum_{i \in People} ((G_{di} + G_{ji}) \% 2 + (B_{dj} + B_{ji}) \% 2)\\ \forall ~ d, j \in \{1,\dots, |People|\}
-\end{multline}
+\begin{equation} \label{eq:discrepancy_votes}
+	\bigtriangleup numAttendees_{dj} = \sum_{i \in People} ((G_{di} + G_{ji}) \% 2 + (B_{dj} + B_{ji}) \% 2) \forall ~ d, j \in \{1,\dots, |People|\}
+\end{equation}
 
 This can be extended to multiple events/acts by introducing a new index that represent each of these events/acts.
 

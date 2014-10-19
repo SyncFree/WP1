@@ -10,7 +10,7 @@ The game clients usually use the same \gls{dc} for every game session so global 
 
 A mathematical representation of this use case is represented below, where Table \ref{tab:leaderBorad_constants_variables}.
 \begin{table*}[!ht]
-	\begin{tabular}{|p{2.2cm}|p{13.5cm}|p{.8cm}| }
+	\begin{tabular}{|p{2.2cm}|p{11.5cm}|p{.8cm}| }
 		\hline
 		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
 		\hline
@@ -34,19 +34,19 @@ A mathematical representation of this use case is represented below, where Table
 	\caption{Leader Board Constants and Variables.}
 	\label{tab:leaderBorad_constants_variables}
 \end{table*}
-\begin{multline} \label{eq:game_best_score}
-	highestScore_{gld} = \max\{Score_{gld1},\dots, Score_{gld|Players_{gld}|}\}\\ \forall ~ g \in Games, l \in Levels_{g}, d \in DC\}
-\end{multline}
+\begin{equation} \label{eq:game_best_score}
+	highestScore_{gld} = \max\{Score_{gld1},\dots, Score_{gld|Players_{gld}|}\} ~ \forall g \in Games, l \in Levels_{g}, d \in DC\}
+\end{equation}
 \begin{equation} \label{eq:game_top_leader_board}
 	Players_{gld} = \{j | Score_{gldj} \ge Score_{gldq} ~ \forall q \in Players_{gld}\}\}
 \end{equation}
 
 Furthermore $Players_{gld}$ could be extended to represent the different positions in the Leader Board, such that $Players^{i}_{gld}$ is the group of players which are at position $i$ on the Leader Board, $i \in \mathbb{Z}_{\ge 1}$, as shown in Equation \ref{eq:game_leader_board}. This means that $Players^{1}_{gld}$, which represent the top position, is equivalent to $Players_{gld}$, such that $Players^{1}_{gld} = Players_{gld}$.
-\begin{multline} \label{eq:game_leader_board}
-	Players^{i}_{gld} = \{j | Score_{gldq} < Score_{gldj} < Score_{gldo}\\ \forall ~ q \in Players^{g-1}_{gld}, o \in Players^{g+1}_{gld}\}, g \in \mathbb{N}_{> 1}
-\end{multline}
+\begin{equation} \label{eq:game_leader_board}
+	Players^{i}_{gld} = \{j | Score_{gldq} < Score_{gldj} < Score_{gldo} ~ \forall q \in Players^{g-1}_{gld}, o \in Players^{g+1}_{gld}\}, g \in \mathbb{N}_{> 1}
+\end{equation}
 
 Equation \ref{eq:game_best_score1} expresses that for any player within $J_{kli}$ their highest scores for game $k$ at level $l$, as it is seen by \gls{dc} $i$, is equal to the highest score achieved between all the players for that game an level as it is seen by \gls{dc} $i$.
-\begin{multline} \label{eq:game_best_score1}
-	highestScore_{gld} = Score_{gldp} ~ \forall ~ g \in Games, l \in Levels_{g},\\ d \in  DC, p \in Players^{1}_{gld}
-\end{multline}
+\begin{equation} \label{eq:game_best_score1}
+	highestScore_{gld} = Score_{gldp} ~ \forall ~ g \in Games, l \in Levels_{g}, d \in  DC, p \in Players^{1}_{gld}
+\end{equation}

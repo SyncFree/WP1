@@ -6,7 +6,8 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 %%  Using official ACM format
 %% Do not edit unless you really know what you are doing.
-\documentclass{acm_proc_article-sp}
+\documentclass[a4paper, 10pt]{article}
+%\documentclass{acm_proc_article-sp}
 \usepackage{graphicx}
 \usepackage[pdftitle={Optimistic Control for a Critical System},%
 		hidelinks,colorlinks=true, linkcolor=black, citecolor=cyan, filecolor=green, urlcolor=blue]{hyperref}
@@ -15,6 +16,7 @@
 % Use sverb or moreverb
 \usepackage{TLA/sverb}
 %\usepackage{TLA/moreverb} % CTAN/macros/latex/contrib/supported/moreverb
+\usepackage[margin=1in]{geometry}
 
 \input{../glossaries}
 \glsdisablehyper
@@ -38,27 +40,22 @@
 % \additionalauthors command.
 % These 'additional authors' will be output/set for you without further effort on your part as the last section in the body of your article BEFORE References or any Appendices.
 
-\numberofauthors{2} %  in this sample file, there are a *total*
+%\numberofauthors{2} %  in this sample file, there are a *total*
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting reasons) and the remaining two appear in the \additionalauthors section.
 %
 \author{
 % 1st. author
 	\alignauthor
-	Tom Benedictu\\
+	Tom Benedictus and Amadeo Asc\'{o}\\
 	\affaddr{Trifork Leeds}\\
-	\email{tom@trifork.com}
-% 2nd. author
-	\alignauthor
-	Amadeo Asco\\
-	\affaddr{Trifork Leeds}\\
-	\email{aas@trifork.com}
+	\email{tom@trifork.com} and \email{aas@trifork.com}
 }
 
 % There's nothing stopping you putting the seventh, eighth, etc. author on the opening page (as the 'third row') but we ask, for aesthetic reasons that you place these 'additional authors' in the \additional authors block, viz.
 %\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
 %	email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 %	(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{28 July 2014}
+\date{28th July 2014}
 
 \maketitle
 \input{abstract}
@@ -68,11 +65,11 @@
 %A category including the fourth, optional field follows...
 %\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
 %\category{D.2.1}{Software Engineering}{Requirements/Specifications}[user cases]
-\category{H.2.4}{Systems}[concurrency, distributed databases]
+%\category{H.2.4}{Systems}[concurrency, distributed databases]
 
-\terms{Documentation, Reliability}
+%\terms{Documentation, Reliability}
 
-\keywords{CRDTs, Use cases, SyncFree} % NOT required for Proceedings
+%\keywords{CRDTs, Use cases, SyncFree} % NOT required for Proceedings
 
 
 \input{introduction}
@@ -92,23 +89,27 @@
 \newpage
 \fi
 
+\addcontentsline{toc}{section}{References}
+\newpage
 
 %
 % The following two commands are all you need in the initial runs of your .tex file to produce the bibliography for the citations in your paper.
-\bibliographystyle{abbrv}
+%\bibliographystyle{abbrv}
+\bibliographystyle{notplainnat} % References list without URL or DOI
 \bibliography{../syncFree}  % sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file and remember to run:
 % latex bibtex latex latex to resolve all references
 %
 % ACM needs 'a single self-contained file'!
 %
+\printglossaries
 
 %APPENDICES are optional
 %\balancecolumns
 %\appendix
 %Appendix A
 
-\balancecolumns
+%\balancecolumns
 % That's all
 \input{appendix}
 \end{document}

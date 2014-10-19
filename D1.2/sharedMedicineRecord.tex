@@ -1,7 +1,7 @@
 \subsection{Shared Medicine Record (FMK)}
 At the surface, this is a quite simple online system: for each person, maintain a list of current treatments, which may involve one or more prescriptions, and additionally a set of events that has occurred for the given treatment, which components are defined in Table \ref{tab:fmk_constants_variables}.
-\begin{table*}[!ht]
-	\begin{tabular}{|p{2.4cm}|p{13.2cm}|r| }
+\begin{table}[!ht]
+	\begin{tabular}{|p{2.5cm}|p{11cm}|r| }
 		\hline
 		\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
 		\hline
@@ -24,7 +24,7 @@ At the surface, this is a quite simple online system: for each person, maintain 
 	
 	\caption{FMK Constants and Variables.}
 	\label{tab:fmk_constants_variables}
-\end{table*}
+\end{table}
 
 Not all treatments require prescriptions, i.e. the doctor can tell you to drink water, or take calcium tablets which you can get without a prescription, but he may make a prescription on these too. Everything prescribed will be in the system. Events are things that have happen in the real world, such as a drug being administered to a patient by a nurse, or a drug being handed out at a pharmacy. 
 
@@ -38,6 +38,7 @@ In the context of making healthcare decisions, it is much better to have some in
 
 There is more interest in the integration of some other applications and approaches with the \href{https://www.trifork.com/news/a-prestigious-prize-trifork-public}{FMK} as shown in \cite{Urazimbetov2012a, Hansen2011a}, which increase the relevance of the \href{https://www.trifork.com/news/a-prestigious-prize-trifork-public}{FMK} in the support of the national healthcare services and the empowering of patients.
 
+
 \subsubsection{Network Topology and Architecture }
 The system is made up of geographically separated \glspl{dc}, set up in master-master replication mode, so any \gls{dc} can handle any request. The client systems are systems providers for \glspl{gp}, pharmacies and hospitals as well as a web based system that provides citizens access and acts as a backup for the professional systems. Each client has an affinity to a given primary \gls{dc}, so all requests from a given client use only one \gls{dc}, as long as it is available.
 
@@ -50,15 +51,15 @@ Because of the asynchronous client system interfaces, and distributed \glspl{dc}
 \begin{itemize}
 	\item {\bf Create Treatment}: when creating a new treatment for a patient $p$ through \gls{dc} $d$ the new treatment will be part of the list of treatments for that patient $Treatments_{dp}$, as shown in Equation \ref{eq:create_treatement}. Also the patient must already exist.
 		\begin{multline} \label{eq:create_treatement}
-			Treatments_{dp} = Treatments_{dp} \cup Treatments_{dpt} \\ \text{ such that } d \in \{1,\dots, |DC|\}, p \in \{1,\dots, |Patients_{d}|\}, \\ t \not\in Treatments_{dp}
+			Treatments_{dp} = Treatments_{dp} \cup Treatments_{dpt} \\ \text{ such that } d \in \{1,\dots, |DC|\}, p \in \{1,\dots, |Patients_{d}|\}, t \not\in Treatments_{dp}
 		\end{multline}
 	\item {\bf Add Prescription}: when creating a new prescription $r$ for treatment $t$ of patient $p$ through \gls{dc} $d$ the new prescription will be part of the list of prescriptions for such treatment ($Prescriptions_{dpt}$) , as shown in Equation \ref{eq:add_prescription}. Also the patient and treatment must already exist.
 		\begin{multline} \label{eq:add_prescription}
-			Prescriptions_{dpt} = Prescriptions_{dpt} \cup Prescription_{dptr}\\ \text{ such that } d \in \{1,\dots, |DC|\}, p \in \{1,\dots, |Patients_{d}|\}, \\ t \in \{1,\dots, |Treatments_{dp}|\}, \\ r \not\in Prescription_{dpt}
+			Prescriptions_{dpt} = Prescriptions_{dpt} \cup Prescription_{dptr}\\ \text{ such that } d \in \{1,\dots, |DC|\}, p \in \{1,\dots, |Patients_{d}|\}, \\ t \in \{1,\dots, |Treatments_{dp}|\}, r \not\in Prescription_{dpt}
 		\end{multline}
 	\item {\bf Add Event}: when creating a new event $r$ for treatment $t$ of patient $p$ through \gls{dc} $d$ the new event will be part of the list of events for such treatment ($Events_{dpt}$) , as shown in Equation \ref{eq:add_event}. Also the patient and treatment must already exist.
 		\begin{multline} \label{eq:add_event}
-			Events_{dpt} = Events_{dpt} \cup Events_{dpte}\\ \text{ such that } d \in \{1,\dots, |DC|\}, p \in \{1,\dots, |Patients_{d}|\}, \\ t \in \{1,\dots, |Treatments_{dp}|\} e \not\in Events_{dpt}	
+			Events_{dpt} = Events_{dpt} \cup Events_{dpte} \text{ such that } d \in \{1,\dots, |DC|\}, p \in \{1,\dots, |Patients_{d}|\}, \\ t \in \{1,\dots, |Treatments_{dp}|\} e \not\in Events_{dpt}	
 		\end{multline}
 \end{itemize}
 
@@ -67,19 +68,19 @@ Given that prescriptions and events corresponds to things that have already happ
 The record for a patient is said to be out of sync if there is a discrepancy between the treatments for that patient as seen by different \glspl{dc} in the system:
 \begin{enumerate}
 	\item Different treatment(s) in either or both of the records seen by any two \glspl{dc} $d$ and $q$. Equation \ref{eq:diff_treatement} states that for a patient $p$ exists a treatment, $t$, in his/her record presented by \gls{dc} $d$ that does not exist in the record for the same person shown by \gls{dc} $q$.
-		\begin{multline} \label{eq:diff_treatement}
-			\exists ~ t \in {1,\dots, |Treatments_{dp}|}, \\ \text{  } Treatments_{dpt} \not\in Treatments_{qp}
-		\end{multline}
+		\begin{equation} \label{eq:diff_treatement}
+			\exists ~ t \in {1,\dots, |Treatments_{dp}|}, \text{  } Treatments_{dpt} \not\in Treatments_{qp}
+		\end{equation}
 	\item Differences within the same treatment for the same person are shown between any two \gls{dc} in the system:
 		\begin{enumerate}
 			\item Difference(s) between the prescriptions within a treatment $t$ for a patient $p$. Equation \ref{eq:diff_prescription} states that for a treatment $t$ of a patient $p$ exists a prescription, $r$, in his/her record presented by \gls{dc} $d$ that does not exist in the record for the same person shown by \gls{dc} $q$.
-				\begin{multline} \label{eq:diff_prescription}
-					\exists ~ r \in {1,\dots, |Prescriptions_{dp}|}, \\ \text{  } Prescriptions_{dptr} \not\in Prescriptions_{qpt}
-				\end{multline}
+				\begin{equation} \label{eq:diff_prescription}
+					\exists ~ r \in {1,\dots, |Prescriptions_{dp}|}, \text{  } Prescriptions_{dptr} \not\in Prescriptions_{qpt}
+				\end{equation}
 			\item Difference(s) between the events within a treatment $t$ for a patient $p$. Equation \ref{eq:diff_events} states that for a treatment $t$ of a patient $p$ exists an event, $e$, in his/her record presented by \gls{dc} $d$ that does not exist in the record for the same person shown by \gls{dc} $q$.
-				\begin{multline} \label{eq:diff_events}
-					\exists ~ e \in {1,\dots, |Events_{dp}|}, \\ \text{  } Events_{dpte} \not\in Events_{qpt}
-				\end{multline}
+				\begin{equation} \label{eq:diff_events}
+					\exists ~ e \in {1,\dots, |Events_{dp}|}, \text{  } Events_{dpte} \not\in Events_{qpt}
+				\end{equation}
 		\end{enumerate}
 \end{enumerate}
 

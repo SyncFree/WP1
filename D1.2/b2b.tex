@@ -2,8 +2,8 @@
 This application was built from the ground up for a large clothes manufacturer, who sells boxes of clothes to thousands of stores in 30+ markets. It replaces a manual process, where travelling salesmen visited the stores and presented physical clothing from their sample collections.
 
 The \gls{b2b} order application enables the clients, e.g. shop employees, to see a catalogue of upcoming clothes on a tablet device, and place orders on boxes for future delivery, shown in Table \ref{tab:b2b_constants_variables}. This functionality is made available for the same shops to shop staff as well as for shop managers, managers of chains of shops or managers of entire markets.
-\begin{table*}[!ht]
-	\begin{tabular}{|p{2.4cm}|p{13.2cm}|r| }
+\begin{table}[ht!]
+	\begin{tabular}{|p{1.8cm}|p{12cm}|r| }
 		\hline
 			\multicolumn{1}{|c|}{Name} & \multicolumn{1}{c|}{Description} & \multicolumn{1}{c|}{Type} \\
 		\hline
@@ -26,7 +26,7 @@ The \gls{b2b} order application enables the clients, e.g. shop employees, to see
 	
 	\caption{\gls{b2b} Constants and Variables.}
 	\label{tab:b2b_constants_variables}
-\end{table*}
+\end{table}
 
 {\bf Constraints} for this problem:\\
 It is not allowed to order more boxes for a particular clothe $c$ from a business $b$ between all the clients of that business than those available $Capacity_{dbl}$, but less may be ordered as expressed in Inequality \ref{inq:b2b_clothes_total}.

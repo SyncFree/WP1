@@ -16,10 +16,10 @@ A mathematical representation of this use case is represented below.
 	\item The tuple $W_{ci} = \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T_{c} \rangle$ defines the wallet of a client $c$ kept in \gls{dc} $i$. A wallet keeps the purchased currencies, consumed currencies, purchased set of vouchers, consumed set of vouchers and the list of (not yet archived) transaction logs $T_{c}$ of a client. $|T_{c}| <= MaxTSize$ since the transaction logs in a wallet should be archived when the cardinality of the transactions reaches to the max size.
 
 	\item The net balance of a client can be obtained by subtracting the consumed amounts of currencies from the balance of a client $c \in Clients$ in \gls{dc} $i$. Equation \ref{eq:balance_virtual_wallet} shows that the net amounts of all currencies should be non-negative.
-	\begin{multline}  \label{eq:balance_virtual_wallet}
-		\langle curr, n \rangle \in B'_{ci} = B_{ci} \ominus \widetilde{B}_{ci} \implies \\
+	\begin{equation}  \label{eq:balance_virtual_wallet}
+		\langle curr, n \rangle \in B'_{ci} = B_{ci} \ominus \widetilde{B}_{ci} \implies 
 		n \ge 0 ~ \forall ~  curr \in Curr, ~  c \in Clients,  ~  i \in \{1,\dots, |DC|\} 
-	\end{multline}
+	\end{equation}
 
 	\item The net set of vouchers of a client can be obtained by subtracting the consumed vouchers from the gained vouchers of a client $c \in Clients$ in \gls{dc} $i$, as shown in Equation \ref{eq:balance_virtual_wallet1}, where $\setminus$ is the standard multiset difference operator.
 	\begin{equation} \label{eq:balance_virtual_wallet1}
@@ -34,49 +34,52 @@ A mathematical representation of this use case is represented below.
 	\item An operation $o \in Ops$ maps a wallet $W_{ci}$ to its new contents $W'_{ci}$  $W_{ci} = \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T \rangle \overset{o}{\rightarrow} W'_{ci} = \langle B'_{ci}, \widetilde{B'}_{ci}, V'_{ci}, \widetilde{V'}_{ci}, T' \rangle$ as follows: 
 	
 	For purchase item operation that purchases voucher $v$:
-		
-	$o = \langle purchasedVouc, v, curr \rangle$ where $v=\langle id, cost, spec \rangle \in V, ~ curr \in Curr$:
+	\begin{center}
+		$o = \langle purchasedVouc, v, curr \rangle$ where $v=\langle id, cost, spec \rangle \in V, ~ curr \in Curr$:
+	\end{center}
 	
 	\textcolor{red}{Additional parameter curr (which currency to use for purchasing? Can we buy a voucher using Crystals?) Does "purchased vouc" reduces balance? }
 	
 	As shown in Equation \ref{eq:purchaseItem_virtual_wallet}, the new contents of the wallet has: (i) the same balance (ii) the cost of the voucher $v$ added to the consumed balance (iii) the purchased voucher added to the voucher set (iv) the same set of consumed vouchers and (v) the transaction logs $T'$ that appends that purchase operation to the previous logs.	
 	\begin{multline} \label{eq:purchaseItem_virtual_wallet}
-		 B_{ci}[curr] > cost \implies \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T \rangle ~ \overset{o}{\rightarrow} \\
+		 B_{ci}[curr] > cost \implies \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T \rangle ~ \overset{o}{\rightarrow} 
 	    ~ \langle B_{ci}, \widetilde{B}_{ci} \oplus \{cost, curr\}, V_{ci} \cup \{v\}, \widetilde{V}_{ci}, T' \rangle \\
 	    where ~ v = \langle id, \langle cost, curr \rangle, spec \rangle \in V.
 	\end{multline}
 	
 	For purchase virtual currency operation that purchases an $amount$ of $currency$:
-	
-	$o = \langle purchasedVCurr, amount, currency \rangle$ \\ 
-	where $amount \in \mathbb{Z}_{+}$ and $currency \in Curr$:
+	\begin{center}
+	$o = \langle purchasedVCurr, amount, currency \rangle$  where $amount \in \mathbb{Z}_{+}$ \text{and} $currency \in Curr$:
+	\end{center}
 	
 	As shown in Equation \ref{eq:purchaseCurr_virtual_wallet}, the new contents of the wallet has: (i) the balance increased by the purchased amount of currency (ii) the same amount of consumed balance (iii) the same set of vouchers (iv) the same set of consumed vouchers and (v) the transaction logs $T'$ that appends that purchase virtual currency operation to the previous logs.	
-	\begin{multline} \label{eq:purchaseCurr_virtual_wallet}
-	    \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T \rangle ~ \overset{o}{\rightarrow} \\
+	\begin{equation} \label{eq:purchaseCurr_virtual_wallet}
+	    \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T \rangle ~ \overset{o}{\rightarrow}
 	    ~ \langle B_{ci} \oplus \{amount, curr\}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T' \rangle
-	\end{multline}
+	\end{equation}
 	
 	For consume voucher operation that consumes $v$:
-	
-	$o = \langle consumedVouc, v \rangle$ where $v=\langle id, cost, spec \rangle  \in V$:
+	\begin{center}
+		$o = \langle consumedVouc, v \rangle$ where $v=\langle id, cost, spec \rangle  \in V$:
+	\end{center}
 	
 	As shown in Equation \ref{eq:consumeVouc_virtual_wallet}, the new contents of the wallet has: (i) the same balance (ii) the same amount of consumed balance (iii) the same set of vouchers (iv) the set consumed vouchers together with that recently consumed voucher $v$ and (v) the transaction logs $T'$ that appends that consume voucher operation to the previous logs.		
-	\begin{multline} \label{eq:consumeVouc_virtual_wallet}
+	\begin{equation} \label{eq:consumeVouc_virtual_wallet}
 		 v \in V_{ci} \implies 
-	    \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T \rangle ~ \overset{o}{\rightarrow} \\
+	    \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T \rangle ~ \overset{o}{\rightarrow} 
 	     ~ \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci} \cup \{v\}, T' \rangle 	
-	\end{multline}
+	\end{equation}
 	
 	For consume virtual currency operation that consumes $amount$ of $currency$:
-	
-	$o = \langle consumedVCurr, amount \rangle$ where $amount \in \mathbb{Z}_{+}$:
+	\begin{center}
+		$o = \langle consumedVCurr, amount \rangle$ where $amount \in \mathbb{Z}_{+}$:
+	\end{center}
 	
 	As shown in Equation \ref{eq:consumeVCurr_virtual_wallet}, the new contents of the wallet has: (i) the same balance (ii) the consumed balance increased by the consumed amount of currency (iii) the same set of vouchers (iv) the same set of consumed vouchers and (v) the transaction logs $T'$ that appends that consume virtual currency operation to the previous logs.
-	\begin{multline} \label{eq:consumeVCurr_virtual_wallet}
+	\begin{equation} \label{eq:consumeVCurr_virtual_wallet}
 	    \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T \rangle ~ \overset{o}{\rightarrow} \\
 	    ~ \langle B_{ci}, \widetilde{B}_{ci} \oplus \langle amount, curr \rangle, V_{ci}, \widetilde{V}_{ci}, T' \rangle 	
-	\end{multline}
+	\end{equation}
 	
 	In all these formulas, $T_{c}'=T_{c} \cup \{ \langle id, ts, type, args, o \rangle \}$, assuming the operation $o$ is the only operation performed in transaction $T_{c}$. The operations are applied in their order of appearance in the list of operations in the transaction.
 \end{enumerate}
