@@ -17,9 +17,12 @@
 \usepackage{TLA/sverb}
 %\usepackage{TLA/moreverb} % CTAN/macros/latex/contrib/supported/moreverb
 \usepackage[margin=1in]{geometry}
+\usepackage[toc]{glossaries}
 
 \input{../glossaries}
 \glsdisablehyper
+
+\makeglossaries
 
 
 \begin{document}
@@ -55,9 +58,16 @@
 %\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
 %	email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 %	(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{28th July 2014}
+\date{28$^{th}$ July 2014}
 
 \maketitle
+
+\tableofcontents
+
+\listoffigures
+\listoftables
+
+\newpage
 \input{abstract}
 
 % A category with the (minimum) three required fields
@@ -89,7 +99,8 @@
 \newpage
 \fi
 
-\addcontentsline{toc}{section}{References}
+\addcontentsline{toc}{section}{Preface}
+%\addcontentsline{toc}{section}{References}
 \newpage
 
 %
