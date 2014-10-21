@@ -72,7 +72,9 @@ In general terms any read operation in a \gls{dc} reinforces the need for a repl
 		\hline
 		$w_{kdi}$          & It represents the decay of the replication in the \gls{dc} $i$ consequence of the write request in \gls{dc} $d$. This value will depend of both \glspl{dc} $d$ and $i$ and may also depend on the time of the day or other useful information available at the time it is used. & $w_{kdi} \in \mathbb{R}^{+}$ \\
 		\hline
-		$T_{k}$             & It is the replication strength required to start the replication of data $k$ in a \gls{dc} which does not currently contain a replica of the data. & $T_{k} \in \mathbb{R}^{+}$ \\
+		$T^{+}_{k}$       & It is the replication strength required to start the replication of data $k$ in a \gls{dc} which does not currently contain a replica of the data. & $T^{-}_{k} \in \mathbb{R}^{+}$ \\
+		\hline
+		$T^{-}_{k}$       & It is the replication strength from where the replication of the data is removed $k$ in a \gls{dc} which contains currently a replica of the data, default $T^{-}_{k} = 0$. & $T^{-}_{k} \in \mathbb{R}^{+}$ \\
 		\hline
 		$\Gamma$      & It is the decay of the replication strength with time. A simple example corresponds to a constant decay ($\tau$) of the replication strength from the time the replica was created, $\Gamma = \Delta t * \tau$. & $\Gamma \in \mathbb{R}^{+}$ \\
 		\hline
@@ -115,18 +117,32 @@ $F_{kd}$ represents the full strength of the replication of the data $k$ in \gls
 
 Equation \ref{eq:replication_strength} shows that the replication strength for the data $k$ in \gls{dc} $d$ is strengthened by the reads and writes requested through \gls{dc} $d$, with intensities $\Delta r_{k}$ and $\Delta w_{k}$ respectively, and weakened  by the writes requested through other \glspl{dc} than \gls{dc} $d$, with intensity $\Delta w_{kdi}$, and it is furthermore weakened by a temporal decay on the replication strength (last term in the equation). Where Equation \ref{eq:replication_strength} states that only \glspl{dc} with a replica of the data, $D_{k}$, will be penalised by writes and time, which in practice it is achieved by not sending the write to those \glspl{dc} so it does not incurred in any extra cost when implementing it. Similarly $\Gamma$ will not be applied to \glspl{dc} without replicas of the data with the exceptions of those candidate \glspl{dc} where the data may later be replicated. Reads may increase the number of replicas where writes may strengthen the replication in a \gls{dc} but may also potentially remove a replica from one of the other \glspl{dc}, effect that it is strengthen by the temporal decay of the replication strength.
 
-$T_{k}$ is the threshold of the replication strength of data $k$ which determine when to keep an existing replica in a \gls{dc}, as expressed in Equation \ref{eq:replicas_threshold}.
-\begin{equation} \label{eq:replicas_threshold}
-	\exists D_{kd} \text{, } t_{0} \text{ } (D_{kd} \in DC_{d}) \text{ if } F_{kd} \le T_{k} \text{ } \text{ and } \nexists D_{kd} \text{, } t < t_{0}  \text{ and } F_{kd} > T_{k} \text{, } t_{0}
+$T^{+}_{k}$ is the threshold of the replication strength of data $k$ which determines when to keep an existing replica in a \gls{dc}, as expressed in Equation \ref{eq:replicas_threshold+}.
+\begin{equation} \label{eq:replicas_threshold+}
+	\exists D_{kd} \text{, } t_{0} \text{ } (D_{kd} \in DC_{d}) \text{ if } F_{kd} \le T^{+}_{k} \text{ } \text{ and } \nexists D_{kd} \text{, } t < t_{0}  \text{ and } F_{kd} > T^{+}_{k} \text{ at } t_{0}
 \end{equation}
 
-The Equations \ref{eq:no_replica} and \ref{eq:no_replica1} show the cases where a data $k$ is not replicated in a \gls{dc} $d$.  A replica in a \gls{dc}, with no replication strength, will only be destroyed if the number of replicas is bigger than a minimum, $M_{k}$, also for a \gls{dc} which does not have a replica of the data the replication strength must be higher than a pre-set threshold $T_{k}$ to create a new replica, as represented in Equation \ref{eq:replicas_threshold}.
+$T^{-}_{k}$ is the threshold of the replication strength of data $k$ which determines when to remove an existing replica in a \gls{dc} when the other constrains are still kept. i.e. minimum number of replicas, as expressed in Equation \ref{eq:replicas_threshold--}. Also a simple view of the thresholds is shown in Figure \ref{fig:lim_constriants}.
+\begin{equation} \label{eq:replicas_threshold--}
+\nexists D_{kd} \text{, } t_{0} \text{ } (D_{kd} \in DC_{d}) \text{ if } F_{kd} > T^{-}_{k} \text{ } \text{ and } \exists D_{kd} \text{, } t < t_{0}  \text{ and } F_{kd} \le T^{-}_{k} \text{ at } t_{0}
+\end{equation}
+\begin{center}
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[width=.6\textwidth]{figures/strengthReplica.png}
+	
+		\caption{Limit constraints.}
+		\label{fig:lim_constriants}
+	\end{figure}
+\end{center}
+
+The Equations \ref{eq:no_replica} and \ref{eq:no_replica1} show the cases where a data $k$ is not replicated in a \gls{dc} $d$.  A replica in a \gls{dc}, with no replication strength, will only be destroyed if the number of replicas is bigger than a minimum, $M_{k}$, also for a \gls{dc} which does not have a replica of the data the replication strength must be higher than a pre-set threshold $T^{+}_{k}$ to create a new replica, as represented in Equation \ref{eq:replicas_threshold}.
 \begin{equation} \label{eq:no_replica}
 \nexists D_{kd} \text{, } t > t_{0} \text{ if } \exists D_{kd} \text{ for } t < t_{0} \text{ and } F_{kd} \le 0 \text{, } R_{k} > M_{k} \text{, } t_{0}
 \end{equation}
 
 \begin{equation} \label{eq:no_replica1}
-	\nexists D_{kd} \text{, } t_{0} \text{ if } \nexists D_{kd} \text{, } t' \le t_{0} \text{ and } F_{kd} \le T_{k} \text{, }  t_{0}
+	\nexists D_{kd} \text{, } t_{0} \text{ if } \nexists D_{kd} \text{, } t' \le t_{0} \text{ and } F_{kd} \le T^{+}_{k} \text{, }  t_{0}
 \end{equation}
 
 Each \gls{dc} with a replica of the data must know about the other \glspl{dc} that have replicas of the same data in order to manage the replication of such data.
@@ -137,7 +153,7 @@ For the time being, it is considered the case where $w_{kdi}$ increases with the
 
 The effect of $\Gamma$ is required to ensure that in absence of writes some replications will still vanish and if the reads are concentrated in a few \glspl{dc} then the replicas in other \glspl{dc} will be eventually removed. There is an extra requirement in the case that the data only exists in a \gls{dc}, in which case, the temporal effect should be ignored, so the data exists at least in one \gls{dc}.
 
-A read request to a \gls{dc}, which does not have a replica of the data, will be forwarded to the closest \gls{dc} with a replica. The \gls{dc} with a replica will not gain strength from this read operation as the read was not initiated directly from itself. This \gls{dc} will then have a knowledge of the data but not a replica, so this knowledge will be used in subsequent reads/writes to the \gls{dc} which eventually may keep a replica. Once the replication strength is higher than the threshold ($T_{k}$), this \gls{dc} will notify all the \glspl{dc} with a replica of the existence of the new \gls{dc} with a replica.
+A read request to a \gls{dc}, which does not have a replica of the data, will be forwarded to the closest \gls{dc} with a replica. The \gls{dc} with a replica will not gain strength from this read operation as the read was not initiated directly from itself. This \gls{dc} will then have a knowledge of the data but not a replica, so this knowledge will be used in subsequent reads/writes to the \gls{dc} which eventually may keep a replica. Once the replication strength is higher than the threshold ($T^{+}_{k}$), this \gls{dc} will notify all the \glspl{dc} with a replica of the existence of the new \gls{dc} with a replica.
 
 It may also be required to use another temporal effect the \gls{ttl} to make sure that eventually the data will be fully removed. This value may not be applied to data stored in recovery centres and data warehouses which may have their own \gls{ttl}. Also it would be desirable for data that expires to be copied into those data centres before it is removed from all the \glspl{dc}.
 
@@ -168,8 +184,8 @@ The read sequence diagrams for this algorithm are shown in Table \ref{tb:read_se
 	\begin{center}
 		\begin{tabular}{c}
 			\includegraphics[width=.94\textwidth]{figures/firstWriteWithoutReplica.png} \\
-			\includegraphics[width=.97\textwidth]{figures/writeWithoutReplica.png} \\
-			\includegraphics[width=.97\textwidth]{figures/writeWithReplica.png}
+			\includegraphics[width=.96\textwidth]{figures/writeWithoutReplica.png} \\
+			\includegraphics[width=.96\textwidth]{figures/writeWithReplica.png}
 		\end{tabular}
 		
 		\caption{Write Sequence Diagrams.}
