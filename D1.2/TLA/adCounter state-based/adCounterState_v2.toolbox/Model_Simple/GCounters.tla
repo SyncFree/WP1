@@ -1,7 +1,6 @@
 ------------------------------ MODULE GCounters ------------------------------
 LOCAL INSTANCE Naturals
 
-\* GCounter(Replicas) == UNION {[Replicas -> Nat]} 
 GCounter(Replicas) == UNION {[Replicas -> Nat]}
 
 GCounterInit(Replicas) == [r \in Replicas |-> 0]
@@ -22,5 +21,5 @@ GCounterValue(gc) ==
 
 =============================================================================
 \* Modification History
-\* Last modified Mon Sep 22 12:49:26 WEST 2014 by carlaferreira
+\* Last modified Mon Sep 22 12:50:20 WEST 2014 by carlaferreira
 \* Created Wed Sep 10 16:17:51 CEST 2014 by carlaferreira

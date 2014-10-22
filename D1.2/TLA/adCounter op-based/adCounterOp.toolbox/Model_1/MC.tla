@@ -1,5 +1,5 @@
 ---- MODULE MC ----
-EXTENDS adCounterState_v0, TLC
+EXTENDS adCounterOp, TLC
 
 \* MV CONSTANT declarations@modelParameterConstants
 CONSTANTS
@@ -11,54 +11,44 @@ CONSTANTS
 g1, g2
 ----
 
-\* MV CONSTANT declarations@modelParameterConstants
-CONSTANTS
-ad1
-----
-
 \* MV CONSTANT definitions DC
-const_141103592770292000 == 
+const_1413903523031258000 == 
 {dc1, dc2}
 ----
 
 \* MV CONSTANT definitions DV
-const_141103592771393000 == 
+const_1413903523042259000 == 
 {g1, g2}
 ----
 
-\* MV CONSTANT definitions AD
-const_141103592772494000 == 
-{ad1}
-----
-
 \* CONSTANT definitions @modelParameterConstants:0deviceAssignment
-const_141103592773495000 == 
+const_1413903523053260000 == 
 [[gg \in DV |-> dc1] EXCEPT ![g2] = dc2]
 ----
 
 \* CONSTANT definitions @modelParameterConstants:1maxTotalViewsPerDC
-const_141103592774596000 == 
-[d \in DC |-> [a \in AD |-> 1]]
+const_1413903523064261000 == 
+[[dc \in DC |-> 1] EXCEPT ![dc2] = 1]
 ----
 
 \* CONSTANT definitions @modelParameterConstants:4maxTotalViews
-const_141103592775697000 == 
-[a \in AD |-> 2]
+const_1413903523075262000 == 
+2
 ----
 
 \* CONSTANT definitions @modelParameterConstants:5maxTotalViewsPerDevice
-const_141103592776898000 == 
-[a \in AD |-> [g \in DV |-> 2]]
+const_1413903523086263000 == 
+[gg \in DV |-> 1]
 ----
 
 \* CONSTANT definition @modelParameterDefinitions:0
-def_ov_141103592777999000 ==
+def_ov_1413903523098264000 ==
 0..2
 ----
 \* SPECIFICATION definition @modelBehaviorSpec:0
-spec_1411035927789100000 ==
+spec_1413903523109265000 ==
 Spec
 ----
 =============================================================================
 \* Modification History
-\* Created Thu Sep 18 11:25:27 WEST 2014 by carlaferreira
+\* Created Tue Oct 21 15:58:43 WEST 2014 by carlaferreira
