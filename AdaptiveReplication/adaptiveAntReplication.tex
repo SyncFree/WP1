@@ -17,6 +17,8 @@
 %\usepackage{glossaries}
 %\usepackage[xindy]{glossaries}
 
+\usepackage{rotating}
+
 %\makeglossaries
 
 \input{../glossaries}
@@ -78,11 +80,11 @@ In general terms any read operation in a \gls{dc} reinforces the need for a repl
 		\hline
 		$\Gamma$      & It is the decay of the replication strength with time. A simple example corresponds to a constant decay ($\tau$) of the replication strength from the time the replica was created, $\Gamma = \Delta t * \tau$. & $\Gamma \in \mathbb{R}^{+}$ \\
 		\hline
-		$R_{k}$            & It is the number of replicas for data $k$, $D_{k}$. & $R_{k} \in \mathbb{N}_{0}$ \\
+		$M_{k}$           & Minimum number of replicas of data k with $1 \le M_{k} \le |DC|$, default $M_{k} = 1$. & $M_{k} \in \mathbb{N}^{+}$ \\
 		\hline
-		$M_{k}$           & Minimum number of replicas of data k, default $M_{k} = 1$. & $M_{k} \in \mathbb{N}_{0}$ \\
+		$R_{k}$            & It is the number of replicas for data $k$, $D_{k}$, with $1 \le M_{k} \le R_{k} \le |DC|$. & $R_{k} \in \mathbb{N}^{+}$ \\
 		\hline
-		$F_{k}$            & The replication strength for data $k$, $F_{k} \le L_{k}$. & $F_{k} \in \mathbb{R}^{+}$ \\
+		$F_{k}$            & The replication strength for data $k$. & $F_{k} \in \mathbb{R}^{0}$ \\
 		\hline
 		$L_{k}$            & The maximum replication strength for data $k$, $F_{k} \le L_{k}$. & $L_{k} \in \mathbb{R}^{+}$ \\
 		\hline
@@ -136,13 +138,13 @@ $T^{-}_{k}$ is the threshold of the replication strength of data $k$ which deter
 	\end{figure}
 \end{center}
 
-The Equations \ref{eq:no_replica} and \ref{eq:no_replica1} show the cases where a data $k$ is not replicated in a \gls{dc} $d$.  A replica in a \gls{dc}, with no replication strength, will only be destroyed if the number of replicas is bigger than a minimum, $M_{k}$, also for a \gls{dc} which does not have a replica of the data the replication strength must be higher than a pre-set threshold $T^{+}_{k}$ to create a new replica, as represented in Equation \ref{eq:replicas_threshold}.
+The Equations \ref{eq:no_replica} and \ref{eq:replicas_threshold} show the cases where a data $k$ is not replicated in a \gls{dc} $d$.  A replica in a \gls{dc}, with a replication strength not bigger than the reduction replication strength ,$T^{-}_{k}$, will only be destroyed if the number of replicas is bigger than a minimum, $M_{k}$, as represented in Equation \ref{eq:no_replica}. Also for a \gls{dc} which does not have a replica of the data the replication strength must be higher than a pre-set threshold $T^{+}_{k}$ to create a new replica, as represented in Equation \ref{eq:replicas_threshold}.
 \begin{equation} \label{eq:no_replica}
-\nexists D_{kd} \text{, } t > t_{0} \text{ if } \exists D_{kd} \text{ for } t < t_{0} \text{ and } F_{kd} \le 0 \text{, } R_{k} > M_{k} \text{, } t_{0}
+\nexists D_{kd} \text{ at } t_{0} \text{ with } F_{kd} \le T^{-}_{k} \text{ if } \exists D_{kd} \text{ for } t < t_{0} \text{ with } R_{k} > M_{k} \text{ and } F_{kd} > T^{-}_{k}
 \end{equation}
 
-\begin{equation} \label{eq:no_replica1}
-	\nexists D_{kd} \text{, } t_{0} \text{ if } \nexists D_{kd} \text{, } t' \le t_{0} \text{ and } F_{kd} \le T^{+}_{k} \text{, }  t_{0}
+\begin{equation} \label{eq:replicas_threshold}
+	\nexists D_{kd} \text{ at } t_{0} \text{ with } F_{kd} \le T^{+}_{k} \text{ if } \nexists D_{kd} \text{ at } t < t_{0} \text{ with } F_{kd} \le T^{+}_{k}
 \end{equation}
 
 Each \gls{dc} with a replica of the data must know about the other \glspl{dc} that have replicas of the same data in order to manage the replication of such data.
@@ -204,6 +206,62 @@ The read sequence diagrams for this algorithm are shown in Table \ref{tb:read_se
 Given that the number of read is expected to be higher than the number of writes, and normally a read will be executed before a write, it may make sense for $\Delta w_{k}$ to be smaller than $\Delta r_{k}$ ($\Delta w_{k} < \Delta r_{k}$) so that more writes would be required to maintain or create a replica in a \gls{dc} than when using reads.
 
 Some of the parameters may be generalised even further by allowing them to depend on the \gls{dc} the calculation executed in, e.g. $\Delta r_{kd}$ instead of $\Delta r_{k}$ and $\Delta w_{kd}$ instead of $\Delta w_{k}$. Even the terms $r_{k} * \Delta r_{k}$ and $w_{k} * \Delta w_{k}$ could be generalise to consider other factors like bandwidth use and current storage capacity available in the \gls{dc}, or new terms could be added to take account of those new factors.
+
+
+\section{Some Comparisons (draft)}
+Here the following implementations are compared:
+\begin{itemize}
+	\item Only one fixed replica, so no replication as such.
+	
+	\item Proposed algorithm, adaptive location of replicas.
+
+	\item Full replication, so a replica in all \glspl{dc}.
+\end{itemize}
+
+In the proposed algorithm, second implementation, by changing the minimum number of replicas we moved from the first case to the last one.
+
+Table \ref{tb:implementations_sds} shows the operations for each sequence diagram for the implementations considered.
+\begin{sidewaystable}[h]
+	\centering
+	\begin{tabular}{|l||l|l|l|}
+		% Header
+		\hline
+		{\bf Sequence} & {\bf One fixed replica} &  {\bf Algorithm} & {\bf Full replica} \\
+		\hline
+
+		% Values
+		\hline
+		First read without replica   & 2 * reads + ($|DC|$ - 1) * discoveries 
+								                  & 2 * reads + ($|DC|$ - 1) * discoveries 
+								                  & 1 * read \\
+		\hline
+		Read without replica          & 2 * reads + ($|DC|$ - 1) * discoveries
+									              & 2 * reads 
+				                                  & 1 * read \\
+		\hline
+		Read with replica               & 1 * reads 
+												  & 1 * reads 
+												  & 1 * reads \\
+		\hline
+
+		\hline
+		First write without replica   & 2 * writes + (N - 1) * discoveries
+												   & ($R_{k}$ + 1) * writes + (N - 1) * discoveries
+												   & $N$ * writes \\
+		\hline
+		Write without replica           & 2 * writes + (N - 1) * discoveries
+												   &  ($R_{k}$ + 1) * writes
+												   & $N$ * writes \\
+		\hline
+		Write with replica                & 1 * write
+												   & $R_{k}$ * writes
+												   & $N$ * writes \\
+		\hline
+	\end{tabular}
+
+	\caption{Required operations by the different implementation for the specified sequences, $1 \le M_{k} \le R_{k} \le |DC|$.}
+	\label{tb:implementations_sds}
+\end{sidewaystable}
 
 \section{Summary}
 This algorithm implies:
