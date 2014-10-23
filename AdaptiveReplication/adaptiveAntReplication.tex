@@ -17,6 +17,7 @@
 %\usepackage{glossaries}
 %\usepackage[xindy]{glossaries}
 
+\usepackage{multirow}
 \usepackage{rotating}
 
 %\makeglossaries
@@ -221,45 +222,50 @@ Here the following implementations are compared:
 In the proposed algorithm, second implementation, by changing the minimum number of replicas we moved from the first case to the last one.
 
 Table \ref{tb:implementations_sds} shows the operations for each sequence diagram for the implementations considered.
-\begin{sidewaystable}[h]
+\begin{sidewaystable}[ht!]
 	\centering
 	\begin{tabular}{|l||l|l|l|}
 		% Header
 		\hline
 		{\bf Sequence} & {\bf One fixed replica} &  {\bf Algorithm} & {\bf Full replica} \\
 		\hline
+		\hline
+		Storage                              & $1$ $ * $ data
+												  & $R_{k}$ $ * ($data $ + $ info$)$ $ + \Delta$info
+												  & $|DC|$ $ * $ data \\
+		\hline
 
 		% Values
 		\hline
-		First read without replica   & 2 * reads + ($|DC|$ - 1) * discoveries 
-								                  & 2 * reads + ($|DC|$ - 1) * discoveries 
-								                  & 1 * read \\
-		\hline
-		Read without replica          & 2 * reads + ($|DC|$ - 1) * discoveries
-									              & 2 * reads 
-				                                  & 1 * read \\
-		\hline
-		Read with replica               & 1 * reads 
-												  & 1 * reads 
-												  & 1 * reads \\
+		First read without replica   & $2$ $ * $ reads $ + $ $(|DC| - 1)$ $ * $ discoveries 
+								                  & $2$ $ * $ reads $ + $ $(|DC| - 1)$ $ * $ discoveries 
+								                  & \multirow{3}{*}{$1$ $ * $ reads} \\
+	    \cline{1-3}
+		Read without replica          & $2$ $ * $ reads $ + $ $(|DC| - 1)$ $ * $ discoveries
+									              & $2$ $ * $ reads 
+				                                  & \\
+		\cline{1-3}
+		Read with replica               & $1$ $ * $ reads 
+												  & $1$ $ * $ reads 
+												  & \\
 		\hline
 
 		\hline
-		First write without replica   & 2 * writes + (N - 1) * discoveries
-												   & ($R_{k}$ + 1) * writes + (N - 1) * discoveries
-												   & $N$ * writes \\
-		\hline
-		Write without replica           & 2 * writes + (N - 1) * discoveries
-												   &  ($R_{k}$ + 1) * writes
-												   & $N$ * writes \\
-		\hline
-		Write with replica                & 1 * write
-												   & $R_{k}$ * writes
-												   & $N$ * writes \\
+		First write without replica   & $2$ $ * $ writes $ + $ $(N - 1)$ $ * $ discoveries
+												   & ($R_{k} + 1)$ $ * $ writes $ + $ $(N - 1)$ $ * $ discoveries
+												   & \multirow{3}{*}{$|DC|$ $ * $ writes} \\
+		\cline{1-3}
+		Write without replica           & $2$ $ * $ writes $ + $ $(N - 1)$ $ * $ discoveries
+												   &  ($R_{k} + 1)$ $ * $ writes
+												   & \\
+		\cline{1-3}
+		Write with replica                & $1$ $ * $ write
+												   & $R_{k}$ $ * $ writes
+												   & \\
 		\hline
 	\end{tabular}
 
-	\caption{Required operations by the different implementation for the specified sequences, $1 \le M_{k} \le R_{k} \le |DC|$.}
+	\caption{Required operations by the different implementations for the specified sequences, $1 \le M_{k} \le R_{k} \le |DC|$.}
 	\label{tb:implementations_sds}
 \end{sidewaystable}
 
