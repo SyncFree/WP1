@@ -209,6 +209,27 @@ Autonomous Mobile Computing},
   Url                      = {http://minema.cs.uni-magdeburg.de/downloads/folien/minema07-proceedings.pdf}
 }
 
+@InProceedings{Bonvin2010a,
+  Title                    = {A Self-organized, Fault-tolerant and Scalable Replication Scheme for Cloud Storage},
+  Author                   = {Bonvin, Nicolas and Papaioannou, Thanasis G. and Aberer, Karl},
+  Booktitle                = {Proceedings of the 1st ACM Symposium on Cloud Computing},
+  Year                     = {2010},
+
+  Address                  = {New York, NY, USA},
+  Pages                    = {205--216},
+  Publisher                = {ACM},
+  Series                   = {SoCC '10},
+
+  Abstract                 = {Failures of any type are common in current datacenters, partly due to the higher scales of the data stored. As data scales up, its availability becomes more complex, while different availability levels per application or per data item may be required. In this paper, we propose a self-managed key-value store that dynamically allocates the resources of a data cloud to several applications in a cost-efficient and fair way. Our approach offers and dynamically maintains multiple differentiated availability guarantees to each different application despite failures. We employ a virtual economy, where each data partition (i.e. a key range in a consistent-hashing space) acts as an individual optimizer and chooses whether to migrate, replicate or remove itself based on net benefit maximization regarding the utility offered by the partition and its storage and maintenance cost. As proved by a game-theoretical model, no migrations or replications occur in the system at equilibrium, which is soon reached when the query load and the used storage are stable. Moreover, by means of extensive simulation experiments, we have proved that our approach dynamically finds the optimal resource allocation that balances the query processing overhead and satisfies the availability objectives in a cost-efficient way for different query rates and storage requirements. Finally, we have implemented a fully working prototype of our approach that clearly demonstrates its applicability in real settings.},
+  Acmid                    = {1807162},
+  Doi                      = {10.1145/1807128.1807162},
+  ISBN                     = {978-1-4503-0036-0},
+  Keywords                 = {decentralized optimization, equilibrium, net benefit maximization, rational strategies},
+  Location                 = {Indianapolis, Indiana, USA},
+  Numpages                 = {12},
+  Url                      = {http://infoscience.epfl.ch/record/146774/files/socc048-bonvin.pdf}
+}
+
 @Article{Bouajjani2014a,
   Title                    = {Verifying Eventual Consistency of Optimistic Replication Systems},
   Author                   = {Bouajjani, Ahmed and Enea, Constantin and Hamza, Jad},
@@ -503,6 +524,23 @@ But CPRDTs (Conflict-free Partially Replicated Data Types) have a negative impac
   Url                      = {http://www.cloudbus.org/papers/DataReplicationInDSChapter2006.pdf}
 }
 
+@InCollection{Guerraoui1996a,
+  Title                    = {Fault-tolerance by replication in distributed systems},
+  Author                   = {Guerraoui, Rachid and Schiper, André},
+  Booktitle                = {Reliable Software Technologies -- Ada Europe 96},
+  Publisher                = {Springer Berlin Heidelberg},
+  Year                     = {1996},
+  Editor                   = {Strohmeier, Alfred},
+  Pages                    = {38--57},
+  Series                   = {Lecture Notes in Computer Science},
+  Volume                   = {1088},
+
+  Doi                      = {10.1007/BFb0013477},
+  ISBN                     = {978-3-540-61317-6},
+  Language                 = {English},
+  Url                      = {http://dx.doi.org/10.1007/BFb0013477}
+}
+
 @Article{app:syn:optim:1487,
   Title                    = {Pushing log-based reconciliation},
   Author                   = {Youssef Hamadi and Marc Shapiro},
@@ -585,6 +623,63 @@ We compare the performances of priority based adaptive data replication strategy
   Url                      = {http://www.sersc.org/journals/IJMUE/vol9_no6_2014/13.pdf}
 }
 
+@Article{Jimenez-Peris2003a,
+  Title                    = {Are Quorums an Alternative for Data Replication?},
+  Author                   = {Jim{\'e}nez-Peris, Ricardo and Pati\~{n}o-Mart\'{\i}nez, M. and Alonso, Gustavo and Kemme, Bettina},
+  Journal                  = {ACM Trans. Database Syst.},
+  Year                     = {2003},
+
+  Month                    = sep,
+  Number                   = {3},
+  Pages                    = {257--294},
+  Volume                   = {28},
+
+  Abstract                 = {Data replication is playing an increasingly important role in the design of parallel information systems. In particular, the widespread use of cluster architectures often requires to replicate data for performance and availability reasons. However, maintaining the consistency of the different replicas is known to cause severe scalability problems. To address this limitation, quorums are often suggested as a way to reduce the overall overhead of replication. In this article, we analyze several quorum types in order to better understand their behavior in practice. The results obtained challenge many of the assumptions behind quorum based replication. Our evaluation indicates that the conventional read-one/write-all-available approach is the best choice for a large range of applications requiring data replication. We believe this is an important result for anybody developing code for computing clusters as the read-one/write-all-available strategy is much simpler to implement and more flexible than quorum-based approaches. In this article, we show that, in addition, it is also the best choice using a number of other selection criteria.},
+  Acmid                    = {937601},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1145/937598.937601},
+  ISSN                     = {0362-5915},
+  Issue_date               = {September 2003},
+  Keywords                 = {Data replication, availability, distributed transactions., quorums, scalability},
+  Numpages                 = {38},
+  Publisher                = {ACM},
+  Url                      = {http://www.google.co.uk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0CDAQFjAB&url=http%3A%2F%2Flsd.ls.fi.upm.es%2Flsd%2Fpapers%2F2003%2Ftods03.pdf&ei=vhpJVIzMFZLW7QazkYCABA&usg=AFQjCNF4wh14cH9D6JaIF1pZYIsHamzkpg&sig2=L9SkhdrOKGKsYFnEd42Xkg}
+}
+
+@InProceedings{Jimenez-Peris2001a,
+  Title                    = {How to select a replication protocol according to scalability, availability and communication overhead},
+  Author                   = {Jimenez-Peris, R. and Patino-Martinez, M. and Alonso, G. and Kernme, B.},
+  Booktitle                = {Reliable Distributed Systems, 2001. Proceedings. 20th IEEE Symposium on},
+  Year                     = {2001},
+  Pages                    = {24-33},
+
+  Abstract                 = {Data replication is playing an increasingly important role in the design of parallel information systems. In particular, the widespread use of cluster architectures in high-performance computing has created many opportunities for applying data replication techniques in new areas. For instance, as part of work related to cluster computing in bioinformatics, we have been confronted with the problem of having to choose an optimal replication strategy in terms of scalability, availability and communication overhead. Thus, we have evaluated several representative replication protocols in order to better understand their behavior in practice. The results obtained are surprising in that they challenge many of the assumptions behind existing protocols. Our evaluation indicates that the conventional read-one/write-all approach is the best choice for a large range of applications requiring data replication. We believe this is an important result for anybody developing code for computing clusters as the read-one/write-all strategy is much simpler to implement and more flexible than quorum-based approaches. In this paper we show that, in addition, it is also the best choice using a number of other selection criteria},
+  Doi                      = {10.1109/RELDIS.2001.969732},
+  ISSN                     = {1060-9857},
+  Keywords                 = {memory protocols;parallel databases;replicated databases;transaction processing;workstation clusters;availability;bioinformatics;cluster architectures;cluster computing;communication overhead;data replication protocol selection;high-performance computing;optimal replication strategy;parallel information systems;quorum-based approaches;read-one/write-all approach;scalability;transactions;Availability;Bioinformatics;Computer architecture;Computer science;Concurrent computing;Databases;Distributed information systems;Information systems;Protocols;Scalability},
+  Url                      = {http://www.cs.mcgill.ca/~kemme/papers/srds01.pdf}
+}
+
+@Article{Kemme2010a,
+  Title                    = {Database Replication: A Tale of Research Across Communities},
+  Author                   = {Kemme, Bettina and Alonso, Gustavo},
+  Journal                  = {Proc. VLDB Endow.},
+  Year                     = {2010},
+
+  Month                    = sep,
+  Number                   = {1-2},
+  Pages                    = {5--12},
+  Volume                   = {3},
+
+  Acmid                    = {1920847},
+  Doi                      = {10.14778/1920841.1920847},
+  ISSN                     = {2150-8097},
+  Issue_date               = {September 2010},
+  Numpages                 = {8},
+  Publisher                = {VLDB Endowment},
+  Url                      = {http://dx.doi.org/10.14778/1920841.1920847}
+}
+
 @Article{KingsyGrace2013a,
   Title                    = {Dynamic Replica Placement and Selection Strategies in Data Grids- A Comprehensive Survey},
   Author                   = {Kingsy Grace, R. and Manimegalai, R.},
@@ -624,6 +719,28 @@ We compare the performances of priority based adaptive data replication strategy
   Comment                  = {INT LIP6 REGAL},
   Keywords                 = {rep},
   Url                      = {http://doi.acm.org/10.1145/1073814.1073845}
+}
+
+@Article{Ladin1992a,
+  Title                    = {Providing High Availability Using Lazy Replication},
+  Author                   = {Ladin, Rivka and Liskov, Barbara and Shrira, Liuba and Ghemawat, Sanjay},
+  Journal                  = {ACM Trans. Comput. Syst.},
+  Year                     = {1992},
+
+  Month                    = nov,
+  Number                   = {4},
+  Pages                    = {360--391},
+  Volume                   = {10},
+
+  Acmid                    = {138877},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1145/138873.138877},
+  ISSN                     = {0734-2071},
+  Issue_date               = {Nov. 1992},
+  Keywords                 = {client/server architecture, fault tolerance, group communication, high availability, operation ordering, replication, scalability, semantics of application},
+  Numpages                 = {32},
+  Publisher                = {ACM},
+  Url                      = {http://doi.acm.org/10.1145/138873.138877}
 }
 
 @Article{lloyd2014dont,
@@ -759,6 +876,19 @@ Also the rapid changes in the load of system do not help either.},
   Publisher                = {IEEE Computer Society}
 }
 
+@InBook{Neumann1956a,
+  Title                    = {Automata Studies},
+  Author                   = {von Neumann, J.},
+  Chapter                  = {Probabilistic Logics and Synthesis of Reliable Organisms from Unreliable Components},
+  Editor                   = {C. Shannon and J. McCarthy},
+  Pages                    = {43--98},
+  Publisher                = {Princeton University Press},
+  Year                     = {1956},
+
+  Owner                    = {aas},
+  Timestamp                = {2014.10.23}
+}
+
 @InProceedings{Preguica2009a,
   Title                    = {A Commutative Replicated Data Type for Cooperative Editing},
   Author                   = {Preguica, Nuno and Marques, Joan Manuel and Shapiro, Marc and Letia, Mihai},
@@ -846,6 +976,20 @@ Also the rapid changes in the load of system do not help either.},
   Keywords                 = {optim,rep,syn},
   Local-url                = {./papers/Optimistic_Replication_Computing_Surveys_2005-03_cameraready.pdf},
   Url                      = {http://lip6.fr/Marc.Shapiro/papers/Optimistic_Replication_Computing_Surveys_2005-03_cameraready.pdf}
+}
+
+@InProceedings{Serrano2007a,
+  Title                    = {Boosting Database Replication Scalability through Partial Replication and 1-Copy-Snapshot-Isolation},
+  Author                   = {Serrano, D. and Patino-Martinez, M. and Jimenez-Peris, R. and Kemme, B.},
+  Booktitle                = {Dependable Computing, 2007. PRDC 2007. 13th Pacific Rim International Symposium on},
+  Year                     = {2007},
+  Month                    = {Dec},
+  Pages                    = {290-297},
+
+  Abstract                 = {Databases have become a crucial component in modern information systems. At the same time, they have become the main bottleneck in most systems. Database replication protocols have been proposed to solve the scalability problem by scaling out in a cluster of sites. Current techniques have attained some degree of scalability, however there are two main limitations to existing approaches. Firstly, most solutions adopt a full replication model where all sites store a full copy of the database. The coordination overhead imposed by keeping all replicas consistent allows such approaches to achieve only medium scalability. Secondly, most replication protocols rely on the traditional consistency criterion, 1-copy-serializability, which limits concurrency, and thus scalability of the system. In this paper, we first analyze analytically the performance gains that can be achieved by various partial replication configurations, i.e., configurations where not all sites store all data. From there, we derive a partial replication protocol that provides 1-copy-snapshot isolation as correctness criterion. We have evaluated the protocol with TPC-W and the results show better scalability than full replication.},
+  Doi                      = {10.1109/PRDC.2007.39},
+  Keywords                 = {protocols;replicated databases;1-copy-snapshot-isolation;database replication scalability;information systems;partial replication protocol;Analytical models;Boosting;CADCAM;Computer aided manufacturing;Concurrent computing;Information systems;Performance analysis;Protocols;Scalability;Transaction databases},
+  Url                      = {http://www.researchgate.net/publication/200023090_Boosting_Database_Replication_Scalability_through_Partial_Replication_and_1-Copy-Snapshot-Isolation/links/0deec520a3cdf6504e000000}
 }
 
 @InCollection{Shapiro2009a,
