@@ -1,0 +1,16 @@
+\BOOKMARK [1][-]{section.1}{System Requirements}{}% 1
+\BOOKMARK [1][-]{section.2}{The FMK system}{}% 2
+\BOOKMARK [1][-]{section.3}{Infrastructure}{}% 3
+\BOOKMARK [1][-]{section.4}{Consistency Control}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Partitioning}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Eventual Consistency}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Offline mode}{section.4}% 7
+\BOOKMARK [1][-]{section.5}{Conflit-free Replicated Data Types}{}% 8
+\BOOKMARK [2][-]{subsection.5.1}{Merging}{section.5}% 9
+\BOOKMARK [2][-]{subsection.5.2}{Invariants}{section.5}% 10
+\BOOKMARK [1][-]{section.6}{Improvements}{}% 11
+\BOOKMARK [2][-]{subsection.6.1}{Divergence visibility}{section.6}% 12
+\BOOKMARK [2][-]{subsection.6.2}{Divergence guarantees}{section.6}% 13
+\BOOKMARK [2][-]{subsection.6.3}{Pseudo-Transactions}{section.6}% 14
+\BOOKMARK [2][-]{subsection.6.4}{Acting on Conflicts}{section.6}% 15
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 16
