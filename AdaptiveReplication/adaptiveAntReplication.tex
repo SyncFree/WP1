@@ -41,7 +41,7 @@
 
 
 \section{Introduction}
-	The amount of data being processed in \glspl{dc} keeps growing at enormous rate \cite{Hey2009a, Cisco2014a, Chanthadavong2014a}. Some of the areas where the amount of stored data already reach \glspl{tb} and even \glspl{pb} are data mining, particle physics, climate modelling, high energy physics and astrophysics, to site few, data which needs to be shared and analysed \cite{KingsyGrace2013a, MohdZin2012a, Naseera2009a}. \glspl{dc} are able to ensure that stored data is highly accessible and scalable. But the location of a \gls{dc} in respect of the client accessing the data has an impact on availability, access times (latency - accessibility) and costs derived from providing the data. Replicating some of the data at multiple sites is a possible solution to reduce some of these undesirable effects, \cite{Briquemont2014a, Abad2011a, Venugopal2006a}. An increase in the number of replications may result in a large bandwidth savings and lead to a reduction in user response time on reads. But keeping too many replicas of the data incurs in extra costs, such as extra replication traffic to keep all versions of the data coherent (writes), extra required storage and extra computational power \cite{Goel2006a}.
+	The amount of data being processed in \glspl{dc} keeps growing at enormous rate \cite{Tolle2011a, Cisco2014a, Chanthadavong2014a}. Some of the areas where the amount of stored data already reach \glspl{tb} and even \glspl{pb} are data mining, particle physics, climate modelling, high energy physics and astrophysics, to site few, data which needs to be shared and analysed \cite{KingsyGrace2013a, MohdZin2012a, Naseera2009a}. \glspl{dc} are able to ensure that stored data is highly accessible and scalable. But the location of a \gls{dc} in respect of the client accessing the data has an impact on availability, access times (latency - accessibility) and costs derived from providing the data. Replicating some of the data at multiple sites is a possible solution to reduce some of these undesirable effects, \cite{Briquemont2014a, Abad2011a, Venugopal2006a}. An increase in the number of replications may result in a large bandwidth savings and lead to a reduction in user response time on reads. But keeping too many replicas of the data incurs in extra costs, such as extra replication traffic to keep all versions of the data coherent (writes), extra required storage and extra computational power \cite{Goel2006a}.
 	
 	This means that finding an optimal replication distribution that minimises the amount of network traffic given certain read and write frequencies for various objects should alleviate these extra costs when replicating, \cite{Wolfson1990a, Briquemont2014a}. Given the volume of operations considered, which are predominately higher in reads than writes, and the speed of the access expected then any algorithm suitable to be applied to this constrain optimisation problem must have a very fast execution time.
 
@@ -135,7 +135,7 @@ $T^{-}_{k}$ is the threshold of the replication strength of data $k$ which deter
 \begin{center}
 	\begin{figure}[ht!]
 		\centering
-		\includegraphics[width=.7\textwidth]{figures/strengthReplica.png}
+		\includegraphics[width=.8\textwidth]{figures/strengthReplica.png}
 	
 		\caption{Constraints.}
 		\label{fig:lim_constriants}
@@ -215,7 +215,7 @@ Given that the number of read is expected to be higher than the number of writes
 Some of the parameters may be generalised even further by allowing them to depend on the \gls{dc} the calculation executed in, e.g. $\Delta r_{kd}$ instead of $\Delta r_{k}$ and $\Delta w_{kd}$ instead of $\Delta w_{k}$. Even the terms $r_{k} * \Delta r_{k}$ and $w_{k} * \Delta w_{k}$ could be generalise to consider other factors like bandwidth use and current storage capacity available in the \gls{dc}, or new terms could be added to take account of those new factors.
 
 
-\subsection{Mathematical Cost Representation}
+\subsection{Mathematical Cost Representation} \label{sec:math_cost_representation}
 It is considered that there is a direct cost associated to the reads ($c^{r}_{kd}$) and writes ($c^{w}_{kd}$) executed in the system for the data $k$ in the \gls{dc} $d$. Also there is a cost associate to the reads ($c^{r}_{kdj}$) and writes ($c^{w}_{kdj}$, $c^{w}_{kdd} = 0$) between \glspl{dc} $d$ and $j$ for data $k$, shown in Table \ref{tb:costs}.
 \begin{table}[ht!]
 	\begin{center}
@@ -273,6 +273,9 @@ The extended cost is shown in Equation \ref{eq:full_cost_operations}.
 	\end{split}
 \end{equation}
 
+Equation \ref{eq:full_cost_operations} could be used by another adaptive algorithm to set the parameters of this algorithm at running time in a dynamic way, instead of using fixed parameter values.
+
+
 \section{Some Comparisons (draft)}
 Here the following implementations are compared:
 \begin{itemize}
@@ -298,6 +301,7 @@ Table \ref{tb:implementations_sds} shows the operations for each sequence diagra
 												  & $R_{k} * ($data $ + $ info$) + \Delta$info
 												  & $|DC| * $ data \\
 		\hline
+
 		% Values - READs
 		\hline
 		First read without replica   & $2 * $ reads $ + (|DC| - 1) * $ discoveries 
@@ -312,13 +316,14 @@ Table \ref{tb:implementations_sds} shows the operations for each sequence diagra
 												  & $1 * $ reads
 												  & \\
 		\hline
+
 		% Values - WRITEs
 		\hline
-		First write without replica   & $2 * $ writes $ + (N - 1) * $ discoveries
-												   & $(R_{k} + 1) * $ writes $ + (N - 1) * $ discoveries
+		First write without replica   & $2 * $ writes $ + (N_{k} - 1) * $ discoveries
+												   & $(R_{k} + 1) * $ writes $ + (N_{k} - 1) * $ discoveries
 												   & \multirow{3}{*}{$|DC| * $ writes} \\
 		\cline{1-3}
-		Write without replica           & $2 * $ writes $ + (N - 1) * $ discoveries
+		Write without replica           & $2 * $ writes $ + (N_{k} - 1) * $ discoveries
 												   &  $(R_{k} + 1) * $ writes
 												   & \\
 		\cline{1-3}
@@ -326,13 +331,27 @@ Table \ref{tb:implementations_sds} shows the operations for each sequence diagra
 												   & $R_{k} * $ writes
 												   & \\
 		\hline
+		
+		% Creation
+		\hline
+		Create                                 & $1 * $write
+												   & $N_{k} * $ writes
+												   & $|DC| * $ writes \\
+		\hline
 	\end{tabular}
 
 	\caption{Required operations by the different implementations for the specified sequences, $1 \le N_{k} \le R_{k} \le |DC|$.}
 	\label{tb:implementations_sds}
 \end{sidewaystable}
 
-This means that systems where the number of read is significantly higher that the number of writes will benefit from replicating the data in multiple \glspl{dc}, whereas systems with similar of higher number of write will benefit from low or no replication. But there are many more requirements that have an important influence on the selection of the system configuration, i.e. number of \glspl{dc} and replication. Some of the most common requirements are Scalability, Accessibility, Latency and Security.
+The algorithm proposed may behave as one fixed replica or as full replication by changing the value of some of its parameters, see below:
+\begin{itemize}
+	\item {\bf One fixed replica}: $N_{k} = 1, T^{+}_{k} = \infty, T^{-}_{k}$.
+
+	\item {\bf Full replication}: $N_{k} = |DC|$.
+\end{itemize}
+
+This means that systems where the number of read is significantly higher that the number of writes will benefit from replicating the data in multiple \glspl{dc}, whereas systems with similar of higher number of write will benefit from low or no replication (only one replica). But there are many more requirements that have an important influence on the selection of the system configuration, i.e. number of \glspl{dc} and replication. Some of the most common requirements are Scalability, Accessibility, Latency and Security.
 \begin{itemize}
 	\item {\bf Scalability}: (A) does not provide scalability, where replication provides scalability. \cite{Jimenez-Peris2003a} provides an analytical study which shows the scalability limits of full replication as updates have to be sent and executed at all replicated sites (symmetric processing). To reduce the this it can be used asymmetric processing where transactions are processed first at the originating site then collected and eventually propagated and applied to the other sites, which improves scalability. From the point of view of scalability the processing power in a \gls{dc}, when a write is received, is invested in processing the write and the updates. As the number of replicas increases, there is a point at which the increase on the number of \glspl{dc}, so replicas, does not increase any more the system capacity. The main reason is that most of the system processing power is used in processing the updates. 
 	\item {\bf Availability/Accessibility}: (B) and (C) improve accessibility, where (A) provides a limited accessibility, \cite{Ladin1992a}.
@@ -355,7 +374,7 @@ This algorithm implies:
 	\item On data without reads and writes concentrated on one \gls{dc}, the number of replicas will be reduced as time passes by the temporal effect ($\Gamma$), until the data is only replicated in one \gls{dc}.
 \end{enumerate}
 
-This approach requires simple and fast operations to adapt to the changing conditions of the accessed data.
+This approach requires simple and fast operations to adapt to the changing conditions of the accessed data. Furthermore, some or all of the parameters could be determined at run time by some other adaptive approach which has into account the cost function provided in \ref{sec:math_cost_representation}.
 
 
 \section{Acknowledgements}
