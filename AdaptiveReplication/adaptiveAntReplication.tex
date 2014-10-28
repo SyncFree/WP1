@@ -213,7 +213,7 @@ Given that the number of read is expected to be higher than the number of writes
 
 Some of the parameters may be generalised even further by allowing them to depend on the \gls{dc} the calculation executed in, e.g. $\Delta r_{kd}$ instead of $\Delta r_{k}$ and $\Delta w_{kd}$ instead of $\Delta w_{k}$. Even the terms $r_{k} * \Delta r_{k}$ and $w_{k} * \Delta w_{k}$ could be generalise to consider other factors like bandwidth used and current storage capacity available in the \gls{dc}, or new terms could be added to take account of those new factors.
 
-\cite{Paiva2013a} uses a very simple representation of the available storage capacity, which is taking into account in the replication of the data. We have assumed that the capacity in a \gls{dc} is sufficient and when more storage capacity is required then extra storage is added to the \gls{dc}. If this is not the case and $S^{d}$ is the total storage capacity in \gls{dc} $d$, and $S_{k}$ is the size of the data to store then Equation \ref{eq:free_storage} provides the free storage available in \gls{dc} $d$, $s^{d}$.
+\citet{Paiva2013a} use a very simple representation of the available storage capacity, which is taking into account in the replication of the data. We have assumed that the capacity in a \gls{dc} is sufficient and when more storage capacity is required then extra storage is added to the \gls{dc}. If this is not the case and $S^{d}$ is the total storage capacity in \gls{dc} $d$, and $S_{k}$ is the size of the data to store then Equation \ref{eq:free_storage} provides the free storage available in \gls{dc} $d$, $s^{d}$.
 \begin{equation} \label{eq:free_storage}
 	s^{d} = S^{d} - \sum^{|D|}_{k = 1} S_{k} * X_{kd}
 \end{equation}
