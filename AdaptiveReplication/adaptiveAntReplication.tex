@@ -135,7 +135,7 @@ $T^{-}_{k}$ is the threshold of the replication strength of data $k$ which deter
 \begin{center}
 	\begin{figure}[ht!]
 		\centering
-		\includegraphics[width=.6\textwidth]{figures/strengthReplica.png}
+		\includegraphics[width=.7\textwidth]{figures/strengthReplica.png}
 	
 		\caption{Constraints.}
 		\label{fig:lim_constriants}
@@ -205,6 +205,9 @@ The read sequence diagrams for this algorithm are shown in Table \ref{tb:read_se
 	\label{fig:write_flowchart}
 \end{figure}
 
+The creation of data will generate a replica in the directly accessed \gls{dc}, as the number of replicas must be at least one ($M_{k} \ge 1$). If the minimum number of replicas is bigger than 1 then the algorithm should generate and distribute the other replicas between the vicinity \glspl{dc}. It is proposed that the approach to distribute created replicas to be implemented as a pluggable distribution approach, i.e. distribute replicas within the vicinity. The creation of the data will require to check if the data exists already, i.e. in a key value tuple that the key does not al;ready exist in any of the other \glspl{dc}. Then only in the case where the data does not already exist in any of the \glspl{dc} the data will be replicated in the direct accessed \gls{dc} and distributed replicas within other of the \glspl{dc} based on the current creation approach and the minimum number of replicas.
+
+
 {\bf Some notes on parameters}: 
 
 Given that the number of read is expected to be higher than the number of writes, and normally a read will be executed before a write, it may make sense for $\Delta w_{k}$ to be smaller than $\Delta r_{k}$ ($\Delta w_{k} < \Delta r_{k}$) so that more writes would be required to maintain or create a replica in a \gls{dc} than when using reads.
@@ -216,7 +219,7 @@ Some of the parameters may be generalised even further by allowing them to depen
 It is considered that there is a direct cost associated to the reads ($c^{r}_{kd}$) and writes ($c^{w}_{kd}$) executed in the system for the data $k$ in the \gls{dc} $d$. Also there is a cost associate to the reads ($c^{r}_{kdj}$) and writes ($c^{w}_{kdj}$, $c^{w}_{kdd} = 0$) between \glspl{dc} $d$ and $j$ for data $k$, shown in Table \ref{tb:costs}.
 \begin{table}[ht!]
 	\begin{center}
-		\begin{tabular}{|l|l|l|}
+		\begin{tabular}{|l|p{9.2cm}|l|}
 			\hline
 			Cost & Description & Type \\
 			\hline
@@ -225,11 +228,11 @@ It is considered that there is a direct cost associated to the reads ($c^{r}_{kd
 			\hline
 			$c^{w}_{kd}$  & The cost of a write request of the data $k$ to \gls{dc} $d$. & $\mathbb{R}^{+}$ \\
 			\hline
-			$c^{r}_{kdj}$  & The cost of a read request of data $k$ from \gls{dc} $d$ to \gls{dc} $j$. & $\mathbb{R}^{+}$ \\
+			$c^{r}_{kdj}$  & The cost of a read request of data $k$ from \gls{dc} $d$ to \gls{dc} $j$, and $c^{r}_{kdd} = 0$. & $\mathbb{R}^{+}$ \\
 			\hline
-			$c^{r}_{*dj}$  & The cost of a search request from \gls{dc} $d$ to \gls{dc} $j$. & $\mathbb{R}^{+}$ \\
+			$c^{r}_{*dj}$  & The cost of a search request from \gls{dc} $d$ to \gls{dc} $j$, and $c^{r}_{*dd} = 0$. & $\mathbb{R}^{+}$ \\
 			\hline
-			$c^{w}_{kdj}$ & The cost of a read request of data $k$ from \gls{dc} $d$ to \gls{dc} $j$. & $\mathbb{R}^{+}$ \\
+			$c^{w}_{kdj}$ & The cost of a read request of data $k$ from \gls{dc} $d$ to \gls{dc} $j$, and $c^{w}_{kdd} = 0$. & $\mathbb{R}^{+}$ \\
 			\hline
 		\end{tabular}
 	\end{center}
@@ -261,7 +264,7 @@ There is a cost incurred when a replica is placed in a new \gls{dc} and when the
 	\sum^{|DC|}_{j = 1, j \neq d, X_{kj} = 1} (1 - X^{'}_{kd}) * X_{kd} * c^{r}_{*kdj}
 \end{equation}
 
-The extended cost is represented in Equation \ref{eq:full_cost_operations}.
+The extended cost is shown in Equation \ref{eq:full_cost_operations}.
 \begin{equation} \label{eq:full_cost_operations}
 	\begin{split}
 		Cost_{k} = \sum^{|DC|}_{d = 1} \left( \overbrace{r_{kd} * c^{r}_{kd} + w_{kd} * c^{w}_{kd}}^\text{direct cost} + \overbrace{\sum^{|DC|}_{j = 1} w_{kd} * c^{w}_{kdj} * X_{kj}}^\text{update propagation cost} \right. \\ 

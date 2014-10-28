@@ -34,14 +34,14 @@ The paper argues that app developers cannot be shielded from the complexity in w
   Year                     = {2011},
 
   Address                  = {Washington, DC, USA},
-  Note                     = {Printed},
   Pages                    = {159--168},
   Publisher                = {IEEE Computer Society},
   Series                   = {CLUSTER '11},
 
   Abstract                 = {Placing data as close as possible to computation is a common practice of data intensive systems, commonly referred to as the data locality problem. By analyzing existing production systems, we confirm the benefit of data locality and find that data have different popularity and varying correlation of accesses. We propose DARE, a distributed adaptive data replication algorithm that aids the scheduler to achieve better data locality. DARE solves two problems, how many replicas to allocate for each file and where to place them, using probabilistic sampling and a competitive aging algorithm independently at each node. It takes advantage of existing remote data accesses in the system and incurs no extra network usage. Using two mixed workload traces from Face book, we show that DARE improves data locality by more than 7 times with the FIFO scheduler in Hadoop and achieves more than 85% data locality for the FAIR scheduler with delay scheduling. Turnaround time and job slowdown are reduced by 19% and 25\%, respectively.},
   Acmid                    = {2065769},
-  Comment                  = {http://dx.doi.org/10.1109/CLUSTER.2011.26},
+  Comment                  = {http://dx.doi.org/10.1109/CLUSTER.2011.26
+Printed},
   Doi                      = {10.1109/CLUSTER.2011.26},
   ISBN                     = {978-0-7695-4516-5},
   Keywords                 = {MapReduce, replication, scheduling, locality, adaptive data replication},
@@ -88,6 +88,18 @@ Thrashing: it is a high rate of replica creation and eviction.},
   Doi                      = {10.1109/IPDPS.2007.370575},
   Keywords                 = {mobile agents;replicated databases;resource allocation;Pogo ant colony;adaptive distributed database;bioinspired replication management;computer network;data availability;dynamic load-balancing scheme;mobile agent;optimization;redistribution process;replicated database;swarm intelligence;Ant colony optimization;Computer network management;Computer science;Delay;Distributed databases;Information retrieval;Intelligent agent;Load management;Particle swarm optimization;Transaction databases},
   Url                      = {http://www.cwu.edu/~andonie/MyPapers/IPDPS%20Long%20Beach%202007%20final.pdf}
+}
+
+@InProceedings{Alveirinho2010a,
+  Title                    = {Flexible and Efficient Resource Location in Large-Scale Systems},
+  Author                   = {Alveirinho, Jo{\~a}o and Paiva, Jo{\~a}o and Leit{\~a}o, Jo{\~a}o and Rodrigues, Lu{\'i}s},
+  Booktitle                = {Proceedings of the 4th ACM SIGOPS International Workshop on Large-Sacle Distributed Systems and Middleware},
+  Year                     = {2010},
+
+  Address                  = {Zurich, Switzerland},
+  Month                    = jul,
+  Publisher                = {ACM},
+  Series                   = {LADIS'10}
 }
 
 @InProceedings{Ardekani2014a,
@@ -887,6 +899,32 @@ Also the rapid changes in the load of system do not help either.},
 
   Owner                    = {aas},
   Timestamp                = {2014.10.23}
+}
+
+@InProceedings{Paiva2013,
+  Title                    = {Policies for Efficient Data Replication in P2P Systems},
+  Author                   = {Paiva, Jo{\~a}o and Rodrigues, Lu{\'i}s},
+  Booktitle                = {Proceedings of the 19th IEEE International Conference on Parallel and Distributed Systems},
+  Year                     = {2013},
+
+  Address                  = {Seoul, Korea},
+  Month                    = Dec,
+  Publisher                = {IEEE},
+  Series                   = {ICPADS'13}
+}
+
+@InProceedings{Paiva2013a,
+  Title                    = {{AutoPlacer: scalable self-tuning data placement in distributed key-value stores}},
+  Author                   = {Paiva, Jo{\~a}o and Ruivo, Pedro and Romano, Paolo and Rodrigues, Lu{\'i}s},
+  Booktitle                = {Proceedings of the 10th International Conference on Autonomic Computing},
+  Year                     = {2013},
+
+  Address                  = {San Jose, CA, USA},
+  Month                    = jun,
+  Publisher                = {USENIX},
+  Series                   = {ICAC'13},
+
+  Url                      = {http://www.usenix.org/conference/icac13/autoplacer-scalable-self-tuning-data-placement-distributed-key-value-stores}
 }
 
 @InProceedings{Preguica2009a,
