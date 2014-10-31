@@ -99,7 +99,7 @@ In general terms any read operation in a \gls{dc} reinforces the need for a repl
 	\label{tbl:vars_consts}
 \end{table}
 
-Equation \ref{eq:data_replicated} represents the existence of a replica of data $k$ in \gls{dc} $d$, $c_{dk} = 1$, or its absence $c_{dk} = 0$. $R_{k}$ is the number of replicas of data $k$, as expressed in Equation \ref{eq:num_replicas}.
+Equation \ref{eq:data_replicated} represents the existence of a replica of data $k$ in \gls{dc} $d$, $X_{dk} = 1$, or its absence $X_{dk} = 0$. $R_{k}$ is the number of replicas of data $k$, as expressed in Equation \ref{eq:num_replicas}.
 \begin{equation} \label{eq:data_replicated}
 	X_{kd} = \left\{
 		\begin{array}{ll}
@@ -110,7 +110,7 @@ Equation \ref{eq:data_replicated} represents the existence of a replica of data 
 \end{equation}
 
 \begin{equation} \label{eq:num_replicas}
-R_{k} = \sum^{|DC|}_{d = 1} c_{dk}
+R_{k} = \sum^{|DC|}_{d = 1} X_{dk}
 \end{equation}
 
 $F_{kd}$ represents the full strength of the replication of the data $k$ in \gls{dc} $d$, which it is expressed in Equation \ref{eq:replication_strength}.
@@ -119,7 +119,7 @@ $F_{kd}$ represents the full strength of the replication of the data $k$ in \gls
 \end{equation}
 
 %\begin{equation}  \label{eq:inter_dc_decay}
-%	\Delta w_{kdi} = 0 \textbf{ } \forall d = i \text{ or } X_{kd} = 0 \text{, or } c_{ki} = 0
+%	\Delta w_{kdi} = 0 \textbf{ } \forall d = i \text{ or } X_{kd} = 0 \text{, or } X_{ki} = 0
 %\end{equation}
 
 Equation \ref{eq:replication_strength} shows that the replication strength for the data $k$ in \gls{dc} $d$ is strengthened by the reads and writes requested through \gls{dc} $d$, with intensities $\Delta r_{k}$ and $\Delta w_{k}$ respectively, and weakened  by the writes requested through other \glspl{dc} than \gls{dc} $d$, with intensity $\Delta w_{kdi}$, and it is furthermore weakened by a temporal decay on the replication strength (last term in the equation). Where Equation \ref{eq:replication_strength} states that only \glspl{dc} with a replica of the data, $D_{k}$, will be penalised by writes and time, which in practice it is achieved by not sending the write to those \glspl{dc} so it does not incurred in any extra cost when implementing it. Similarly $\Gamma$ will not be applied to \glspl{dc} without replicas of the data with the exceptions of those candidate \glspl{dc} where the data may later be replicated. Reads may increase the number of replicas where writes may strengthen the replication in a \gls{dc} but may also potentially remove a replica from one of the other \glspl{dc}, effect that it is strengthen by the temporal decay of the replication strength.
