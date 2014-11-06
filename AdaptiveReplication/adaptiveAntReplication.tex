@@ -9,7 +9,7 @@
 \usepackage{url}
 \usepackage{color,soul}
 \usepackage{graphicx}
-\usepackage[pdftitle={Adaptable Location of Replicas Based on Ant Algorith},%
+\usepackage[pdftitle={Adaptive Geo--Replication Based on Ant Colony Algorithm},%
 		hidelinks,colorlinks=true, linkcolor=black, citecolor=cyan, filecolor=green, urlcolor=blue]{hyperref}
 \usepackage{mathtools}
 \usepackage{amssymb}
@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Adaptable Location of Replicas Based on Ant Colony Algorithm}
+\title{Adaptive Geo--Replication Based on Ant Colony Algorithm}
 
 \author{Amadeo Asc\'{o}}
 
@@ -46,7 +46,7 @@
 
 	The replications may be grouped, base on its existence, into two types; {\bf static replication} where a replica persist until it is deleted by a user or its duration expires, and {\bf dynamic replication} where the creation and deletion of a replica are managed automatically and normally directed by the access pattern of the data used by the users \cite{Dong2008a}. In static replication the major drawback is their inability to adapt to changes in the access pattern of the data used by the users.
 	
-	Also there are two types of replication based on their effect on the data; {\bf partial replication} is concerned in the number of parts the full data is composed, all of which may be located in different parts of the overall system, i.e. \glspl{dc}, within a \gls{dc} in different nodes ore at the client-side \cite{Briquemont2015a, Briquemont2014a, Serrano2007a}, whereas {\bf adaptive geo--replication} is concerned in what and where the data or part of the data is located within the overall system of \glspl{dc} and how many replicas exist simultaneously, \cite{Jeon2014a, KingsyGrace2013a, Wang2012a, Abad2011a, Abdul-Wahid2007a, Loukopoulos2004a}.
+	Also there are two types of replication based on their effect on the data; {\bf partial replication} is concerned in the number of parts the full data is composed, all of which may be located in different parts of the overall system, i.e. \glspl{dc}, within a \gls{dc} in different nodes or at the client-side \cite{Briquemont2015a, Briquemont2014a, Serrano2007a}, whereas {\bf adaptive geo--replication} is concerned in what and where the data or part of the data is located within the overall system of \glspl{dc} and how many replicas exist simultaneously, \cite{Jeon2014a, KingsyGrace2013a, Wang2012a, Abad2011a, Abdul-Wahid2007a, Loukopoulos2004a}.
 	
 	The proposed algorithm is base on Wolfson's algorithm, \cite{Wolfson1990a}, which proposes an adaptive algorithm for replicated data between processors which takes into account the changes in the read-write pattern of the processors in the network, and also on the principles of the Ant Colony Optimisation algorithms, which are inspired in the behaviour of ant colonies when deciding which path to follow when foraging, \cite{dorigo1992a}.
 	
@@ -371,13 +371,13 @@ This algorithm implies:
 \begin{enumerate}
 	\item For reads on a \gls{dc}, the \gls{dc} does not require to communicate any information to any of the other \glspl{dc}. A read only needs to use resources in the \gls{dc}, where the read is initially requested from, so no extra network traffic is imposed on the systems.
 	
-	In the particular case where a read is executed on a \gls{dc}, without a replica of the data, storage and processing power in the \gls{dc} will be required and the request will be to forwarded the request to its closest \gls{dc} with a replica. This operation incurs in extra network traffic but if it is repeated too often the extra network traffic will be removed by replicating the data in the requesting \gls{dc}.
+	In the particular case where a read is executed on a \gls{dc}, without a replica of the data, storage and processing power in the \gls{dc} will be required and the request will be forwarded to its closest \gls{dc} with a replica. This operation incurs in extra network traffic but if it is repeated too often the extra network traffic will be removed by replicating the data in the requesting \gls{dc} where the data was initially requested.
 	
-	\item On a write  the \gls{dc} receiving the original request will (eventually) transmit it to the other \glspl{dc}, which have a replica of the data, so no need to add extra network traffic as this is the normal approach. But extra data will be sent to the other \glspl{dc} to notify them of the number of writes the changes refer to, which will depend of the type of \gls{crdt} approach used, i.e. op-based or state-based. In some cases not every write is transmitted to the other \glspl{dc}, such is the case of the state-base approach, so it would be required to keep some track of the number of merged writes.
+	\item On a write the \gls{dc} receiving the original request will (eventually) transmit it to the other \glspl{dc}, which have a replica of the data, so no need to add extra network traffic as this is the normal approach. But extra data will be sent to the other \glspl{dc} to notify them of the number of writes the changes refer to, which will depend of the type of \gls{crdt} approach used, i.e. op-based or state-based. In some cases not every write is transmitted to the other \glspl{dc}, such is the case of the state-base approach, so it would be required to keep some track of the number of merged writes.
 	
-	Also the merging the data should only be executed after the replication strength has been calculating and it is still higher than zero, which will reduce unnecessary operations.
+	Also the merging of the data should only be executed after the replication strength has been calculated and when it is still higher than zero, which will reduce unnecessary operations.
 
-	\item On data without reads and writes concentrated on one \gls{dc}, the number of replicas will be reduced as time passes by the temporal effect ($\Gamma$), until the data is only replicated in one \gls{dc}.
+	\item On data without any reads and writes on any \gls{dc}, the number of replicas will be reduced as time passes by the temporal effect ($\Gamma$), until the data is only replicated in the specified minimum number of \glspl{dc}.
 \end{enumerate}
 
 This approach requires simple and fast operations to adapt to the changing access pattern of the data. Furthermore, some or all of the parameters could be determined at run time by some other adaptive approach which has into account the cost function provided in \ref{sec:math_cost_representation}.
