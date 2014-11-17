@@ -28,9 +28,8 @@
 
 \newcommand{\THISDATE}{\DUEDATE}
 
-\usepackage{epsf}
+%\usepackage{epsf}
 \usepackage[pdftex]{graphicx}
-%\usepackage{graphicx}
 \usepackage{pdfpages}               % include pdf documents inside this doc
 \usepackage{fancyhdr}
 \usepackage{hyperref}
@@ -147,18 +146,42 @@
 \renewcommand{\thepage}{\arabic{page}}
 \setcounter{page}{1}
 
+\section{Milestones in the Deliverable}
+WP1.1 has reached the following milestone:
+\begin{table}[ht!]
+	\begin{tabular}{|l|p{7.1cm}|l|l|}
+		\hline
+		\textbf{Mil. no} & \textbf{Mil. name} & \textbf{Date due} & \textbf{Actual date}\\
+		\hline
+		MS1                                   & CRDT consolidation in a static environment & M12 & M12 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+The corresponding tasks are:
+\begin{table}[ht!]
+	\begin{tabular}{|l|l|p{1cm}|p{1.3cm}|p{3cm}|}
+		\hline
+		\textbf{Task no} & \textbf{Task name} & \textbf{Date due} & \textbf{Actual date} & \textbf{Lead contractor}\\
+		\hline
+		D.1.1 & Natural--language requirements & M01 & M12 & Trifork \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
 \section{Project objectives for the period} \label{s:DX-description-of-milestones}
 \subsection{Overview}
 % Please provide a short overview of the project objectives for the reporting period in question, as included in Annex I of the Grant Agreement. These objectives are required so that this report is a stand-alone document
 The following sections provide an overview of the project objectives for the reporting period in question.
 
-\subsubsection{D1.1 [month 6]}
+\subsubsection{D1.1 [from M01 to M06]}
 Natural-language requirements: Initially, the use cases selected by the project partners will be described formally in natural language. Such a description consists of a outline of the targeted supporting architecture and a list of the informal constraints the system must ensure.
 
 %The document can be found at \href{https://syncfree.lip6.fr/dokuwiki/lib/exe/fetch.php?media=syncfree:workpackages:wp1_d1.1_use_cases_in_natural_language.pdf}{D1.1 Delivery}.
 
 
-\subsubsection{D1.2 [month 18]}
+\subsubsection{D1.2 [from M06 to M18]}
 Formal-language requirements: In this task, we will describe the selected use cases using a mathematical notation suitable for reasoning, verification and computation, as required by the later Work Packages. Constraints concerning scalability, quality of service, fault tolerance, and other global guarantees will be specified qualitatively and quantitatively. This formalisation will build upon recent work on eventual consistency semantics. The behaviour and composition of data types will be defined in terms of programming models, using the first results of \gls{wp4}.
 
 
@@ -439,7 +462,14 @@ It is intended that once the tests have been conducted to asses the algorithm pe
 
 %\newpage
 \appendix
-\section{Appendix}
+%\section{Optimistic Control for a Critical System}
+%\begin{figure}
+%	\centering 
+%	\includepdf[pages=-]{CriticalOptimisticEventualConsistency_0.1.pdf}
+%\end{figure}
+%\includepdf[pages={-}]{CriticalOptimisticEventualConsistency_0.1.pdf}
+%\includepdf[pages=-]{CriticalOptimisticEventualConsistency_0.1.pdf}
+\section{Location of Full Documents}
 List of documents:
 \begin{itemize}
 	\item \href{https://github.com/SyncFree/WP1/tree/master/D1_1/docs/wp1_D1.1_use_cases_in_natural_language.pdf}{D1.1}
