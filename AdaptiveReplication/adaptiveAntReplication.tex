@@ -9,7 +9,7 @@
 \usepackage{url}
 \usepackage{color,soul}
 \usepackage{graphicx}
-\usepackage[pdftitle={Adaptable Location of Replicas Based on Ant Algorith},%
+\usepackage[pdftitle={Adaptive Geo--Replication Based on Ant Colony Algorithm},%
 		hidelinks,colorlinks=true, linkcolor=black, citecolor=cyan, filecolor=green, urlcolor=blue]{hyperref}
 \usepackage{mathtools}
 \usepackage{amssymb}
@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Adaptable Location of Replicas Based on Ant Colony Algorithm}
+\title{Adaptive Geo--Replication Based on Ant Colony Algorithm}
 
 \author{Amadeo Asc\'{o}}
 
@@ -44,9 +44,11 @@
 	
 	This means that finding an optimal replication distribution that minimises the amount of network traffic given certain read and write frequencies for various objects should alleviate these extra costs when replicating, \cite{Wolfson1990a, Briquemont2014a}. Given the volume of operations considered, which are predominately higher in reads than writes, and the speed of the access expected then any algorithm suitable to be applied to this constrain optimisation problem must have a very fast execution time.
 
-	The replications may be grouped into two types; {\bf static replication} where a replica persist until it is deleted by a user or its duration expires, and {\bf dynamic replication} where the creation and deletion of a replica are managed automatically and normally directed by the access pattern of the data used by the users \cite{Dong2008a}. In static replication the major drawback is their inability to adapt to changes in the access pattern of the data used by the users.
+	The replications may be grouped, base on its existence, into two types; {\bf static replication} where a replica persist until it is deleted by a user or its duration expires, and {\bf dynamic replication} where the creation and deletion of a replica are managed automatically and normally directed by the access pattern of the data used by the users \cite{Dong2008a}. In static replication the major drawback is their inability to adapt to changes in the access pattern of the data used by the users.
 	
-	The proposed algorithm is base on Wolfson's algorithm, \cite{Wolfson1990a}, which proposes an adaptive algorithm for replicated data between processors which takes into account the changes in the read-write pattern of the processors in the network. Also the proposed algorithm is based on the principles of the Ant Colony Optimisation algorithms, which are inspired in the behaviour of ant colonies when deciding which path to follow when foraging, \cite{dorigo1992a}.
+	Also there are two types of replication based on their effect on the data; {\bf partial replication} is concerned in the number of parts the full data is composed, all of which may be located in different parts of the overall system, i.e. \glspl{dc}, within a \gls{dc} in different nodes or at the client-side \cite{Briquemont2015a, Briquemont2014a, Serrano2007a}, whereas {\bf adaptive geo--replication} is concerned in what and where the data or part of the data is located within the overall system of \glspl{dc} and how many replicas exist simultaneously, \cite{Jeon2014a, KingsyGrace2013a, Wang2012a, Abad2011a, Abdul-Wahid2007a, Loukopoulos2004a}.
+	
+	The proposed algorithm is base on Wolfson's algorithm, \cite{Wolfson1990a}, which proposes an adaptive algorithm for replicated data between processors which takes into account the changes in the read-write pattern of the processors in the network, and also on the principles of the Ant Colony Optimisation algorithms, which are inspired in the behaviour of ant colonies when deciding which path to follow when foraging, \cite{dorigo1992a}.
 	
 	It should be noted that the main propose of the replication is not to recover from disasters as this is the responsibility of the recovery centres which are data centres sufficiently close to the operational \gls{dc}, they are associated to, so copies can be processed quickly enough but at the same time sufficiently far apart as to avoid any potential geographical issues that may happen to the \glspl{dc}, i.e. earthquakes, fire that destroys the \gls{dc}, the shutting down of main power plant which provides energy to the \gls{dc}. Neither it is the \gls{dc} responsibility to provide analytical services as these are provided by the data warehouse(s). The main propose of the considered \glspl{dc} is to provide operational access to clients (operational \glspl{dc}), which corresponds to intensive read/write operations to the client's most recent data. The following references to \glspl{dc} in this document referrer to operational data centres.
 
@@ -97,7 +99,7 @@ In general terms any read operation in a \gls{dc} reinforces the need for a repl
 	\label{tbl:vars_consts}
 \end{table}
 
-Equation \ref{eq:data_replicated} represents the existence of a replica of data $k$ in \gls{dc} $d$, $c_{dk} = 1$, or its absence $c_{dk} = 0$. $R_{k}$ is the number of replicas of data $k$, as expressed in Equation \ref{eq:num_replicas}.
+Equation \ref{eq:data_replicated} represents the existence of a replica of data $k$ in \gls{dc} $d$, $X_{dk} = 1$, or its absence $X_{dk} = 0$. $R_{k}$ is the number of replicas of data $k$, as expressed in Equation \ref{eq:num_replicas}.
 \begin{equation} \label{eq:data_replicated}
 	X_{kd} = \left\{
 		\begin{array}{ll}
@@ -108,7 +110,7 @@ Equation \ref{eq:data_replicated} represents the existence of a replica of data 
 \end{equation}
 
 \begin{equation} \label{eq:num_replicas}
-R_{k} = \sum^{|DC|}_{d = 1} c_{dk}
+R_{k} = \sum^{|DC|}_{d = 1} X_{dk}
 \end{equation}
 
 $F_{kd}$ represents the full strength of the replication of the data $k$ in \gls{dc} $d$, which it is expressed in Equation \ref{eq:replication_strength}.
@@ -117,7 +119,7 @@ $F_{kd}$ represents the full strength of the replication of the data $k$ in \gls
 \end{equation}
 
 %\begin{equation}  \label{eq:inter_dc_decay}
-%	\Delta w_{kdi} = 0 \textbf{ } \forall d = i \text{ or } X_{kd} = 0 \text{, or } c_{ki} = 0
+%	\Delta w_{kdi} = 0 \textbf{ } \forall d = i \text{ or } X_{kd} = 0 \text{, or } X_{ki} = 0
 %\end{equation}
 
 Equation \ref{eq:replication_strength} shows that the replication strength for the data $k$ in \gls{dc} $d$ is strengthened by the reads and writes requested through \gls{dc} $d$, with intensities $\Delta r_{k}$ and $\Delta w_{k}$ respectively, and weakened  by the writes requested through other \glspl{dc} than \gls{dc} $d$, with intensity $\Delta w_{kdi}$, and it is furthermore weakened by a temporal decay on the replication strength (last term in the equation). Where Equation \ref{eq:replication_strength} states that only \glspl{dc} with a replica of the data, $D_{k}$, will be penalised by writes and time, which in practice it is achieved by not sending the write to those \glspl{dc} so it does not incurred in any extra cost when implementing it. Similarly $\Gamma$ will not be applied to \glspl{dc} without replicas of the data with the exceptions of those candidate \glspl{dc} where the data may later be replicated. Reads may increase the number of replicas where writes may strengthen the replication in a \gls{dc} but may also potentially remove a replica from one of the other \glspl{dc}, effect that it is strengthen by the temporal decay of the replication strength.
@@ -338,7 +340,7 @@ Table \ref{tb:implementations_sds} shows the operations for each sequence diagra
 		
 		% Creation
 		\hline
-		Create                                 & $1 * $write
+		Create data                         & $1 * $write
 												   & $N_{k} * $ writes
 												   & $|DC| * $ writes \\
 		\hline
@@ -369,16 +371,16 @@ This algorithm implies:
 \begin{enumerate}
 	\item For reads on a \gls{dc}, the \gls{dc} does not require to communicate any information to any of the other \glspl{dc}. A read only needs to use resources in the \gls{dc}, where the read is initially requested from, so no extra network traffic is imposed on the systems.
 	
-	In the particular case where a read is executed on a \gls{dc}, without a replica of the data, storage and processing power in the \gls{dc} will be required and the request will be to forwarded the request to its closest \gls{dc} with a replica. This operation incurs in extra network traffic but if it is repeated too often the extra network traffic will be removed by replicating the data in the requesting \gls{dc}.
+	In the particular case where a read is executed on a \gls{dc}, without a replica of the data, storage and processing power in the \gls{dc} will be required and the request will be forwarded to its closest \gls{dc} with a replica. This operation incurs in extra network traffic but if it is repeated too often the extra network traffic will be removed by replicating the data in the requesting \gls{dc} where the data was initially requested.
 	
-	\item On a write  the \gls{dc} receiving the original request will (eventually) transmit it to the other \glspl{dc}, which have a replica of the data, so no need to add extra network traffic as this is the normal approach. But extra data will be sent to the other \glspl{dc} to notify them of the number of writes the changes refer to, which will depend of the type of \gls{crdt} approach used, i.e. op-based or state-based. In some cases not every write is transmitted to the other \glspl{dc}, such is the case of the state-base approach, so it would be required to keep some track of the number of merged writes.
+	\item On a write the \gls{dc} receiving the original request will (eventually) transmit it to the other \glspl{dc}, which have a replica of the data, so no need to add extra network traffic as this is the normal approach. But extra data will be sent to the other \glspl{dc} to notify them of the number of writes the changes refer to, which will depend of the type of \gls{crdt} approach used, i.e. op-based or state-based. In some cases not every write is transmitted to the other \glspl{dc}, such is the case of the state-base approach, so it would be required to keep some track of the number of merged writes.
 	
-	Also the merging the data should only be executed after the replication strength has been calculating and it is still higher than zero, which will reduce unnecessary operations.
+	Also the merging of the data should only be executed after the replication strength has been calculated and when it is still higher than zero, which will reduce unnecessary operations.
 
-	\item On data without reads and writes concentrated on one \gls{dc}, the number of replicas will be reduced as time passes by the temporal effect ($\Gamma$), until the data is only replicated in one \gls{dc}.
+	\item On data without any reads and writes on any \gls{dc}, the number of replicas will be reduced as time passes by the temporal effect ($\Gamma$), until the data is only replicated in the specified minimum number of \glspl{dc}.
 \end{enumerate}
 
-This approach requires simple and fast operations to adapt to the changing conditions of the accessed data. Furthermore, some or all of the parameters could be determined at run time by some other adaptive approach which has into account the cost function provided in \ref{sec:math_cost_representation}.
+This approach requires simple and fast operations to adapt to the changing access pattern of the data. Furthermore, some or all of the parameters could be determined at run time by some other adaptive approach which has into account the cost function provided in \ref{sec:math_cost_representation}.
 
 
 \section{Acknowledgements}

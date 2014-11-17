@@ -118,6 +118,35 @@ Thrashing: it is a high rate of replica creation and eviction.},
   Url                      = {http://blogs.usenix.org/conference/osdi14/technical-sessions/presentation/ardekani}
 }
 
+@TechReport{Asco2014b,
+  Title                    = {Adaptable Location of Replicas Based on Ant Colony Algorithm},
+  Author                   = {Amadeo Asc\'{o}},
+  Institution              = {SyncFree},
+  Year                     = {2014},
+  Month                    = {September},
+
+  Abstract                 = {The amount of data being processed in Data Centres (DCs) keeps growing at enormous rate [20, 5, 4]. Some of the areas where the amount of stored data already reach terabytes (TBs) and even petabytess (PBs) are data mining, particle physics, climate modelling, high energy physics and astrophysics, to site few, data which needs to be shared and analysed [12, 15, 16]. DCs are able to ensure that stored data is highly accessible and scalable. But the location of a DC in respect of the client accessing the data has an impact on availability, access times (latency - accessibility) and costs derived from providing the data. Replicating some of the data at multiple sites is a possible solution to reduce some of these undesirable effects, [3, 1, 21]. An increase in the number of replications may result in a large bandwidth savings and lead to a reduction in user response time on reads. But keeping too many replicas of the data incurs in extra costs, such as extra replication traffic to keep all versions of the data coherent (writes), extra required storage and extra computational power [8]...},
+  Keywords                 = {Adaptive Replication, algorithm, ant colony},
+  Owner                    = {aas},
+  Timestamp                = {2014.11.06},
+  Url                      = {https://github.com/SyncFree/WP1/blob/master/AdaptiveReplication/docs/adaptiveAntReplication.pdf}
+}
+
+@TechReport{Asco2014a,
+  Title                    = {Formal Mathematical Requirements},
+  Author                   = {Amadeo Asc\'{o} and Tom Benedictus},
+  Institution              = {SyncFree},
+  Year                     = {2014},
+  Month                    = {July},
+
+  Abstract                 = {Building reliable distributed systems, given the CAP theorem where partitioning must always be considered, relays in the trade-offs between consistency and availability. Conflict-free Replicated Data Types (CRDTs) define replicated data types with mathematical properties that ensure absence of conflict and confer them Strong Eventual Consistency (SEC), a form of Eventual Consistency (EC) which it is a technique of compromise. Consistency is a property of the data, not the datastore, given that the rules to decide how to synchronise are business decisions. CRDTs have been created to ensure that we have a computer model for handling data which accommodates data’s nature in a world of vast communication and no definite central place of storage. Using an Relational Database Management System (RDBMS) for these type of systems can result in systems where a large amount of the processing is required to circumnavigate the shortcomings of a model that is not fit for purpose. A significant project for mediating this dilemma is SyncFree.
+This article provides a brief presentation of the natural language requirements, which shows the special nature of the paradigm shift forcing large-scale distributed applications away from RDBMS.},
+  Keywords                 = {use cases, TLA+, requirements},
+  Owner                    = {aas},
+  Timestamp                = {2014.11.06},
+  Url                      = {https://github.com/SyncFree/WP1/blob/master/D1.2/docs/D1_2.pdf}
+}
+
 @InProceedings{Baquero2014CRDTs,
   Title                    = {Making Operation-based CRDTs Operation-based},
   Author                   = {Baquero, Carlos and Almeida, Paulo S{\'e}rgio and Shoker, Ali},
@@ -168,6 +197,33 @@ Autonomous Mobile Computing},
   Keywords                 = {syn,rep},
   Local-url                = {./papers/DecoupledConsistency-MDM-2007.pdf},
   Url                      = {http://www.computer.org/portal/web/csdl/doi/10.1109/MDM.2007.24}
+}
+
+@TechReport{Benedictus2014a,
+  Title                    = {D1.1 Natural language requirements},
+  Author                   = {Tom Benedictus},
+  Institution              = {SyncFree},
+  Year                     = {2014},
+  Month                    = {May},
+
+  Keywords                 = {use cases, arge-scale computation},
+  Owner                    = {aas},
+  Timestamp                = {2014.11.06},
+  Url                      = {https://syncfree.lip6.fr/dokuwiki/lib/exe/fetch.php?media=syncfree:workpackages:wp1_d1.1_use_cases_in_natural_language.pdf}
+}
+
+@TechReport{Benedictus2014b,
+  Title                    = {Optimistic Control for a Critical System},
+  Author                   = {Tom Benedictus and Jordi Martori and Rune Skou Larsen and Pascal Urso},
+  Institution              = {SyncFree},
+  Year                     = {2014},
+  Month                    = {September},
+
+  Abstract                 = {For the last couple of decades building a new IT system has often started with deciding on which Relational Database Management System (RDBMS) to use. A number of factors have proven that this approach comes with drawbacks. It has only been the brave who dared to say that Atomicity, Consistency, Isolation, Durability (ACID) was not always desirable and with Brewer’s CAP theorem the debate has flamed around whether you could have consistency, availability, and partition tolerance at the same time. Data now exists in mobile devices, in cloud databases, and in transition on communication lines. This makes par- tition tolerance a feature of any contemporary solution and availability is a requirement that may overshadow the aim for consistency...},
+  Keywords                 = {FMK},
+  Owner                    = {aas},
+  Timestamp                = {2014.11.06},
+  Url                      = {https://github.com/SyncFree/WP1/blob/master/OCCSDoc/CriticalOptimisticEventualConsistency_0.1.pdf}
 }
 
 @TechReport{rep:optim:sh126,
@@ -303,7 +359,7 @@ We propose a replication mechanism built upon conflict-free replicated data type
   Year                     = {2015},
   Organization             = {PPoPP},
 
-  Abstract                 = {Designers of large user-oriented distributed applications, such as social networks and mobile applications, have adopted measures to improve the responsiveness of their applications. Latency is a ma- jor concern as people are very sensitive to it. Geo-replication is a commonly used mechanism to bring the data closer to the clients. Nevertheless, reaching the closest datacenter can still be consid- erably slow. Thus, in order to further reduce the access latency, mobile and web applications may be forced to replicate data at the client-side. Nevertheless, fully replicating large data structures may still be a waste of resources, specially for thin-clients.
+  Abstract                 = {Designers of large user-oriented distributed applications, such as social networks and mobile applications, have adopted measures to improve the responsiveness of their applications. Latency is a major concern as people are very sensitive to it. Geo-replication is a commonly used mechanism to bring the data closer to the clients. Nevertheless, reaching the closest datacenter can still be consid- erably slow. Thus, in order to further reduce the access latency, mobile and web applications may be forced to replicate data at the client-side. Nevertheless, fully replicating large data structures may still be a waste of resources, specially for thin-clients.
 We propose a replication mechanism built upon conflict-free replicated data types (CRDT) to seamlessly replicate parts of large data structures. We define partial replication and give an approach to keep the strong eventual consistency properties of CRDTs with partial replicas. We integrate our mechanism into SwiftCloud, a transactional system that brings geo-replication to the client. We evaluate the solution with a content-sharing application. Our results show improvements in bandwidth, memory, and latency usage over both classical geo-replication and the existing SwiftCloud solution.},
   Author                   = {Iwan Briquemont and Manuel Bravo and Zhongmiao Li and Peter Van Roy},
   Comment                  = {Printed},
@@ -915,7 +971,7 @@ Also the rapid changes in the load of system do not help either.},
   Publisher                = {USENIX},
   Series                   = {ICAC'13},
 
-  Url                      = {http://www.usenix.org/conference/icac13/autoplacer-scalable-self-tuning-data-placement-distributed-key-value-stores}
+  Url                      = {https://www.usenix.org/conference/icac13/technical-sessions/presentation/paiva}
 }
 
 @InProceedings{Preguica2009a,
@@ -1396,5 +1452,6 @@ n:optim:1487\;formel:rep:1529\;optim:rep:syn:1498\;rep:1507\;rep:optim
 1 KeywordGroup:Genetic algorithm\;0\;keywords\;Genetic algorithm\;0\;0
 \;;
 1 KeywordGroup:Replication\;0\;keywords\;replication\;0\;0\;;
+1 ExplicitGroup:SyncFree\;0\;Asco2014a\;Asco2014b\;Benedictus2014a\;;
 }
 
