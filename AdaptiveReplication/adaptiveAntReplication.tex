@@ -366,9 +366,11 @@ Table \ref{tb:implementations_sds} shows the operations for each sequence diagra
 
 The algorithm proposed may behave as one fixed replica or as full replication by changing the value of some of its parameters, see below:
 \begin{itemize}
-	\item {\bf One fixed replica}: $N_{k} = 1, T^{+}_{k} = \infty, T^{-}_{k} = -1$.
+	\item {\bf One fixed replica} (A):\\
+	$N_{k} = 1$, $T^{+}_{k} = \infty$, $T^{-}_{k} = -1$, $\bigtriangleup r_{kd} = 0$, $\bigtriangleup w_{k} = 0$, $\forall d \in |DC|$.
 
-	\item {\bf Full replication}: $N_{k} = |DC|$.
+	\item {\bf Full replication} (C):\\
+	$N_{k} = |DC|$, $T^{+}_{k} = 0$, $T^{-}_{k} = -1$, $\bigtriangleup r_{kd} = 0$, $\bigtriangleup w_{k} = 0$, $\forall d \in |DC|$.
 \end{itemize}
 
 This means that systems where the number of read is significantly higher that the number of writes will benefit from replicating the data in multiple \glspl{dc}, whereas systems with similar of higher number of write will benefit from low or no replication (only one replica). But there are many more requirements that have an important influence on the selection of the system configuration, i.e. number of \glspl{dc} and replication. Some of the most common requirements are Scalability, Accessibility, Latency and Security.
