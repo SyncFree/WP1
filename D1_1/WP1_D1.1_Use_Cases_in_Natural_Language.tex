@@ -16,7 +16,7 @@
 
 \hypersetup{%
 	colorlinks=false,% hyperlinks will be black
-	linkbordercolor=red,% hyperlink borders will be red
+%	linkbordercolor=red,% hyperlink borders will be red
 	pdfborderstyle={/S/U/W 1},% border style will be underline of width 1pt
 	linktoc=page% defines which part of an entry in the table of contents is made into a link. Valid values: none,section,page,all
 }
@@ -405,7 +405,7 @@ A single data center has read-your-writes consistency.
 
 \subsubsection{FMK Merge}
 One of the interesting issues in relation to SyncFree is how \gls{fmk} does merge, and which invariants need to be maintained.
-In general, the system needs a 2-dimensional temporal model, as it allows ``old versions'' to be updated to reflect that the system is not the truth. The truth is out in the real world. It could be that wrong information was entered into the system (maybe because a secretary entered information from an incomprehensible voice dictation), then the information is updated/decided upon by a third party, after which it needs to be possible to go back and correct the original input. Another possible conflict occurs in the case when a patient is involved in several treatments (at different facilities or with different health care professionals), but the drugs prescribed for these treatments have undesired interactions. Such ``drug incompatibilities'' cannot reliably be described as system invariants; they can to some degree be flagged by various external expert systems. In the end, the system can only flag non-causal updates, and let the domain professionals decide. One of our working rules when working with drugs is to not make decisions in code, but help the domain professionals to make the decisions.
+In general, the system needs a \href{http://en.wikipedia.org/wiki/Bitemporal_data}{2-dimensional} temporal model, as it allows ``old versions'' to be updated to reflect that the system is not the truth. The truth is out in the real world. It could be that wrong information was entered into the system (maybe because a secretary entered information from an incomprehensible voice dictation), then the information is updated/decided upon by a third party, after which it needs to be possible to go back and correct the original input. Another possible conflict occurs in the case when a patient is involved in several treatments (at different facilities or with different health care professionals), but the drugs prescribed for these treatments have undesired interactions. Such ``drug incompatibilities'' cannot reliably be described as system invariants; they can to some degree be flagged by various external expert systems. In the end, the system can only flag non-causal updates, and let the domain professionals decide. One of our working rules when working with drugs is to not make decisions in code, but help the domain professionals to make the decisions.
 
 The structure of a person record is a composite semi-\gls{crdt} like this:
 \begin{itemize}
