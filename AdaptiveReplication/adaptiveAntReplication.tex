@@ -28,7 +28,7 @@
 
 \begin{document}
 
-\title{Adaptive Geo--Replication Based on Ant Colony Algorithm}
+\title{Adaptive Dynamic Geo--Replication Strategy}
 
 \author{Amadeo Asc\'{o}\\ Trifork Leeds, Leeds, UK}
 
@@ -36,7 +36,12 @@
 
 \maketitle
 
-%{\bf Keywords}: Adaptive Replication, SyncFree
+\abstract
+The amount of data being processed in \glspl{dc} keeps growing at enormous rate so that full replication may start been impractical. The use of replication between \glspl{dc} is used to increase data availability in the presence of site failures and to reduce access costs by accessing the data locally, if possible. This means that replicating the data only in some of the \glspl{dc} is becoming more critical to reduce the costs of keeping the data consistent or eventually consistent and still maintaining a high availability and low access costs. For changing patterns of read and write data requests the data to be relocated and the location has to be obtained dynamically. Given that the problem of finding an optimal replication schema in a general network has been shown to be NP-complete for the static case, it is unlikely to be able to generate a general algorithm to find efficient solutions to the dynamic problem.
+
+So a new adaptive bio-inspired replication strategy is presented here, which is completely decentralised, adaptive, inspired on the Ant Colony algorithm, and event-driven. Also the replication protocol is independent of the strategy implemented but it is guided by the strategy.\\
+
+{\bf Keywords}: Adaptive Dynamic Replication, Geo--replication, Multiple \glspl{dc}
 
 
 \section{Introduction}
