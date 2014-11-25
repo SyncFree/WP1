@@ -30,7 +30,7 @@
 
 \title{Adaptive Geo--Replication Based on Ant Colony Algorithm}
 
-\author{Amadeo Asc\'{o}}
+\author{Amadeo Asc\'{o}\\ Trifork Leeds, Leeds, UK}
 
 \date{24$^{th}$ September 2014}
 
@@ -40,15 +40,15 @@
 
 
 \section{Introduction}
-	The amount of data being processed in \glspl{dc} keeps growing at enormous rate \cite{Tolle2011a, Cisco2014a, Chanthadavong2014a}. Some of the areas where the amount of stored data already reach \glspl{tb} and even \glspl{pb} are data mining, particle physics, climate modelling, high energy physics and astrophysics, to site few, data which needs to be shared and analysed \cite{KingsyGrace2013a, MohdZin2012a, Naseera2009a}. \glspl{dc} are able to ensure that stored data is highly accessible and scalable. But the location of a \gls{dc} in respect of the client accessing the data has an impact on availability, access times (latency - accessibility) and costs derived from providing the data. Replicating some of the data at multiple sites is a possible solution to reduce some of these undesirable effects, \cite{Briquemont2014a, Abad2011a, Venugopal2006a}. An increase in the number of replications may result in a large bandwidth savings and lead to a reduction in user response time on reads. But keeping too many replicas of the data incurs in extra costs, such as extra replication traffic to keep all versions of the data coherent (writes), extra required storage and extra computational power \cite{Goel2006a}.
+	The amount of data being processed in \glspl{dc} keeps growing at enormous rate \cite{Tolle2011a, Cisco2014a, Chanthadavong2014a}. Some of the areas where the amount of stored data already reach \glspl{tb} and even \glspl{pb} are data mining, particle physics, climate modelling, high energy physics and astrophysics, to site few, data which needs to be shared and analysed \cite{KingsyGrace2013a, MohdZin2012a, Naseera2009a}. \glspl{dc} are able to ensure that stored data is highly accessible and scalable. But the location of a \gls{dc} in respect of the client accessing the data has an impact on availability, access times (latency - accessibility) and costs derived from providing the data. Replicating some of the data at multiple sites is a possible solution to reduce some of these undesirable effects, \cite{Briquemont2014a, Abad2011a, Venugopal2006a}. An increase in the number of replications may result in a large bandwidth savings and lead to a reduction in user response time on reads or writes depending on the replication type, i.e. replication on read or write. But keeping too many replicas of the data incurs in extra costs, such as extra replication traffic to keep all versions of the data coherent, extra required storage and extra computational power \cite{Goel2006a}.
 	
-	This means that finding an optimal replication distribution that minimises the amount of network traffic given certain read and write frequencies for various objects should alleviate these extra costs when replicating, \cite{Wolfson1990a, Briquemont2014a}. Given the volume of operations considered, which are predominately higher in reads than writes, and the speed of the access expected then any algorithm suitable to be applied to this constrain optimisation problem must have a very fast execution time.
+	This means that finding an optimal replication distribution that minimises the amount of network traffic given certain read and write frequencies for various objects should alleviate these extra costs when replicating, \cite{Wolfson1990a, Briquemont2014a}. Given the volume of operations considered, which are predominately higher in reads than writes, and the speed of the access expected then any algorithm suitable to be applied to this constrain optimisation problem must have a very fast execution time or it will have a detrimental effect in the latency.
 
 	The replications may be grouped, base on its existence, into two types; {\bf static replication} where a replica persist until it is deleted by a user or its duration expires, and {\bf dynamic replication} where the creation and deletion of a replica are managed automatically and normally directed by the access pattern of the data used by the users \cite{Dong2008a}. In static replication the major drawback is their inability to adapt to changes in the access pattern of the data used by the users.
 	
-	Also there are two types of replication based on their effect on the data; {\bf partial replication} is concerned in the number of parts the full data is composed, all of which may be located in different parts of the overall system, i.e. \glspl{dc}, within a \gls{dc} in different nodes or at the client-side \cite{Briquemont2015a, Briquemont2014a, Serrano2007a}, whereas {\bf adaptive geo--replication} is concerned in what and where the data or part of the data is located within the overall system of \glspl{dc} and how many replicas exist simultaneously, \cite{Jeon2014a, KingsyGrace2013a, Wang2012a, Abad2011a, Abdul-Wahid2007a, Loukopoulos2004a}.
+	Also there are two types of replication based on their effect on the data; {\bf partial replication} is concerned in the number of parts the full data is composed, all of which may be located in different parts of the overall system, i.e. \glspl{dc}, within a \gls{dc} in different nodes or at the client-side \cite{Briquemont2015a, Briquemont2014a, Serrano2007a}, whereas {\bf adaptive geo--replication} is concerned in what data and where the data or part of the data is located within the overall system of \glspl{dc} and how many replicas exist simultaneously, \cite{Jeon2014a, KingsyGrace2013a, Wang2012a, Abad2011a, Abdul-Wahid2007a, Loukopoulos2004a}.
 	
-	The proposed algorithm is base on Wolfson's algorithm, \cite{Wolfson1990a}, which proposes an adaptive algorithm for replicated data between processors which takes into account the changes in the read-write pattern of the processors in the network, and also on the principles of the Ant Colony Optimisation algorithms, which are inspired in the behaviour of ant colonies when deciding which path to follow when foraging, \cite{dorigo1992a}.
+	The problem of finding an optimal geo--replication schema in a general network has been shown to be NP-complete for the static case \cite{Apers1988a,Wolfson1997a,Wolfson1991a} so there is no known efficient geo--replication algorithm to locate a convergent optimal solution dynamically. Given this it is proposed an algorithm base on Wolfson's algorithm, \cite{Wolfson1990a}, which proposes an adaptive algorithm for replicated data between processors which takes into account the changes in the read-write pattern of the processors in the network, and it is also based on the principles of the Ant Colony Optimisation algorithms, which are inspired in the behaviour of ant colonies when deciding which path to follow when foraging, \cite{dorigo1992a}.
 	
 	It should be noted that the main propose of the replication is not to recover from disasters as this is the responsibility of the recovery centres which are data centres sufficiently close to the operational \gls{dc}, they are associated to, so copies can be processed quickly enough but at the same time sufficiently far apart as to avoid any potential geographical issues that may happen to the \glspl{dc}, i.e. earthquakes, fire that destroys the \gls{dc}, the shutting down of main power plant which provides energy to the \gls{dc}. Neither it is the \gls{dc} responsibility to provide analytical services as these are provided by the data warehouse(s). The main propose of the considered \glspl{dc} is to provide operational access to clients (operational \glspl{dc}), which corresponds to intensive read/write operations to the client's most recent data. The following references to \glspl{dc} in this document referrer to operational data centres.
 
@@ -79,7 +79,7 @@ In general terms any read operation in a \gls{dc} reinforces the need for a repl
 		\hline
 		$\Gamma$      & It is the decay of the replication strength with time. A simple example corresponds to a constant decay ($\tau$) of the replication strength from the time the replica was created, $\Gamma = \Delta t * \tau$. & $\Gamma \in \mathbb{R}^{+}$ \\
 		\hline
-		$N_{k}$           & Minimum number of replicas of data k with $1 \le N_{k} \le |DC|$, default $N_{k} = 1$. & $N_{k} \in \mathbb{N}^{+}$ \\
+		$N_{k}$           & Minimum number of replicas of data k with $1 \le N_{k} \le |DC|$, default $N_{k} = 1$. The number of \glspl{dc} that can be safely removed from the system without information loss is $N_{k} -1$. & $N_{k} \in \mathbb{N}^{+}$ \\
 		\hline
 		$T^{+}_{k}$       & It is the replication strength required to start the replication of data $k$ in a \gls{dc} which does not currently contain a replica of the data. & $T^{-}_{k} \in \mathbb{R}^{+}$ \\
 		\hline
@@ -177,7 +177,7 @@ The read sequence diagrams for this algorithm are shown in Table \ref{tb:read_se
 			\includegraphics[width=.45\textwidth]{figures/readWithReplica.png}
 		\end{tabular}
 		
-		\caption{Read Sequence Diagrams.}
+		\caption{Read Sequence Diagrams on write replication.}
 		\label{tb:read_sequence_diagrams}
 	\end{center}
 \end{table}
@@ -195,7 +195,7 @@ The read sequence diagrams for this algorithm are shown in Table \ref{tb:read_se
 			\includegraphics[width=.96\textwidth]{figures/writeWithReplica.png}
 		\end{tabular}
 		
-		\caption{Write Sequence Diagrams.}
+		\caption{Write Sequence Diagrams on write replication.}
 		\label{tb:write_sequence_diagrams}
 	\end{center}
 \end{table}
@@ -220,8 +220,9 @@ Some of the parameters may be generalised even further by allowing them to depen
 	s^{d} = S^{d} - \sum^{|D|}_{k = 1} S_{k} * X_{kd}
 \end{equation}
 
+Accessibility in general is increased for Adaptive replication when compared to no replication. But also accessibility in general decreases for Adaptive replication when compared to full replication, given that when less replicas exit there is more chances that, on partition, a user is in the side of the partition where there is not any replica. Of course, this can be reduced by increasing the minimum number of replicas that must exist at each time and even adding extra constraints in relation to where those replicas must be in relation to each other.
 
-\newpage
+
 \subsection{Mathematical Cost Representation} \label{sec:math_cost_representation}
 It is considered that there is a direct cost associated to the reads ($c^{r}_{kd}$) and writes ($c^{w}_{kd}$) executed in the system for the data $k$ in the \gls{dc} $d$. Also there is a cost associate to the reads ($c^{r}_{kdj}$, $c^{r}_{kdd} = 0$) and writes ($c^{w}_{kdj}$, $c^{w}_{kdd} = 0$) between \glspl{dc} $d$ and $j$ for data $k$, shown in Table \ref{tb:costs}.
 \begin{table}[ht!]
@@ -360,7 +361,7 @@ Table \ref{tb:implementations_sds} shows the operations for each sequence diagra
 		\hline
 	\end{tabular}
 
-	\caption{Required operations by the different implementations for the specified sequences, $1 \le N_{k} \le R_{k} \le |DC|$.}
+	\caption{Required operations by the different implementations for the specified sequences, $1 \le N_{k} \le R_{k} \le |DC|$, on write replication.}
 	\label{tb:implementations_sds}
 \end{sidewaystable}
 
@@ -373,7 +374,9 @@ The algorithm proposed may behave as one fixed replica or as full replication by
 	$N_{k} = |DC|$, $T^{+}_{k} = 0$, $T^{-}_{k} = -1$, $\bigtriangleup r_{kd} = 0$, $\bigtriangleup w_{k} = 0$, $\forall d \in |DC|$.
 \end{itemize}
 
-This means that systems where the number of read is significantly higher that the number of writes will benefit from replicating the data in multiple \glspl{dc}, whereas systems with similar of higher number of write will benefit from low or no replication (only one replica). But there are many more requirements that have an important influence on the selection of the system configuration, i.e. number of \glspl{dc} and replication. Some of the most common requirements are Scalability, Accessibility, Latency and Security.
+This means that systems where the number of read is significantly higher that the number of writes will benefit from replicating the data in multiple \glspl{dc}, whereas systems with similar of higher number of write will benefit from low or no replication (only one replica). This will be true for write replication, but if the replication (update) is conducted on the reads then increase in the number of replicas will be advantageous for writes and detrimental to reads. Future implementations of the proposed algorithm may take this into account so the replication type (on read or write) is also part of the adaptive mechanism.
+
+There are also many more requirements that have an important influence on the selection of the system configuration, i.e. number of \glspl{dc} and replication. Some of the most common requirements are Scalability, Accessibility, Latency and Security.
 \begin{itemize}
 	\item {\bf Scalability}: (A) does not provide scalability, where replication provides scalability. \cite{Jimenez-Peris2003a} provides an analytical study which shows the scalability limits of full replication as updates have to be sent and executed at all replicated sites (symmetric processing). To reduce the this it can be used asymmetric processing where transactions are processed first at the originating site then collected and eventually propagated and applied to the other sites, which improves scalability. From the point of view of scalability the processing power in a \gls{dc}, when a write is received, is invested in processing the write and the updates. As the number of replicas increases, there is a point at which the increase on the number of \glspl{dc}, so replicas, does not increase any more the system capacity. The main reason is that most of the system processing power is used in processing the updates. 
 	\item {\bf Availability/Accessibility}: (B) and (C) improve accessibility, where (A) provides a limited accessibility, \cite{Ladin1992a}.
