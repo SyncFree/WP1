@@ -1,11 +1,12 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\documentclass[english]{article}
-\usepackage[T1]{fontenc}
+%\documentclass[english]{article}
+\documentclass{acm_proc_article-sp}
+%\usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\usepackage{textcomp}
-\usepackage{babel}
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\usepackage{textcomp}
+%\usepackage{babel}
 \usepackage{url}
 \usepackage{color,soul}
 \usepackage{graphicx}
@@ -28,7 +29,7 @@
 
 \begin{document}
 
-\title{Adaptive Dynamic Geo--Replication Strategy}
+\title{Adaptive Geo--Replication Strategy}
 
 \author{Amadeo Asc\'{o}\\ Trifork Leeds, Leeds, UK}
 
@@ -37,15 +38,16 @@
 \maketitle
 
 \abstract
-The amount of data being processed in \glspl{dc} keeps growing at enormous rate so that full replication may start been impractical. The use of replication between \glspl{dc} is used to increase data availability in the presence of site failures and to reduce access costs by accessing the data locally, if possible. This means that replicating the data only in some of the \glspl{dc} is becoming more critical to reduce the costs of keeping the data consistent or eventually consistent and still maintaining a high availability and low access costs. For changing patterns of read and write data requests the data to be relocated and the location has to be obtained dynamically. Given that the problem of finding an optimal replication schema in a general network has been shown to be NP-complete for the static case, it is unlikely to be able to generate a general algorithm to find efficient solutions to the dynamic problem.
+The amount of data being processed in \glspl{dc} keeps growing at enormous rate so that full replication may start being impractical. The use of replication between \glspl{dc} is used to increase data availability in the presence of site failures and to reduce access costs by accessing the data locally, if possible. This means that replicating the data only in some of the \glspl{dc} is becoming more critical to reduce the costs of keeping the data consistent or eventually consistent and still maintaining a high availability (scalability) and low access costs. For changing patterns of read and write data requests the data to be replicated and the its location has to be obtained dynamically. Given that the problem of finding an optimal replication schema in a general network has been shown to be NP-complete for the static case, it is unlikely to be able to generate a general algorithm to find efficient solutions to the dynamic problem.
 
 So a new adaptive bio-inspired replication strategy is presented here, which is completely decentralised, adaptive, inspired on the Ant Colony algorithm, and event-driven. Also the replication protocol is independent of the strategy implemented but it is guided by the strategy.\\
 
-{\bf Keywords}: Adaptive Dynamic Replication, Geo--replication, Multiple \glspl{dc}
+\keywords
+Adaptive Replication, Geo-replication, Multiple \glspl{dc}, Large-Scale Database Replication, Partial Replication
 
 
 \section{Introduction}
-	The amount of data being processed in \glspl{dc} keeps growing at enormous rate \cite{Tolle2011a, Cisco2014a, Chanthadavong2014a}. Some of the areas where the amount of stored data already reach \glspl{tb} and even \glspl{pb} are data mining, particle physics, climate modelling, high energy physics and astrophysics, to site few, data which needs to be shared and analysed \cite{KingsyGrace2013a, MohdZin2012a, Naseera2009a}. \glspl{dc} are able to ensure that stored data is highly accessible and scalable. But the location of a \gls{dc} in respect of the client accessing the data has an impact on availability, access times (latency - accessibility) and costs derived from providing the data. Replicating some of the data at multiple sites is a possible solution to reduce some of these undesirable effects, \cite{Briquemont2014a, Abad2011a, Venugopal2006a}. An increase in the number of replications may result in a large bandwidth savings and lead to a reduction in user response time on reads or writes depending on the replication type, i.e. replication on read or write. But keeping too many replicas of the data incurs in extra costs, such as extra replication traffic to keep all versions of the data coherent, extra required storage and extra computational power \cite{Goel2006a}.
+	The amount of data being processed in \glspl{dc} keeps growing at enormous rate \cite{Tolle2011a, Cisco2014a, Chanthadavong2014a}. Some of the areas where the amount of stored data already reach \glspl{tb} and even \glspl{pb} are data mining, particle physics, climate modelling, high energy physics and astrophysics, to site few, data which needs to be shared and analysed \cite{KingsyGrace2013a, MohdZin2012a, Naseera2009a}. \glspl{dc} are able to ensure that stored data is highly accessible and scalable. But the location of a \gls{dc} in respect of the client accessing the data has an impact on availability, access times (latency - accessibility) and costs derived from providing the data. Replicating some of the data at multiple sites is a possible solution to reduce some of these undesirable effects, \cite{Briquemont2014a, Abad2011a, Venugopal2006a}. An increase in the number of replications may result in a large bandwidth savings and lead to a reduction in user response time on reads or writes depending on the replication type, i.e. replication on read or write. But keeping too many replicas of the data incurs in extra costs, such as extra replication traffic to keep all versions of the data coherent, extra required storage and extra computational power \cite{Serrano2007a, Goel2006a}.
 	
 	This means that finding an optimal replication distribution that minimises the amount of network traffic given certain read and write frequencies for various objects should alleviate these extra costs when replicating, \cite{Wolfson1990a, Briquemont2014a}. Given the volume of operations considered, which are predominately higher in reads than writes, and the speed of the access expected then any algorithm suitable to be applied to this constrain optimisation problem must have a very fast execution time or it will have a detrimental effect in the latency.
 
@@ -62,8 +64,8 @@ So a new adaptive bio-inspired replication strategy is presented here, which is 
 The general idea of this algorithm is to decide without the need of human intervention where and when to replicate with the main objective of reducing the latency and network traffic (reduce usage of bandwidth).
 
 In general terms any read operation in a \gls{dc} reinforces the need for a replica of the data in such \gls{dc}, similarly but perhaps with a different degree it happens with the write operations, but write operations decrease the need for a replica of the data in the other \glspl{dc} with replicas of the data, so eventually these \glspl{dc} will not have any replica of the data. Given that we do not want to keep replicas if it is not necessary then the need for such replica will decay as time pass, but always making sure that the data is present (replicated) at least in one of the \glspl{dc}. This algorithm is further explained below together with a mathematical representation. The variables and constants used in the algorithm are summarised in Table \ref{tbl:vars_consts}.
-\begin{table}[ht!]
-	\begin{tabular}{ |l|p{7.8cm}|l|}
+\begin{table*}[ht!]
+	\begin{tabular}{ |l|p{13.5cm}|l|}
 		\hline
 		{\bf Variable}    & {\bf Description} & {\bf Type} \\
 		\hline
@@ -102,7 +104,7 @@ In general terms any read operation in a \gls{dc} reinforces the need for a repl
 	
 	\caption{List of variables and constants.}
 	\label{tbl:vars_consts}
-\end{table}
+\end{table*}
 
 Equation \ref{eq:data_replicated} represents the existence of a replica of data $k$ in \gls{dc} $d$, $X_{dk} = 1$, or its absence $X_{dk} = 0$. $R_{k}$ is the number of replicas of data $k$, as expressed in Equation \ref{eq:num_replicas}.
 \begin{equation} \label{eq:data_replicated}
@@ -120,7 +122,10 @@ R_{k} = \sum^{|DC|}_{d = 1} X_{dk}
 
 $F_{kd}$ represents the full strength of the replication of the data $k$ in \gls{dc} $d$, which it is expressed in Equation \ref{eq:replication_strength}.
 \begin{equation}  \label{eq:replication_strength}
-	 F_{kd} = \max(0, \min(L_{k}, r_{kd} * \Delta r_{k} + w_{kd} * \Delta w_{k} - \sum^{|DC|}_{i = 1, i \neq d} w_{kd} * \Delta w_{kdi} - X_{kd} * \Gamma))
+	\begin{split}
+		 F_{kd} = \max(0, \min(L_{k}, r_{kd} * \Delta r_{k} + w_{kd} * \Delta w_{k}\\
+		 - \sum^{|DC|}_{i = 1, i \neq d} w_{kd} * \Delta w_{kdi} - X_{kd} * \Gamma))
+	 \end{split}
 \end{equation}
 
 %\begin{equation}  \label{eq:inter_dc_decay}
@@ -131,17 +136,23 @@ Equation \ref{eq:replication_strength} shows that the replication strength for t
 
 $T^{+}_{k}$ is the threshold of the replication strength of data $k$ which determines when to keep an existing replica in a \gls{dc}, as expressed in Equation \ref{eq:replicas_threshold+}.
 \begin{equation} \label{eq:replicas_threshold+}
-	F_{kd} \le T^{+}_{k} \text{, } \nexists D_{kd} \text{, } t < t_{0}  \wedge F_{kd} > T^{+}_{k} \text{, } t_{0} \Longrightarrow \exists D_{kd} \text{, } t_{0} \text{ } (D_{kd} \in DC_{d})
+	\begin{split}
+		F_{kd} \le T^{+}_{k} \text{, } \nexists D_{kd} \text{, } t < t_{0}  \wedge F_{kd} > T^{+}_{k} \text{, } t_{0} \Longrightarrow \exists D_{kd} \text{, }\\
+		 t_{0} \text{ } (D_{kd} \in DC_{d})
+	\end{split}
 \end{equation}
 
 $T^{-}_{k}$ is the threshold of the replication strength of data $k$ which determines when to remove an existing replica in a \gls{dc} when the other constrains are still kept. i.e. minimum number of replicas, as expressed in Equation \ref{eq:replicas_threshold--}. Also a simple view of the thresholds is shown in Figure \ref{fig:lim_constriants}.
 \begin{equation} \label{eq:replicas_threshold--}
-	F_{kd} > T^{-}_{k} \wedge \exists D_{kd} \text{, } t < t_{0}  \wedge F_{kd} \le T^{-}_{k} \text{, } t_{0} \Longrightarrow \nexists D_{kd} \text{, } t_{0} \text{ } (D_{kd} \in DC_{d})
+	\begin{split}
+		F_{kd} > T^{-}_{k} \wedge \exists D_{kd} \text{, } t < t_{0}  \wedge F_{kd} \le T^{-}_{k} \text{, } t_{0} \Longrightarrow \nexists D_{kd} \text{, }\\
+		 t_{0} \text{ } (D_{kd} \in DC_{d})
+	\end{split}
 \end{equation}
 \begin{center}
 	\begin{figure}[ht!]
 		\centering
-		\includegraphics[width=.8\textwidth]{figures/strengthReplica.png}
+		\includegraphics[width=.51\textwidth]{figures/strengthReplica.png}
 	
 		\caption{Constraints.}
 		\label{fig:lim_constriants}
@@ -174,38 +185,38 @@ Overall it is assumed that reads and writes are not treated differently (not usi
 The algorithm is optimal in the sense that when the replication scheme stabilises, the total number of replicas required for the reads and writes is minimal.
 
 The read sequence diagrams for this algorithm are shown in Table \ref{tb:read_sequence_diagrams} with its flowchart presented in Figure \ref{fig:read_flowchart}, and the write ones are shown in Table \ref{tb:write_sequence_diagrams} with its flowchart presented in Figure \ref{fig:write_flowchart}. The second figure in Table \ref{tb:read_sequence_diagrams} may also have a notification for all \glspl{dc} with a replica of the data to notify of the new replica which will be sent by the direct \gls{dc} for when the threshold has been passed and a replica is created in the direct \gls{dc}.
-\begin{table}[htpb!]
+\begin{table}[ht!]
 	\begin{center}
 		\begin{tabular}{c}
-			\includegraphics[width=.96\textwidth]{figures/firstReadWithoutReplica.png} \\
-			\includegraphics[width=.7\textwidth]{figures/readWithoutReplica.png} \\
-			\includegraphics[width=.45\textwidth]{figures/readWithReplica.png}
+			\includegraphics[width=.48\textwidth]{figures/firstReadWithoutReplica.png} \\
+			\includegraphics[width=.35\textwidth]{figures/readWithoutReplica.png} \\
+			\includegraphics[width=.23\textwidth]{figures/readWithReplica.png}
 		\end{tabular}
 		
 		\caption{Read Sequence Diagrams on write replication.}
 		\label{tb:read_sequence_diagrams}
 	\end{center}
 \end{table}
-\begin{figure}[htpb!]
-	\includegraphics[width=1\textwidth]{figures/readRequestFlowchart.png}
+\begin{figure}[ht!]
+	\includegraphics[width=.47\textwidth]{figures/readRequestFlowchart.png}
 
 	\caption{Flowchart for read requests.}
 	\label{fig:read_flowchart}
 \end{figure}
-\begin{table}[htpb!]
+\begin{table}[ht!]
 	\begin{center}
 		\begin{tabular}{c}
-			\includegraphics[width=.94\textwidth]{figures/firstWriteWithoutReplica.png} \\
-			\includegraphics[width=.96\textwidth]{figures/writeWithoutReplica.png} \\
-			\includegraphics[width=.96\textwidth]{figures/writeWithReplica.png}
+			\includegraphics[width=.46\textwidth]{figures/firstWriteWithoutReplica.png} \\
+			\includegraphics[width=.47\textwidth]{figures/writeWithoutReplica.png} \\
+			\includegraphics[width=.47\textwidth]{figures/writeWithReplica.png}
 		\end{tabular}
 		
 		\caption{Write Sequence Diagrams on write replication.}
 		\label{tb:write_sequence_diagrams}
 	\end{center}
 \end{table}
-\begin{figure}[htpb!]
-	\includegraphics[width=1\textwidth]{figures/writeRequestFlowchart.png}
+\begin{figure}[ht!]
+	\includegraphics[width=.47\textwidth]{figures/writeRequestFlowchart.png}
 	
 	\caption{Flowchart for write requests.}
 	\label{fig:write_flowchart}
@@ -230,9 +241,9 @@ Accessibility in general is increased for Adaptive replication when compared to 
 
 \subsection{Mathematical Cost Representation} \label{sec:math_cost_representation}
 It is considered that there is a direct cost associated to the reads ($c^{r}_{kd}$) and writes ($c^{w}_{kd}$) executed in the system for the data $k$ in the \gls{dc} $d$. Also there is a cost associate to the reads ($c^{r}_{kdj}$, $c^{r}_{kdd} = 0$) and writes ($c^{w}_{kdj}$, $c^{w}_{kdd} = 0$) between \glspl{dc} $d$ and $j$ for data $k$, shown in Table \ref{tb:costs}.
-\begin{table}[ht!]
+\begin{table*}[ht!]
 	\begin{center}
-		\begin{tabular}{|l|p{8cm}|l|}
+		\begin{tabular}{|l|p{13.6cm}|l|}
 			\hline
 			Cost                         & Description & Type \\
 			\hline
@@ -260,15 +271,16 @@ It is considered that there is a direct cost associated to the reads ($c^{r}_{kd
 
 	\caption{Costs and variables time dependent.}
 	\label{tb:costs}
-\end{table}
+\end{table*}
 
 The cost between time $t$ and $t+dt$ is expressed by Equation \ref{eq:cost_operations} and the minimum number of replicas is represented by Inequality \ref{ineq:limit_replicas} for time $t$.
 \begin{equation} \label{eq:cost_operations}
 	\begin{split}
-		 Cost_{k}(t, t+dt) = \sum^{|DC|}_{d = 1} \left(\underbrace{r_{kd}(t, t+dt) * c^{r}_{kd}(t) + w_{kd}(t, t+dt) * c^{w}_{kd}(t)}_\text{direct cost} \right. \\
+		 Cost_{k}(t, t+dt) =\\
+		  \sum^{|DC|}_{d = 1} \left(\underbrace{r_{kd}(t, t+dt) * c^{r}_{kd}(t) + w_{kd}(t, t+dt) * c^{w}_{kd}(t)}_\text{direct cost} \right. \\
 		 \left. + \underbrace{\sum^{|DC|}_{j = 1} w_{kd}(t, t+dt) * c^{w}_{kdj}(t) * X_{kj}(t)}_\text{update propagation cost} \right. \\ 
 		 \left. + \underbrace{(1 - X_{kd}(t)) * r_{kd}(t, t+dt) * \min_{j \in R_{k}}(c^{r}_{kdj}(t))}_\text{redirect reads cost} \right. \\  
-		 \left. + \underbrace{(1 - X_{kd}(t)) * w_{kd}(t, t+dt) * \min_{j \in R_{k}}(c^{w}_{kdj}(t))}_\text{redirect writes cost}  \right. \\ \left. + \underbrace{\sum^{|DC|}_{d = 1}  \sum^{|DC|}_{j = 1, j \neq d}  (1 - X_{kd}(t)) * X_{kj}(t) * \rho_{kd}(t, t+dt)  * c^{r}_{*dj}(t)}_\text{search cost}\right)
+		 \left. + \underbrace{(1 - X_{kd}(t)) * w_{kd}(t, t+dt) * \min_{j \in R_{k}}(c^{w}_{kdj}(t))}_\text{redirect writes cost}  \right. \\ \left. + \underbrace{\sum^{|DC|}_{j = 1, j \neq d}  (1 - X_{kd}(t)) * X_{kj}(t) * \rho_{kd}(t, t+dt)  * c^{r}_{*dj}(t)}_\text{search cost}\right)
 	 \end{split}
 \end{equation}
 \begin{equation} \label{ineq:limit_replicas}
@@ -293,9 +305,12 @@ There is a cost incurred when a replica is placed in a new \gls{dc} and when the
 The extended cost is shown in Equation \ref{eq:full_cost_operations} where the time dependency has been omitted for simplicity and clarity.
 \begin{equation} \label{eq:full_cost_operations}
 	\begin{split}
-		Cost_{k}(t, t+dt) = \sum^{|DC|}_{d = 1} \left( \underbrace{r_{kd} * c^{r}_{kd} + w_{kd} * c^{w}_{kd}}_\text{direct cost} + \underbrace{\sum^{|DC|}_{j = 1} w_{kd} * c^{w}_{kdj} * X_{kj}}_\text{update propagation cost} \right. \\ 
-		+ \underbrace{(1 - X_{kd}) * r_{kd} * \min_{j \in R_{k}}(c^{r}_{kdj})}_\text{redirect reads cost} + \underbrace{\sum^{|DC|}_{d = 1}  \sum^{|DC|}_{j = 1, j \neq d}  (1 - X_{kd}) * X_{kj} * c^{r}_{*dj}}_\text{search cost} \\
-		\left. + \underbrace{\sum^{|DC|}_{j = 1, X_{kj} = 1} X^{'}_{kd} * (1 - X_{kd}) * c^{r}_{*kdj}}_\text{new replica cost} + \underbrace{\sum^{|DC|}_{j = 1, j \neq d, X_{kj} = 1} (1 - X^{'}_{kd}) * X_{kd} * c^{r}_{*kdj}}_\text{remove replica cost} \right)
+		Cost_{k}(t, t+dt) =\\
+		 \sum^{|DC|}_{d = 1} \left( \underbrace{r_{kd} * c^{r}_{kd} + w_{kd} * c^{w}_{kd}}_\text{direct cost} + \underbrace{\sum^{|DC|}_{j = 1} w_{kd} * c^{w}_{kdj} * X_{kj}}_\text{update propagation cost} \right. \\ 
+		\left. + \underbrace{(1 - X_{kd}) * r_{kd} * \min_{j \in R_{k}}(c^{r}_{kdj})}_\text{redirect reads cost} \right. \\ 
+		\left. + \underbrace{\sum^{|DC|}_{j = 1, j \neq d}  (1 - X_{kd}) * X_{kj} * c^{r}_{*dj}}_\text{search cost} \right. \\
+		\left. + \underbrace{\sum^{|DC|}_{j = 1, X_{kj} = 1} X^{'}_{kd} * (1 - X_{kd}) * c^{r}_{*kdj}}_\text{new replica cost} \right. \\ 
+		\left. + \underbrace{\sum^{|DC|}_{j = 1, j \neq d, X_{kj} = 1} (1 - X^{'}_{kd}) * X_{kd} * c^{r}_{*kdj}}_\text{remove replica cost} \right)
 	\end{split}
 \end{equation}
 
@@ -383,10 +398,17 @@ This means that systems where the number of read is significantly higher that th
 
 There are also many more requirements that have an important influence on the selection of the system configuration, i.e. number of \glspl{dc} and replication. Some of the most common requirements are Scalability, Accessibility, Latency and Security.
 \begin{itemize}
-	\item {\bf Scalability}: (A) does not provide scalability, where replication provides scalability. \cite{Jimenez-Peris2003a} provides an analytical study which shows the scalability limits of full replication as updates have to be sent and executed at all replicated sites (symmetric processing). To reduce the this it can be used asymmetric processing where transactions are processed first at the originating site then collected and eventually propagated and applied to the other sites, which improves scalability. From the point of view of scalability the processing power in a \gls{dc}, when a write is received, is invested in processing the write and the updates. As the number of replicas increases, there is a point at which the increase on the number of \glspl{dc}, so replicas, does not increase any more the system capacity. The main reason is that most of the system processing power is used in processing the updates. 
-	\item {\bf Availability/Accessibility}: (B) and (C) improve accessibility, where (A) provides a limited accessibility, \cite{Ladin1992a}.
-	\item {\bf Latency}: Given that (B) and (C) provide replicas in multiple \glspl{dc} then the data can be accessed from any of those \glspl{dc} and choosing the one with less latency will improve the latency seen by the customer, improve responsiveness.
-	\item {\bf Security/Fault-tolerance}: Security normally is achieved by using recovery centres but it is also improved/achievable by the provision of replicas (redundancy) as if a \gls{dc} suffer a catastrophic event where all data is lost if the data was replicated then the data can be retrieved from the other \gls{dc}(s) where the data is also replicated, \cite{Guerraoui1996a, Neumann1956a}.
+	\item {\bf Scalability}: 
+	(A) does not provide scalability, where replication provides scalability. \cite{Jimenez-Peris2003a} provides an analytical study which shows the scalability limits of full replication as updates have to be sent and executed at all replicated sites (symmetric processing). To reduce the this it can be used asymmetric processing where transactions are processed first at the originating site then collected and eventually propagated and applied to the other sites, which improves scalability. From the point of view of scalability the processing power in a \gls{dc}, when a write is received, is invested in processing the write and the updates. As the number of replicas increases, there is a point at which the increase on the number of \glspl{dc}, so replicas, does not increase any more the system capacity. The main reason is that most of the system processing power is used in processing the updates. 
+
+	\item {\bf Availability/Accessibility}: 
+	(B) and (C) improve accessibility, where (A) provides a limited accessibility, \cite{Ladin1992a}.
+
+	\item {\bf Latency}: 
+	Given that (B) and (C) provide replicas in multiple \glspl{dc} then the data can be accessed from any of those \glspl{dc} and choosing the one with less latency will improve the latency seen by the customer, improve responsiveness.
+
+	\item {\bf Security/Fault-tolerance}:\\
+	Security normally is achieved by using recovery centres but it is also improved/achievable by the provision of replicas (redundancy) as if a \gls{dc} suffer a catastrophic event where all data is lost if the data was replicated then the data can be retrieved from the other \gls{dc}(s) where the data is also replicated, \cite{Guerraoui1996a, Neumann1956a}.
 \end{itemize}
 
 
@@ -406,9 +428,12 @@ This algorithm implies:
 
 This approach requires simple and fast operations to adapt to the changing access pattern of the data. Furthermore, some or all of the parameters could be determined at run time by some other adaptive approach which has into account the cost function provided in \ref{sec:math_cost_representation}.
 
+The replication type (on read or on write) has an important influence in the costs of replicating data and should be incorporated into the strategy described above to even improve more its performance.
+
 
 \section{Acknowledgements}
-This work is part of the European research project \href{https://syncfree.lip6.fr}{SyncFree}.
+This work has been supported by the project \href{https://syncfree.lip6.fr}{SyncFree} (co-financed by the European Commission through the grant agreement number 609551).
+%This work is part of the European research project \href{https://syncfree.lip6.fr}{SyncFree}.
 
 
 %
