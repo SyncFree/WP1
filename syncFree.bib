@@ -1039,6 +1039,45 @@ Also the rapid changes in the load of system do not help either.},
   Url                      = {https://www.usenix.org/conference/icac13/technical-sessions/presentation/paiva}
 }
 
+@PhdThesis{Peluso2014a,
+  Title                    = {Ecient Protocols for Replicated Transactional Systems},
+  Author                   = {Sebastiano Peluso},
+  School                   = {Dipartimento di Ingegneria Informatica, Sapienza Universit\'{a} di Roma},
+  Year                     = {2014},
+
+  Address                  = {Dipartimento di Ingegneria Informatica, Automatica e Gestionale
+Sapienza Universita di Roma
+Via Ariosto 25, I-00185 Roma, Italy
+e-mail: peluso@dis.uniroma1.it},
+
+  Abstract                 = {Over the last years several relevant technological trends have signicantly increased the relative impact that the inter-replica synchronization costs have on the performance of transactional systems. Indeed, the emergence of technologies like Transactional Memory, Solid-State Drives and Cloud computing has exacerbated the ratio between the latencies of replication coordination and transaction processing. The requirements of these environments harshly challenge state of the art techniques for replication of transactional systems, raising the need for rethinking existing approaches to this problem. This dissertation advances the state of the art on replicated transactional systems by presenting a set of innovative replication protocols designed to achieve high eciency even in such challenging scenarios.
+More in detail, four transactional replication protocols are proposed, which tackle the aforementioned issues from various angles. The rst two cope with full replication scenarios, and exploit orthogonal techniques, such as speculation and transaction migration, which allow for amortizing, in dierent ways, the impact of distributed coordination on system performance. The other two proposals explicitly cope with the issue of scalability, by introducing the rst genuine partial replication techniques that support abort-free read-only transactions while ensuring, respectively, One-Copy Serializability and Extended Update Serializability. The core of these protocols is a distributed multi-version concurrency control algorithm, which relies on a novel logical clock synchronization mechanism to track, in a totally decentralized (and consequently scalable) way, both data and causal dependency relations among transactions. The trade-os arising across the dierent presented solutions are also discussed and experimentally evaluated by integrating them into state of the art academic and industrial transactional platforms.},
+  Keywords                 = {Protocol},
+  Owner                    = {aas},
+  Timestamp                = {2014.11.26},
+  Url                      = {http://www.ssrg.ece.vt.edu/theses/Phd_Peluso.pdf}
+}
+
+@InCollection{Peluso2012a,
+  Title                    = {SCORe: A Scalable One-Copy Serializable Partial Replication Protocol},
+  Author                   = {Peluso, Sebastiano and Romano, Paolo and Quaglia, Francesco},
+  Booktitle                = {Middleware 2012},
+  Publisher                = {Springer Berlin Heidelberg},
+  Year                     = {2012},
+  Editor                   = {Narasimhan, Priya and Triantafillou, Peter},
+  Pages                    = {456-475},
+  Series                   = {Lecture Notes in Computer Science},
+  Volume                   = {7662},
+
+  Abstract                 = {In this article we present SCORe, a scalable one-copy serializable partial replication protocol. Differently from any other literature proposal, SCORe jointly guarantees the following properties: (i) it is genuine, thus ensuring that only the replicas that maintain data accessed by a transaction are involved in its processing, and (ii) it guarantees that read operations always access consistent snapshots, thanks to a one-copy serializable multiversion scheme, which never aborts read-only transactions and spares them from any (distributed) validation phase. This makes SCORe particularly efficient in presence of read-intensive workloads, as typical of a wide range of real-world applications. We have integrated SCORe into a popular open source distributed data grid and performed a large scale experimental study with well-known benchmarks using both private and public cloud infrastructures. The experimental results demonstrate that SCORe provides stronger consistency guarantees (namely One-Copy Serializability) than existing multiversion partial replication protocols at no additional overhead.},
+  Doi                      = {10.1007/978-3-642-35170-9_23},
+  File                     = {:/Users/aas/Documents/Projects/Documents/Papers/SCOREe2012.pdf:PDF},
+  ISBN                     = {978-3-642-35169-3},
+  Keywords                 = {Distributed Transactional Systems; Partial Replication; Scalability; Multiversioning},
+  Language                 = {English},
+  Url                      = {http://dx.doi.org/10.1007/978-3-642-35170-9_23}
+}
+
 @InProceedings{Peluso2012a,
   Title                    = {When Scalability Meets Consistency: Genuine Multiversion Update-Serializable Partial Data Replication},
   Author                   = {Sebastiano Peluso and Pedro Ruivo and Paolo Romano and Francesco Quaglia and Luís Rodrigues},
