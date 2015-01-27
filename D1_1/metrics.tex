@@ -1,0 +1,190 @@
+\begin{landscape}
+	\small  % Switch from 12pt to 11pt; otherwise, table won't fit
+	\begin{center}
+		 \begin{longtable}{|p{2.2cm}||p{3.6cm}|p{3.4cm}|p{3.4cm}||p{3.8cm}|p{3.4cm}|p{3.1cm}|}
+			\hline
+			Provider & 
+				\multicolumn{3}{c|}{Trifork} & 
+				\multicolumn{3}{c|}{Rovio} \\ \cline{2-7}
+
+			     & 
+				FMK & 
+				Music Festival & 
+				B2B & 
+				Leaderboard & 
+				Virtual Wallet & 
+				Ad Counting \\
+			\hline
+			\hline
+			\endhead
+			\hline \multicolumn{7}{r}{\textit{Continue on next page}} \\
+			\endfoot
+			\endlastfoot
+
+			No. DCs	& 
+				Currently 2. Potentially more.	& 
+				Normally 1 but many could be used & 
+				1 DC but many could be used & 
+				1 DC but many could be used & 
+				1 DC but many could be used	& 
+				1 DC but many could be used \\\cline{3-3}
+	
+			       & 
+			       & 
+			     Server and all mobile devices  & 
+			       & 
+			       &  
+			       & \\
+			\hline
+	
+			Replication & 
+				Full & 
+				Full & 
+				Partial. Only orders from stores relevant to the user are replicated & 
+				Full & 
+				Full & 
+				Full \\
+			\hline
+	
+			No. Replicas & 
+				Each DC has a Riak clusters with 3 replicas of each key. In addition a datawarehouse exists with one replica & 
+				Thousands & 
+				Stores are replicated to all users with access to the store. This is done when the user starts the app & 
+				3 within a database	& 
+				3 within a database	& 
+				3 within a database but copies in cache increases to thens \\
+			\hline
+	
+			No. expected of objects & 
+				Millions of medicine cards. ~2 billion auditlog entries & 
+				A couple per guest. Up to 70.000 guests & 
+				Millions of orders & 
+				(users $/$ 30) $*$ numberLevels & 
+				Tens of hundred of millions &
+				Tens of thousands \\ \cline{2-5} \cline{7-7}
+			
+				 & 
+				Millions of request-log entries and 14-day history & 
+				From tens of thousands & 
+				10s--100s of million of auditlog entries & 
+				A game with 100 levels and 300 million users generate 1 billion objects & 
+				 & 
+				May increase up to hundreds of thousands \\ \cline{2-3} \cline{4-5} \cline{7-7}
+	
+				 & 
+				Billions of audit-log entries and a few years of history & 
+				To hundred of thousands &
+				 & 
+				Many games running at a time so hundreds or millions or billions & 
+				 & 
+				Many counters aggregated into a single document \\
+			\hline
+	
+			Partitioning of data & 
+				Riak shards data in 256 partitions based on consistent hashing & 
+				Riak shards data in 64 partitions based on consistent hashing & 
+				Riak shards data in 64 partitions based on consistent hashing & 
+				No & 
+				No & 
+				No \\
+			\hline
+	
+			Object sizes & 
+				Medicine cards: On the order of 10KB-1MB &
+				 & 
+				Average 10KB & 
+				150 bytes & 
+				From ~ 1KB & 
+				Bytes \\ \cline{2-2} \cline{4-4} \cline{6-6}
+	
+				 & 
+				Request-log entries: On the order of 100KB & 
+				 & 
+				\multirow{2}{3.4cm}{Binary objects bigger and streamed in chunks of 64K} & 
+				 & 
+				To tens of KB & 
+				 \\ \cline {2-2}
+	
+				 & 
+				Audit-log entries: On the order of 1KB & 
+				 & 
+				 & 
+				 & 
+				 & 
+				  \\
+			\hline
+	
+			Total size of data set & 
+				Medicine cards: On the order of 100GB & 
+				 & 
+				0.1 to 1 TB auditlogs and 10GB orders & 
+				150 GB & 
+				30 GB & 
+				200 KB \\ \cline{2-2}
+	
+				 &
+				Request log: On the order of 100GB & 
+				 & 
+				 & 
+				 & 
+				 & 
+				  \\ \cline{2-2}
+	
+				 & 
+				Audit log: On the order of 1TB & 
+				 & 
+			 	 & 
+			  	 & 
+			 	 & 
+				  \\
+			\hline
+	
+			Rate of growth &
+				Proportional to population growth in Denmark (very low) &
+				& 
+				& 
+				& 
+				& 
+				 \\ \cline{2-2}
+	
+				 &
+				Request log: On the order of 10GB/day. Requests are deleted after 14 days & 
+				 & 
+			 	 & 
+			 	 & 
+			 	 & 
+				  \\ \cline{2-2}
+	
+				 & 
+				Audit log: On the order of 100MB/day & 
+				 & 
+				 & 
+				 & 
+				 & 
+				  \\
+			\hline
+	
+			Consistency & 
+				No consistency is assumed across person IDs & 
+				Eventual consistency & 
+				Eventual consistency & 
+				Eventual consistency & 
+				\multirow{2}{3.6cm}{Lower global consistency and higher consistency within DC (Strong Consistency)} & 
+				Eventual consistency \\ \cline{2-2}
+	
+				 & 
+				Eventual consistency & 
+				 & 
+				 & 
+				 & 
+				 & 
+				  \\
+			\hline
+%		\end{tabular}
+		
+			\caption{Summary of values.}
+			\label{tbl:metrics}
+		\end{longtable}
+	\end{center}
+%	\end{table}
+\end{landscape}

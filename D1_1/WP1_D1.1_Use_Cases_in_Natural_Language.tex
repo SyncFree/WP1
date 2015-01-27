@@ -4,6 +4,9 @@
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{hyperref}
+\usepackage{float,lscape}
+\usepackage{longtable}
+\usepackage{multirow}
 \usepackage{geometry}
  \geometry{
  a4paper,
@@ -511,12 +514,14 @@ The set of objects is split into data of different flavors (domain data, write-t
 %Doctors are not legally allowed to see ``any'' patient information but the system  does not block him. Access are logged to allow government operator to manage unallowed access.
 Doctors are only allowed to see information regarding their patients however the system will not block access to other patients records. Nonetheless, access are logged to allow government operators to manage unallowed access.
 \begin{itemize}
-\item Access control and granularity: There is an operation/rule matrix determining which operations are allowed for a user.
-\item As a main rule, there is no per-object access rule - any doctor or other health care professional can access any citizen's data at any time (as explained elsewhere). There is legislation, though, against accessing data for anyone who is not in your care at the time. Access can therefore be verified after-the-fact.
-\item Information flow control: all the operations produced in the system are logged and government operators access them to detect problematic behaviors. This management is done out of the actual system. 
-\item Auditing: An audit log is maintained.
-\item Rolling back offending updates:
-\item The domain contains an ``invalidated'' state for most entities where this could be relevant.
+	\item Access control and granularity: There is an operation/rule matrix determining which operations are allowed for a user.
+	\item As a main rule, there is no per-object access rule - any doctor or other health care professional can access any citizen's data at any time (as explained elsewhere). There is legislation, though, against accessing data for anyone who is not in your care at the time. Access can therefore be verified after-the-fact.
+	\item Information flow control: all the operations produced in the system are logged and government operators access them to detect problematic behaviors. This management is done out of the actual system. 
+	\item Auditing: An audit log is maintained.
+	\item Rolling back offending updates:
+	\begin{itemize}
+		\item[] The domain contains an ``invalidated'' state for most entities where this could be relevant.
+	\end{itemize}
 \end{itemize}
 Idea/Challenge \#1, Causally Dependent Updates
 
@@ -618,8 +623,8 @@ The application is an existing app developed for Android and iOS. It allows fest
 
 \section{\gls{b2b} Orders}
 \subsection{Application Description}
-It enables the shop employees to see a catalog of upcoming clothes on a tablet device, and place orders on boxes for future delivery. This functionality is made available for the same shops to both shop staff as well as for shops managers, managers of chains of shops or managers of entire markets.
-Orders are modeled as a \gls{crdt} Grow-only set (G-set), which is updated by adding event objects. Event objects are immutable, contain data and metadata about the event and can never be deleted. Example:
+It enables the shop employees to see a catalogue of upcoming clothes on a tablet device, and place orders on boxes for future delivery. This functionality is made available for the same shops to both shop staff as well as for shops managers, managers of chains of shops or managers of entire markets.
+Orders are modelled as a \gls{crdt} Grow-only set (G-set), which is updated by adding event objects. Event objects are immutable, contain data and metadata about the event and can never be deleted. Example:
 
 Key: shop123\_order234
 Events:
@@ -706,7 +711,8 @@ It replaces a manual process, where traveling salesmen visited the stores and pr
 
 \chapter{Conclusion}
 % \section{Conclusion}
-To conclude the presentation of the use cases, we present the different research or practical challenges identified through the questionnaire answers (see Appendix A - Expectations for the Use Cases). Since one of the goals of \gls{wp1} is to provide such challenge to the other work packages, we present them distributed among the tasks of the \gls{wp1} to \gls{wp4}. Another goal of \gls{wp1} is to provide applications on which \gls{wp5} evaluation will be conducted. The use cases to support evaluation in \gls{wp5} will be selected after further formalization (deliverable D1.2).  
+To conclude the presentation of the use cases, we present the different research or practical challenges identified through the questionnaire answers (see Appendix A - Expectations for the Use Cases). Since one of the goals of \gls{wp1} is to provide such challenge to the other work packages, we present them distributed among the tasks of the \gls{wp1} to \gls{wp4}. Another goal of \gls{wp1} is to provide applications on which \gls{wp5} evaluation will be conducted. The use cases to support evaluation in \gls{wp5} will be selected after further formalization (deliverable D1.2). A summary of the main characteristics of the different use cases presented here is shown in Table \ref{tbl:metrics}.
+
 
 \section{Task 2.1 -- Support for \glspl{crdt} at the server side}
 \gls{crdt} at the server side, i.e. replication between a limited set of servers across some data centers, corresponds to small-scale full replication. Such servers are considered stable and powerful; also, the latency between them is usually limited. However, a partition can occur between data centers, and possible divergence must be resolved.   
@@ -837,6 +843,14 @@ Another example: Tiered data--handoff, where a hierarchy is made of nodes on dif
 \item Information flow control?  at what granularity?
 \item Auditing + rolling back offending updates a posteriori?
 \end{itemize}
+
+
+\chapter{Other information}
+\section{Summary of use cases}
+The Table \ref{tbl:metrics} shows a summary of some of the values encountered in the use cases presented in this document.
+
+\include{metrics}
+
 
 % So we can have the number of pages
 \label{LastPage}
