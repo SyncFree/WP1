@@ -381,17 +381,17 @@ We propose a replication mechanism built upon conflict-free replicated data type
   Url                      = {http://www.info.ucl.ac.be/~pvr/MemoireIwanBriquemont.pdf}
 }
 
-@Proceedings{Briquemont2015a,
+@TechReport{Briquemont2015a,
   Title                    = {Conflict-free Partially Replicated Data Types},
-  Year                     = {2015},
-  Organization             = {PPoPP},
+  Author                   = {Iwan Briquemont and Manuel Bravo and Zhongmiao Li and Peter Van Roy},
+  Year                     = {2014},
 
   Abstract                 = {Designers of large user-oriented distributed applications, such as social networks and mobile applications, have adopted measures to improve the responsiveness of their applications. Latency is a major concern as people are very sensitive to it. Geo-replication is a commonly used mechanism to bring the data closer to the clients. Nevertheless, reaching the closest datacenter can still be consid- erably slow. Thus, in order to further reduce the access latency, mobile and web applications may be forced to replicate data at the client-side. Nevertheless, fully replicating large data structures may still be a waste of resources, specially for thin-clients.
 We propose a replication mechanism built upon conflict-free replicated data types (CRDT) to seamlessly replicate parts of large data structures. We define partial replication and give an approach to keep the strong eventual consistency properties of CRDTs with partial replicas. We integrate our mechanism into SwiftCloud, a transactional system that brings geo-replication to the client. We evaluate the solution with a content-sharing application. Our results show improvements in bandwidth, memory, and latency usage over both classical geo-replication and the existing SwiftCloud solution.},
-  Author                   = {Iwan Briquemont and Manuel Bravo and Zhongmiao Li and Peter Van Roy},
   Comment                  = {Printed},
   File                     = {:/Users/aas/Documents/Projects/Documents/Papers/ppopp15-briquemont.pdf:PDF},
   Keywords                 = {Partial Replication, CRDT, CPRDT, Distributed Data Structures},
+  Organization             = {PPoPP},
   Owner                    = {aas},
   Review                   = {The general idea is to distribute the data and only replicate the data parts in each part of the system. This reduces the bandwidth, latency and memory.
 
@@ -689,23 +689,22 @@ But CPRDTs (Conflict-free Partially Replicated Data Types) have a negative impac
   Keywords                 = {artificial intelligence;grid computing;self-adjusting systems;ad hoc service grid;ambient intelligence;distributed computing system;self-organizing replica placement;self-organizing software system;systems engineer;Biological systems;Biology computing;Computer science;Design engineering;Distributed computing;Engineering management;Mechanical factors;Scalability;Software systems;Systems engineering and theory}
 }
 
-@Article{Jeon2014a,
-  Title                    = {A Priority based Adaptive Data Replication Strategy for Hierarchical Cluster Grids},
-  Author                   = {Junsang Kim; Won Joo Lee; Changho Jeon},
-  Journal                  = {International Journal of Multimedia \& Ubiquitous Engineering},
-  Year                     = {2014},
-  Number                   = {6},
-  Pages                    = {127--140},
-  Volume                   = {9},
+@Article{jeanson2003,
+  Title                    = {Pheromone trail decay rates on different substrates in the Pharaoh’s ant, Monomorium pharaonis},
+  Author                   = {Rapha\:{e}l Jeason and Francis L. W. Ratnieks and Jean-Louis Deneubourg},
+  Journal                  = {Physiological Entomology},
+  Year                     = {2003},
 
-  Abstract                 = {In this paper, we propose the priority based adaptive data replication strategy for the reduction of the processing time in hierarchical cluster grids. Because the proposed replication strategy reflects data access patterns of users in real-time, job execution time increment due to changes in the access pattern can be reduced. We assign a Priority Value (PV) to all replicas for implementation of the replication strategy and use it for criteria of replica generation/deletion.
-The PV reflects the access pattern because it is calculated from an access count and capacity of the replica. And the PV is re-calculated in real-time whenever data is requested by users. Therefore the proposed replication strategy can be reduced job execution time in data grids to recover low data availability due to changes in the access pattern.
-We compare the performances of priority based adaptive data replication strategy and Popular File Replicate First (PFRF) algorithm. For this simulation, we generate 200 files sized 1GB on average and 6000 jobs, and assign these to users in each cluster. The results from simulation show that average job execution time of the proposed strategy was reduced from the no-replication by approximately 37\% and the PFRF algorithm by approximately 21\%.},
-  Keywords                 = {Data grids, Replication strategy, PADRE strategy, Hierarchical cluster grids},
+  Month                    = {April},
+  Note                     = {The Royal Entomological Society},
+  Pages                    = {192--198},
+
+  Abstract                 = {Many ants use pheromone trails to organize collective foraging. This study investigated the rate at which a well-established Pharaoh’s ant, Monomorium pharaonis (L.), trail breaks down on two substrates (polycarbonate plastic, newspaper). Workers were allowed to feed on sucrose solution from a feeder 30cm from the nest. Between the nest and the feeder, the trail had a Y-shaped bifurcation. Initially, while recruiting to and exploiting the feeder, workers could only deposit pheromone on the branch leading to the feeder. Once the trail was established (by approximately 60 ants per min for 20min), the ants were not allowed to reinforce the trail and were given a choice between the marked and unmarked branches. The numbers of ants choosing each branch were counted for 30min. Initially, most went to the side on which pheromone had been deposited (80\% and 70\% on the plastic and paper substrates, respectively). However, this decayed to 50\% within 25min for plastic and 8min for paper. From these data, the half-life times of the pheromone are estimated as approximately 9min and 3min on plastic and paper, respectively. The results show that, for M. pharaonis, trail decay is rapid and is affected strongly by trail substrate,},
+  Keywords                 = {foraging, Monomorium pharaonis, pheromonal decay, pheromone trail
+foraging, Monomorium pharaonis, pheromonal decay, pheromone trail},
   Owner                    = {aas},
-  Review                   = {They only compare their algorithm to the case where no-replication but not with other already available approaches, i.e. DARE.},
-  Timestamp                = {2014.09.15},
-  Url                      = {http://www.sersc.org/journals/IJMUE/vol9_no6_2014/13.pdf}
+  Timestamp                = {2015.01.14},
+  Url                      = {http://www.ulb.ac.be/sciences/use/publications/JLD/175.pdf}
 }
 
 @Article{Jimenez-Peris2003a,
@@ -966,6 +965,23 @@ Also the rapid changes in the load of system do not help either.},
   Url                      = {http://lip6.fr/Marc.Shapiro/papers/SAC2011-Cpraxis_wholePaper.pdf}
 }
 
+@Article{Mohamed2013a,
+  Title                    = {A study of an adaptive replication framework for orchestrated composite web services},
+  Author                   = {F Mohamed and Hany F ElYamany and Hamed M Nassar},
+  Journal                  = {SpringerPlus (SpringerOpen Journal)},
+  Year                     = {2013},
+
+  Month                    = {October},
+  Number                   = {1--18},
+  Volume                   = {2},
+
+  Doi                      = {10.1186/2193-1801-2-511},
+  Keywords                 = {Service-Oriented Architecture (SOA), Replication, Composite web service, Orchestration, QoS, Load balancing},
+  Owner                    = {aas},
+  Timestamp                = {2015.02.05},
+  Url                      = {http://www.springerplus.com/content/2/1/511}
+}
+
 @InCollection{MohdZin2012a,
   Title                    = {Replication Techniques in Data Grid Environments},
   Author                   = {Mohd. Zin, Noriyani and Noraziah, A. and Che Fauzi, AinulAzila and Herawan, Tutut},
@@ -1058,7 +1074,7 @@ More in detail, four transactional replication protocols are proposed, which tac
   Url                      = {http://www.ssrg.ece.vt.edu/theses/Phd_Peluso.pdf}
 }
 
-@InCollection{Peluso2012a,
+@InCollection{Peluso2012,
   Title                    = {SCORe: A Scalable One-Copy Serializable Partial Replication Protocol},
   Author                   = {Peluso, Sebastiano and Romano, Paolo and Quaglia, Francesco},
   Booktitle                = {Middleware 2012},
@@ -1547,10 +1563,11 @@ More in detail, four transactional replication protocols are proposed, which tac
 
   Abstract                 = {We present a distributed algorithm for replication of a data-item in a set of processors interconnected by a tree network. The algorithm is adaptive in the sense that the replication scheme of the item (i.e. the set of processors. each of which stores a replica of the data-item). changes as the read-write pattern of the processors in the network changes. The algorithm is optimal in the sense that when the replication scheme stabilizes, the total number of messages required for the reads and writes is minimal.},
   Comment                  = {Read},
+  Keywords                 = {replication, adaptive replication},
   Owner                    = {aas},
   Review                   = {Good for its simplicity.
 With issues when the connected DC are in a ring (circule), without leafs.
-Maybe it could be extended},
+It maybe could be extended},
   Timestamp                = {2014.09.12},
   Url                      = {http://hdl.handle.net/10022/AC:P:21285}
 }
@@ -1612,6 +1629,8 @@ n:optim:1487\;formel:rep:1529\;optim:rep:syn:1498\;rep:1507\;rep:optim
 1 KeywordGroup:Genetic algorithm\;0\;keywords\;Genetic algorithm\;0\;0
 \;;
 1 KeywordGroup:Replication\;0\;keywords\;replication\;0\;0\;;
+1 KeywordGroup:Partial Replication\;0\;keywords\;partial replication\;
+0\;0\;;
 1 ExplicitGroup:SyncFree\;0\;Asco2014a\;Asco2014b\;Benedictus2014a\;;
 1 KeywordGroup:Benchmark\;0\;keywords\;benchmark\;0\;0\;;
 1 KeywordGroup:Protocol\;0\;keywords\;Protocol\;0\;0\;;
