@@ -66,6 +66,3 @@ Spec == Init /\ [] [Next]_<<wallets>>
 
 THEOREM Spec => TypeInv /\ ConservationOfMoney /\ Convergence 
 =============================================================================
-\* Modification History
-\* Last modified Thu Sep 25 14:44:20 EEST 2014 by Suha
-\* Created Thu Sep 25 13:51:16 EEST 2014 by Suha

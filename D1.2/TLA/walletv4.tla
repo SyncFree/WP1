@@ -113,6 +113,3 @@ Spec == Init /\ [] [Next]_<<wallets>>
 
 THEOREM Spec => TypeInv /\ ConservationOfMoney
 =============================================================================
-\* Modification History
-\* Last modified Wed Sep 24 18:48:05 EEST 2014 by Suha
-\* Created Mon Sep 22 12:30:42 EEST 2014 by Suha
