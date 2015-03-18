@@ -1,4 +1,3 @@
-
 \tlatex
 \@x{}\moduleLeftDash\@xx{ {\MODULE} leaderBoard\_v2}\moduleRightDash\@xx{}%
 \@x{ {\EXTENDS} Naturals ,\, TLC ,\, FiniteSets}%
@@ -14,10 +13,12 @@
 }%
 \@xx{}%
 \@x{ MapProduct ( map ) \.{\defeq}}%
- \@x{\@s{16.4} \.{\LET} mp [ s \.{\in} {\SUBSET} {\DOMAIN} map ] \.{\defeq}
- {\IF} s \.{=} \{ \} \.{\THEN} \{ \} \.{\ELSE} \.{\LET} y \.{\defeq}
- {\CHOOSE} x \.{\in} s \.{:} {\TRUE} \.{\IN} ( \{ y \} \.{\times} map [ y ] )
- \.{\cup} mp [ s \.{\,\backslash\,} \{ y \} ]}%
+\@x{\@s{16.4} \.{\LET} mp [ s \.{\in} {\SUBSET} {\DOMAIN} map ] \.{\defeq}}%
+\@x{\@s{70.70} {\IF} s \.{=} \{ \} \.{\THEN} \{ \}}%
+ \@x{\@s{155.61} \.{\ELSE} \.{\LET} y \.{\defeq} {\CHOOSE} x \.{\in} s \.{:}
+ {\TRUE}}%
+ \@x{\@s{207.32} \.{\IN} ( \{ y \} \.{\times} map [ y ] ) \.{\cup} mp [ s
+ \.{\,\backslash\,} \{ y \} ]}%
 \@x{\@s{16.4} \.{\IN} mp [ {\DOMAIN} map ]}%
 \@pvspace{8.0pt}%
 \@x{ GamePlayers \.{\defeq} MapProduct ( PlayersByGame )}%
@@ -60,9 +61,10 @@
  {\IF} j \.{=} 1 \.{\THEN} Leaders ( d ,\, g )}%
  \@x{\@s{148.31} \.{\ELSE} \.{\LET} remaining \.{\defeq}\@s{4.1} PlayersByGame
  [ g ] \.{\,\backslash\,} RankSets [ j \.{-} 1 ]}%
- \@x{\@s{179.62} \.{\IN} RankSets [ j \.{-} 1 ] \.{\cup} \{ x \.{\in}
- remaining \.{:} \A\, y \.{\in} remaining \.{:} scores [ d ] [ {\langle} g
- ,\, x {\rangle} ] \.{\geq} scores [ d ] [ {\langle} g ,\, y {\rangle} ] \}}%
+\@x{\@s{179.62} \.{\IN} RankSets [ j \.{-} 1 ] \.{\cup}}%
+\@x{\@s{312.98} \{ x \.{\in} remaining \.{:} \A\, y \.{\in} remaining \.{:}}%
+ \@x{\@s{308.88} scores [ d ] [ {\langle} g ,\, x {\rangle} ] \.{\geq} scores
+ [ d ] [ {\langle} g ,\, y {\rangle} ] \}}%
  \@x{\@s{23.19} \.{\IN} {\IF} i \.{=} 1 \.{\THEN} Leaders ( d ,\, g )
  \.{\ELSE} RankSets [ i ] \.{\,\backslash\,} RankSets [ i \.{-} 1 ]}%
 \@pvspace{24.0pt}%
@@ -161,28 +163,16 @@ POST\ensuremath{\.{:}}}%
  \@x{\@s{105.73} \.{\land} scores \.{'} \.{=} [ scores {\EXCEPT} {\bang} [ d1
  ] [ {\langle} g ,\, p {\rangle} ] \.{=} scores [ d2 ] [ {\langle} g ,\, p
  {\rangle} ] ]}%
- \@x{\@s{105.73} \.{\land} \.{\LET} new\_vc \.{\defeq} [ d \.{\in} DC
- \.{\mapsto} Max ( vecclc [ {\langle} g ,\, p {\rangle} ] [ d1 ] [ d ] ,\,
- vecclc [ {\langle} g ,\, p {\rangle} ] [ d2 ] [ d ] ) ] \.{\IN}\@s{4.1}
- vecclc \.{'} \.{=} [ vecclc {\EXCEPT} {\bang} [ {\langle} g ,\, p {\rangle}
- ] [ d1 ] \.{=} new\_vc ]}%
-\begin{lcom}{50.0}%
-\begin{cpar}{0}{T}{F}{5.0}{0}{}%
- \ensuremath{\.{\land} \.{\LET} a\.{\defeq}
- {\langle}\mbox{``}MERGE\mbox{''},\,d1,\,g,\,1,\,Rank(d1,\,g,\,1),\,scores{\rangle} \.{\IN} Print(a,\,{\TRUE})
-}%
-\end{cpar}%
-\begin{cpar}{1}{F}{F}{0}{0}{}%
- \ensuremath{\.{\land} \.{\LET} a\.{\defeq}
- {\langle}\mbox{``}MERGE\mbox{''},\,d1,\,g,\,2,\,Rank(d1,\,g,\,2),\,scores{\rangle} \.{\IN} Print(a,\,{\TRUE})
-}%
-\end{cpar}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
- \ensuremath{\.{\land} \.{\LET} a\.{\defeq}
- {\langle}\mbox{``}MERGE\mbox{''},\,d1,\,g,\,3,\,Rank(d1,\,g,\,3),\,scores{\rangle} \.{\IN} Print(a,\,{\TRUE})
-}%
-\end{cpar}%
-\end{lcom}%
+ \@x{\@s{111.56} \.{\land} \.{\LET} new\_vc \.{\defeq} [ d \.{\in} DC
+ \.{\mapsto}}%
+ \@x{\@s{236.68} Max ( vecclc [ {\langle} g ,\, p {\rangle} ] [ d1 ] [ d ] ,\,
+ vecclc [ {\langle} g ,\, p {\rangle} ] [ d2 ] [ d ] ) ]}%
+ \@x{\@s{87.06} \.{\IN}\@s{4.09} vecclc \.{'} \.{=} [ vecclc {\EXCEPT} {\bang}
+ [ {\langle} g ,\, p {\rangle} ] [ d1 ] \.{=} new\_vc ]}%
+ \@x{\@s{111.56} \.{\land} \.{\LET} a \.{\defeq} {\langle}\@w{MERGE} ,\, d1
+ ,\, g ,\, 2 ,\, Rank ( d1 ,\, g ,\, 2 ) ,\, scores {\rangle} \.{\IN} Print (
+ a ,\, {\TRUE} )}%
+\@pvspace{24.0pt}%
  \@x{ Next \.{\defeq} \E\, d \.{\in} DC ,\, d2 \.{\in} DC ,\, g \.{\in} Games
  ,\, p \.{\in} Players ,\, scr \.{\in} Nat \.{:} ( UpdateScore ( d ,\, g ,\,
  p ,\, scr ) \.{\lor} Merge ( d ,\, d2 ,\, g ,\, p ) )}%
@@ -197,9 +187,10 @@ POST\ensuremath{\.{:}}}%
 }%
 \@xx{}%
  \@x{ Convergence \.{\defeq} {\Diamond} \A\, d1 \.{\in} DC ,\, d2 \.{\in} DC
- ,\, g \.{\in} Games ,\, p \.{\in} Players \.{:} {\langle} g ,\, p {\rangle}
- \.{\in} GamePlayers \.{\implies} scores [ d1 ] [ {\langle} g ,\, p {\rangle}
- ] \.{=} scores [ d2 ] [ {\langle} g ,\, p {\rangle} ]}%
+ ,\, g \.{\in} Games ,\, p \.{\in} Players \.{:}}%
+ \@x{\@s{32.8} {\langle} g ,\, p {\rangle} \.{\in} GamePlayers \.{\implies}
+ scores [ d1 ] [ {\langle} g ,\, p {\rangle} ] \.{=} scores [ d2 ] [
+ {\langle} g ,\, p {\rangle} ]}%
 \@x{}%
 \@y{\@s{0}%
  if the vector clock for the all players playing game \ensuremath{g} in data
@@ -217,27 +208,13 @@ POST\ensuremath{\.{:}}}%
  \@x{ MonotonicLeader \.{\defeq} \A\, d1 \.{\in} DC ,\, d2 \.{\in} DC ,\, g
  \.{\in} Games \.{:}}%
  \@x{\@s{16.4} ( \A\, p \.{\in} Players \.{:} {\langle} g ,\, p {\rangle}
- \.{\in} GamePlayers \.{\implies} ( \A\, d \.{\in} DC \.{:} vecclc [
- {\langle} g ,\, p {\rangle} ] [ d1 ] [ d ] \.{\leq} vecclc [ {\langle} g ,\,
- p {\rangle} ] [ d2 ] [ d ] ) ) \.{\implies} scores [ d1 ] [ {\langle} g ,\,
- {\CHOOSE} x \.{\in} Leaders ( d1 ,\, g ) \.{:} {\TRUE} {\rangle} ] \.{\leq}
- scores [ d2 ] [ {\langle} g ,\, {\CHOOSE} x \.{\in} Leaders ( d2 ,\, g )
- \.{:} {\TRUE} {\rangle} ]}%
+ \.{\in} GamePlayers \.{\implies}}%
+ \@x{\@s{54.78} ( \A\, d \.{\in} DC \.{:} vecclc [ {\langle} g ,\, p {\rangle}
+ ] [ d1 ] [ d ] \.{\leq} vecclc [ {\langle} g ,\, p {\rangle} ] [ d2 ] [ d ]
+ ) ) \.{\implies}}%
+ \@x{\@s{80.24} scores [ d1 ] [ {\langle} g ,\, {\CHOOSE} x \.{\in} Leaders (
+ d1 ,\, g ) \.{:} {\TRUE} {\rangle} ] \.{\leq}}%
+ \@x{\@s{80.24} scores [ d2 ] [ {\langle} g ,\, {\CHOOSE} x \.{\in} Leaders (
+ d2 ,\, g ) \.{:} {\TRUE} {\rangle} ]}%
 \@pvspace{8.0pt}%
 \@x{}\bottombar\@xx{}%
-\setboolean{shading}{false}
-\begin{lcom}{0}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
-\ensuremath{\.{\,\backslash\,}}* Modification History
-\end{cpar}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
- \ensuremath{\.{\,\backslash\,}}* Last modified \ensuremath{Tue}
- \ensuremath{Oct} 21 03:38:40 \ensuremath{EEST} 2014 by \ensuremath{Suha
-}%
-\end{cpar}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
- \ensuremath{\.{\,\backslash\,}}* Created \ensuremath{Tue} \ensuremath{Sep} 30
- 20:42:31 \ensuremath{EEST} 2014 by \ensuremath{Suha
-}%
-\end{cpar}%
-\end{lcom}%

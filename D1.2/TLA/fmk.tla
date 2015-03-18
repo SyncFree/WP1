@@ -88,7 +88,8 @@ Next ==
     \/ \E dc \in DC, patient \in Pat, doctor \in Doc, treatment \in Tre : addTreatment(dc,patient,doctor,treatment) 
     \/ \E dc \in DC, patient \in Pat, doctor \in Doc, treatment \in Tre, ts \in TimeStamps, prescription \in Pre : 
             addPrescription(dc,patient,doctor,treatment,ts,prescription) 
-    \/ \E dc \in DC, patient \in Pat, doctor \in Doc, treatment \in Tre, ts \in TimeStamps, prescription \in Pre, pharmacy \in Pha : 
+    \/ \E dc \in DC, patient \in Pat, doctor \in Doc, treatment \in Tre, 
+	ts \in TimeStamps, prescription \in Pre, pharmacy \in Pha : 
             giveDrug(dc,patient,doctor,treatment,ts,prescription,pharmacy)         
     
 Spec == Init /\ [][Next]_<<patientdb,clock>>

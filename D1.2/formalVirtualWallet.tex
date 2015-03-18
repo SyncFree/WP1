@@ -9,9 +9,8 @@ A mathematical representation of this use case is represented below.
 	We define the operations $\oplus$ and $\ominus$ on Balance maps $b, b' \in B$ such that: $b \oplus \langle amount \in Z, curr \in Curr \rangle = b'$ where $b'[curr] = b[curr] + amount$,  ~  $b'[cr] = b[cr]  ~ \iff  ~  cr != curr$ and $b \ominus(amount \in R, curr \in Curr) = b'$ where $b'[curr] = b[curr] - amount$,  ~  $b'[cr] = b[cr]  ~  \iff  ~  cr != curr$. We overload these operations such that they can subtract not only a tuple but a set of tuples (defined in a balance) from another balance: $b \oplus b'$ and $b \ominus b'$ where $b, b' \in B$.  
 	
 	\item The tuple $Voucher = \langle id, cost, spec \rangle$ defines a voucher where $id \in \mathbb{VID}$  is the voucher \gls{id}, $cost \in \mathbb{Z}_{+} \times Curr$ and $spec \in Strings$ is the details of the voucher. $V_{ci} \in V$ is a multiset of vouchers of a client $c$ kept in \gls{dc} $i$, where V denotes the set of all vouchers. Similarly, $\widetilde{V}_{ci}$ is the multiset of consumed vouchers a client $c$.
-	\textcolor{red}{(Added: The cost of the voucher (Can the cost be specified in terms of different currencies?))}
 	
-	\item The tuple $Trans = \langle id, ts, type, args, ops \rangle$ defines a transaction where $id \in \mathbb{TID}$ is the unique transaction \gls{id}, $ts \in \mathbb{Z}_{+}$ is the timestamp, $type \in TTypes$ and $args \in Args$ is the data required for the transaction type.  $ops$ is a list of operations $o \in Ops = \{ purchasedVouc \times V, \; purchasedVCurr \times \mathbb{Z}_{+} \times Curr, \\ consumedVouc \times \mathbb{Z}_{+}, \; consumedVCurr \times \mathbb{Z}_{+} \}$ defines an operation performed in a transaction. \textcolor{red}{(Added: The list of ops in the transaction.)}
+	\item The tuple $Trans = \langle id, ts, type, args, ops \rangle$ defines a transaction where $id \in \mathbb{TID}$ is the unique transaction \gls{id}, $ts \in \mathbb{Z}_{+}$ is the timestamp, $type \in TTypes$ and $args \in Args$ is the data required for the transaction type.  $ops$ is a list of operations $o \in Ops = \{ purchasedVouc \times V, \; purchasedVCurr \times \mathbb{Z}_{+} \times Curr, \\ consumedVouc \times \mathbb{Z}_{+}, \; consumedVCurr \times \mathbb{Z}_{+} \}$ defines an operation performed in a transaction. 
  	
 	\item The tuple $W_{ci} = \langle B_{ci}, \widetilde{B}_{ci}, V_{ci}, \widetilde{V}_{ci}, T_{c} \rangle$ defines the wallet of a client $c$ kept in \gls{dc} $i$. A wallet keeps the purchased currencies, consumed currencies, purchased set of vouchers, consumed set of vouchers and the list of (not yet archived) transaction logs $T_{c}$ of a client. $|T_{c}| <= MaxTSize$ since the transaction logs in a wallet should be archived when the cardinality of the transactions reaches to the max size.
 
@@ -37,8 +36,7 @@ A mathematical representation of this use case is represented below.
 	\begin{center}
 		$o = \langle purchasedVouc, v, curr \rangle$ where $v=\langle id, cost, spec \rangle \in V, ~ curr \in Curr$:
 	\end{center}
-	
-	\textcolor{red}{Additional parameter curr (which currency to use for purchasing? Can we buy a voucher using Crystals?) Does "purchased vouc" reduces balance? }
+
 	
 	As shown in Equation \ref{eq:purchaseItem_virtual_wallet}, the new contents of the wallet has: (i) the same balance (ii) the cost of the voucher $v$ added to the consumed balance (iii) the purchased voucher added to the voucher set (iv) the same set of consumed vouchers and (v) the transaction logs $T'$ that appends that purchase operation to the previous logs.	
 	\begin{multline} \label{eq:purchaseItem_virtual_wallet}

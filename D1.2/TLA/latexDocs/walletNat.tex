@@ -1,46 +1,9 @@
-
-
-%\begin{document}
 \tlatex
 \@x{}\moduleLeftDash\@xx{ {\MODULE} walletNat}\moduleRightDash\@xx{}%
 \@x{ {\EXTENDS} Integers ,\, TLC ,\, Naturals}%
 \@x{ {\VARIABLE} wallets}%
 \@x{ {\CONSTANTS} Replicas ,\, V1Cost ,\, InitBal ,\, Natlim ,\, Qtylim}%
 \@pvspace{8.0pt}%
-\begin{lcom}{5.0}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
-\ensuremath{{\ASSUME} \.{\land} V1Cost \.{\in} Nat
-}%
-\end{cpar}%
-\begin{cpar}{0}{T}{F}{12.5}{0}{}%
-\ensuremath{\.{\land} InitBal \.{\in} Int
-}%
-\end{cpar}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
-\ensuremath{\.{\land} Natlim \.{\in} Nat
-}%
-\end{cpar}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
-\ensuremath{\.{\land} Qtylim \.{\in} Nat
-}%
-\end{cpar}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
-\ensuremath{\.{\land} V1Cost \.{>} 0
-}%
-\end{cpar}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
-\ensuremath{\.{\land} InitBal \.{>} 0
-}%
-\end{cpar}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
-\ensuremath{\.{\land} Natlim \.{>} 0
-}%
-\end{cpar}%
-\begin{cpar}{0}{F}{F}{0}{0}{}%
-\ensuremath{\.{\land} Qtylim \.{>} 0
-}%
-\end{cpar}%
-\end{lcom}%
 \@x{}\midbar\@xx{}%
 \@pvspace{8.0pt}%
 \@x{ Wallet \.{\defeq} [ balance \.{:} Int ,\,}%
@@ -67,18 +30,8 @@
 \@x{\@s{16.4} \.{\IN} \.{\land} wr . balance \.{\geq} qty \.{*} V1Cost}%
 \@x{\@s{36.79} \.{\land} wr . v1cnt \.{+} qty \.{\leq} Natlim}%
 \@x{\@s{36.79} \.{\land} wr . vecclc [ rep ] \.{+} 1 \.{\leq} Natlim}%
- \@x{\@s{36.79} \.{\land} wallets \.{'} \.{=} [ wallets {\EXCEPT} {\bang} [
- rep ] \.{=} new\_wr ]}%
-\@x{\@s{24.59}}%
-\@y{\@s{0}%
- \ensuremath{\.{\land} Print(\mbox{``}Buy\mbox{''},\, {\TRUE})
-}}%
-\@xx{}%
-\@x{\@s{28.69}}%
-\@y{%
- \ensuremath{\.{\land} Print(wallets\.{'},\, {\TRUE})
-}}%
-\@xx{}%
+ \@x{\@s{36.79} \.{\land} wallets \.{'}\@s{18.09} \.{=} [ wallets {\EXCEPT}
+ {\bang} [ rep ] \.{=} new\_wr ]}%
 \@pvspace{8.0pt}%
  \@x{ Max ( n1 ,\, n2 ) \.{\defeq} {\IF} n1 \.{\geq} n2 \.{\THEN} n1 \.{\ELSE}
  n2}%
@@ -92,9 +45,8 @@
  ,\, wr2 . balance ) ,\,}%
 \@x{\@s{93.62} v1cnt \.{\mapsto} Max ( wr1 . v1cnt ,\, wr2 . v1cnt ) ,\,}%
 \@y{\@s{0}%
- \ensuremath{wr1.v1cnt\.{+}wr2.v1cnt},
- \ensuremath{\.{\,\backslash\,}\.{*}}alternative formulation
-}%
+ alternative formulation: \ensuremath{wr1.v1cnt\.{+}wr2.v1cnt
+}}%
 \@xx{}%
 \@x{\@s{93.62} vecclc \.{\mapsto} new\_vc ]}%
 \@pvspace{8.0pt}%
@@ -102,16 +54,6 @@
  r ] \.{<} wr2 . vecclc [ r ]}%
  \@x{\@s{36.79} \.{\land} wallets \.{'} \.{=} [ wallets {\EXCEPT} {\bang} [ r1
  ] \.{=} new\_w1 ]}%
-\@x{\@s{36.79}}%
-\@y{%
- \ensuremath{\.{\land} Print(\mbox{``}Merge\mbox{''},\, {\TRUE})
-}}%
-\@xx{}%
-\@x{\@s{36.79}}%
-\@y{%
- \ensuremath{\.{\land} Print(wallets\.{'},\, {\TRUE})
-}}%
-\@xx{}%
 \@pvspace{16.0pt}%
  \@x{ ConservationOfMoney \.{\defeq} \A\, r \.{\in} Replicas \.{:} ( InitBal
  \.{-} wallets [ r ] . balance ) \.{\geq} wallets [ r ] . v1cnt \.{*} V1Cost}%
@@ -121,9 +63,10 @@
  \@x{ EqualStates ( st1 ,\, st2 ) \.{\defeq} st1 . balance \.{=} st2 . balance
  \.{\land} st1 . v1cnt \.{=} st2 . v1cnt}%
  \@x{ Convergence \.{\defeq} \A\, r1 \.{\in} Replicas ,\, r2 \.{\in} Replicas
- \.{:} FinalState ( wallets [ r1 ] . vecclc ) \.{\land} FinalState ( wallets
- [ r2 ] . vecclc ) \.{\implies} EqualStates ( wallets [ r1 ] ,\, wallets [ r2
- ] )}%
+ \.{:}}%
+ \@x{\@s{32.8} FinalState ( wallets [ r1 ] . vecclc ) \.{\land} FinalState (
+ wallets [ r2 ] . vecclc ) \.{\implies}}%
+\@x{\@s{65.6} EqualStates ( wallets [ r1 ] ,\, wallets [ r2 ] )}%
 \@pvspace{8.0pt}%
  \@x{ Next \.{\defeq} \E\, r1 \.{\in} Replicas ,\, r2 \.{\in} Replicas ,\, qty
  \.{\in} 1 \.{\dotdot} Qtylim \.{:} ( BuyV1 ( r1 ,\, qty ) \.{\lor} Merge (
@@ -135,4 +78,3 @@
  \@x{ {\THEOREM} Spec \.{\implies} TypeInv \.{\land} ConservationOfMoney
  \.{\land} Convergence}%
 \@x{}\bottombar\@xx{}%
-%\end{document}

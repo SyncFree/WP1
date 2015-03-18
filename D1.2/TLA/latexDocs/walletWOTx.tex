@@ -1,4 +1,3 @@
-
 \tlatex
 \@x{}\moduleLeftDash\@xx{ {\MODULE} walletWOTx}\moduleRightDash\@xx{}%
 \@x{ {\EXTENDS} Naturals ,\, TLC}%
@@ -22,10 +21,10 @@
  \.{\mapsto} 0 ] ,\, n \.{\mapsto} [ d \.{\in} dom \.{\mapsto} 0 ] ]}%
 \@pvspace{16.0pt}%
 \@x{ SumAll ( map ) \.{\defeq}}%
- \@x{\@s{16.4} \.{\LET} Sum [ r \.{\in} {\SUBSET} {\DOMAIN} map ] \.{\defeq}
- {\IF} r \.{=} \{ \} \.{\THEN} 0 \.{\ELSE} \.{\LET} y \.{\defeq} {\CHOOSE} x
- \.{\in} r \.{:} {\TRUE} \.{\IN} map [ y ] \.{+} Sum [ r \.{\,\backslash\,}
- \{ y \} ]}%
+\@x{\@s{16.4} \.{\LET} Sum [ r \.{\in} {\SUBSET} {\DOMAIN} map ] \.{\defeq}}%
+ \@x{\@s{73.00} {\IF} r \.{=} \{ \} \.{\THEN} 0 \.{\ELSE} \.{\LET} y
+ \.{\defeq} {\CHOOSE} x \.{\in} r \.{:} {\TRUE}}%
+\@x{\@s{112.88} \.{\IN} map [ y ] \.{+} Sum [ r \.{\,\backslash\,} \{ y \} ]}%
 \@x{\@s{16.4} \.{\IN} Sum [ {\DOMAIN} map ]}%
 \@pvspace{8.0pt}%
  \@x{ EvalPNCounter ( pnc ) \.{\defeq} SumAll ( pnc . p ) \.{-} SumAll ( pnc .
@@ -36,8 +35,9 @@
 \@pvspace{8.0pt}%
  \@x{ MergePNCounters ( pnc1 ,\, pnc2 ) \.{\defeq} [ p \.{\mapsto} [ d \.{\in}
  {\DOMAIN} pnc1 . p \.{\mapsto} Max ( pnc1 . p [ d ] ,\, pnc2 . p [ d ] ) ]
- ,\, n \.{\mapsto} [ d \.{\in} {\DOMAIN} pnc1 . n \.{\mapsto} Max ( pnc1 . n
- [ d ] ,\, pnc2 . n [ d ] ) ] ]}%
+ ,\,}%
+ \@x{\@s{84.88} n \.{\mapsto} [ d \.{\in} {\DOMAIN} pnc1 . n \.{\mapsto} Max (
+ pnc1 . n [ d ] ,\, pnc2 . n [ d ] ) ] ]}%
 \@pvspace{8.0pt}%
 \@x{}\midbar\@xx{}%
 \@pvspace{8.0pt}%
@@ -49,14 +49,10 @@
  Wallet ]}%
 \@pvspace{16.0pt}%
 \@x{ Init \.{\defeq}}%
-\@y{%
- \ensuremath{\.{\land} Print} (``a'', \ensuremath{{\TRUE}})
-}%
-\@xx{}%
- \@x{\@s{35.70} \.{\land} wallets \.{=} [ r \.{\in} Replicas \.{\mapsto} [
+ \@x{\@s{29.11} \.{\land} wallets \.{=} [ r \.{\in} Replicas \.{\mapsto} [
  balance \.{\mapsto} InitPNCounter ( Replicas ) ,\,}%
-\@x{\@s{170.42} v1cnt\@s{2.65} \.{\mapsto} InitPNCounter ( Replicas ) ,\,}%
- \@x{\@s{170.42} vecclc\@s{2.73} \.{\mapsto} [ r2 \.{\in} Replicas \.{\mapsto}
+\@x{\@s{163.83} v1cnt\@s{2.65} \.{\mapsto} InitPNCounter ( Replicas ) ,\,}%
+ \@x{\@s{163.83} vecclc\@s{2.73} \.{\mapsto} [ r2 \.{\in} Replicas \.{\mapsto}
  0 ] ] ]}%
 \@pvspace{8.0pt}%
 \@x{ BuyV1 ( rep ,\, qty ) \.{\defeq}}%
@@ -81,11 +77,6 @@
  \@x{\@s{36.79} \.{\land} wallets \.{'} \.{=} [ wallets {\EXCEPT} {\bang} [
  rep ]\@s{22.45} \.{=} wr\_new ]}%
 \@x{\@s{36.79} \.{\land} Print (\@w{Buy} ,\, {\TRUE} )}%
-\@x{\@s{24.59}}%
-\@y{\@s{0}%
- \ensuremath{\.{\land} Print(wallets\.{'},\, {\TRUE})
-}}%
-\@xx{}%
 \@pvspace{8.0pt}%
 \@x{ Merge ( rep1 ,\, rep2 ) \.{\defeq}}%
 \@x{\@s{16.4} \.{\LET} wr1 \.{\defeq} wallets [ rep1 ]}%
@@ -102,11 +93,6 @@
  \@x{\@s{36.79} \.{\land} wallets \.{'} \.{=} [ wallets {\EXCEPT} {\bang} [
  rep1 ] \.{=} wr1\_new ]}%
 \@x{\@s{36.79} \.{\land} Print (\@w{MergeLastStates} ,\, {\TRUE} )}%
-\@x{\@s{36.79}}%
-\@y{%
- \ensuremath{\.{\land} Print(wallets\.{'},\, {\TRUE})
-}}%
-\@xx{}%
 \@pvspace{8.0pt}%
 \@x{ MergeBalance ( rep1 ,\, rep2 ) \.{\defeq}}%
 \@x{\@s{16.4} \.{\LET} wr1 \.{\defeq} wallets [ rep1 ]}%
@@ -122,11 +108,6 @@
  \@x{\@s{36.79} \.{\land} wallets \.{'} \.{=} [ wallets {\EXCEPT} {\bang} [
  rep1 ] \.{=} wr1\_new ]}%
 \@x{\@s{36.79} \.{\land} Print (\@w{MergeBalance} ,\, {\TRUE} )}%
-\@x{\@s{36.79}}%
-\@y{%
- \ensuremath{\.{\land} Print(wallets\.{'},\, {\TRUE})
-}}%
-\@xx{}%
 \@pvspace{8.0pt}%
 \@x{ MergeCount ( rep1 ,\, rep2 ) \.{\defeq}}%
 \@x{\@s{16.4} \.{\LET} wr1 \.{\defeq} wallets [ rep1 ]}%
@@ -142,21 +123,21 @@
  \@x{\@s{36.79} \.{\land} wallets \.{'} \.{=} [ wallets {\EXCEPT} {\bang} [
  rep1 ] \.{=} wr1\_new ]}%
 \@x{\@s{36.79} \.{\land} Print (\@w{MergeBalance} ,\, {\TRUE} )}%
-\@x{\@s{36.79}}%
-\@y{%
- \ensuremath{\.{\land} Print(wallets\.{'},\, {\TRUE})
-}}%
-\@xx{}%
 \@pvspace{24.0pt}%
 \@x{}%
 \@y{\@s{0}%
  Amount of Money spent should be equal to the number of vouchers bought times
- the unit cost of the voucher in each replica \cdash{3} DOES NOT HOLD
+ the unit cost of the voucher in each replica
 }%
 \@xx{}%
- \@x{ ConservationOfMoney \.{\defeq} \A\, r \.{\in} Replicas \.{:}
- EvalPNCounter ( wallets [ r ] . balance )\@s{4.1} \.{+} EvalPNCounter (
- wallets [ r ] . v1cnt ) \.{*} V1Cost \.{=} 0}%
+\@x{}%
+\@y{\@s{0}%
+ \cdash{3} DOES NOT HOLD
+}%
+\@xx{}%
+\@x{ ConservationOfMoney \.{\defeq} \A\, r \.{\in} Replicas \.{:}}%
+ \@x{\@s{32.8} EvalPNCounter ( wallets [ r ] . balance )\@s{4.1} \.{+}
+ EvalPNCounter ( wallets [ r ] . v1cnt ) \.{*} V1Cost \.{=} 0}%
 \@pvspace{8.0pt}%
 \@x{}%
 \@y{\@s{0}%
@@ -168,24 +149,29 @@
 \@pvspace{8.0pt}%
  \@x{ FinalState ( vc ) \.{\defeq} \A\, rep \.{\in} Replicas \.{:} vc [ rep ]
  \.{=} Natlim}%
- \@x{ EqualStates ( st1 ,\, st2 ) \.{\defeq} \A\, rep \.{\in} Replicas \.{:}
- st1 . balance . p [ rep ] \.{=} st2 . balance . p [ rep ] \.{\land} st1 .
- balance . n [ rep ] \.{=} st2 . balance . n [ rep ] \.{\land} st1 . v1cnt .
- p [ rep ] \.{=} st2 . v1cnt . p [ rep ] \.{\land} st1 . v1cnt . n [ rep ]
- \.{=} st2 . v1cnt . n [ rep ]}%
+\@x{ EqualStates ( st1 ,\, st2 ) \.{\defeq} \A\, rep \.{\in} Replicas \.{:}}%
+ \@x{\@s{32.8} st1 . balance . p [ rep ]\@s{0.64} \.{=} st2 . balance . p [
+ rep ]\@s{0.64} \.{\land}}%
+ \@x{\@s{32.8} st1 . balance . n [ rep ] \.{=} st2 . balance . n [ rep ]
+ \.{\land}}%
+ \@x{\@s{32.8} st1 . v1cnt . p [ rep ]\@s{0.64} \.{=} st2 . v1cnt . p [ rep ]
+ \.{\land}}%
+\@x{\@s{32.8} st1 . v1cnt . n [ rep ] \.{=} st2 . v1cnt . n [ rep ]}%
 \@x{}%
 \@y{\@s{0}%
  Eventually all states converge to the same state \cdash{3} DOES NOT HOLD
 }%
 \@xx{}%
  \@x{ Convergence \.{\defeq} \A\, r1 \.{\in} Replicas ,\, r2 \.{\in} Replicas
- \.{:} FinalState ( wallets [ r1 ] . vecclc ) \.{\land} FinalState ( wallets
- [ r2 ] . vecclc ) \.{\implies} EqualStates ( wallets [ r1 ] ,\, wallets [ r2
- ] )}%
+ \.{:}}%
+ \@x{\@s{32.8} FinalState ( wallets [ r1 ] . vecclc ) \.{\land} FinalState (
+ wallets [ r2 ] . vecclc ) \.{\implies}}%
+\@x{\@s{65.6} EqualStates ( wallets [ r1 ] ,\, wallets [ r2 ] )}%
 \@pvspace{8.0pt}%
  \@x{ Next \.{\defeq} \E\, r1 \.{\in} Replicas ,\, r2 \.{\in} Replicas ,\, qty
- \.{\in} 1 \.{\dotdot} Qtylim \.{:} ( BuyV1 ( r1 ,\, qty ) \.{\lor}
- MergeCount ( r1 ,\, r2 ) \.{\lor} MergeBalance ( r1 ,\, r2 ) )}%
+ \.{\in} 1 \.{\dotdot} Qtylim \.{:}}%
+ \@x{\@s{39.83} ( BuyV1 ( r1 ,\, qty ) \.{\lor} MergeCount ( r1 ,\, r2 )
+ \.{\lor} MergeBalance ( r1 ,\, r2 ) )}%
 \@pvspace{8.0pt}%
  \@x{ Spec\@s{1.46} \.{\defeq} Init \.{\land} {\Box} [ Next ]_{ {\langle}
  wallets {\rangle}}}%

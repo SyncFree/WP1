@@ -1,5 +1,3 @@
-
-%\begin{document}
 \tlatex
 \@x{}\moduleLeftDash\@xx{ {\MODULE} walletv4}\moduleRightDash\@xx{}%
 \@x{ {\EXTENDS} Naturals ,\, Sequences ,\, TLC}%
@@ -23,10 +21,10 @@
  \.{\mapsto} 0 ] ,\, n \.{\mapsto} [ d \.{\in} dom \.{\mapsto} 0 ] ]}%
 \@pvspace{16.0pt}%
 \@x{ SumAll ( map ) \.{\defeq}}%
- \@x{\@s{16.4} \.{\LET} Sum [ r \.{\in} {\SUBSET} {\DOMAIN} map ] \.{\defeq}
- {\IF} r \.{=} \{ \} \.{\THEN} 0 \.{\ELSE} \.{\LET} y \.{\defeq} {\CHOOSE} x
- \.{\in} r \.{:} {\TRUE} \.{\IN} map [ y ] \.{+} Sum [ r \.{\,\backslash\,}
- \{ y \} ]}%
+\@x{\@s{16.4} \.{\LET} Sum [ r \.{\in} {\SUBSET} {\DOMAIN} map ] \.{\defeq}}%
+ \@x{\@s{73.00} {\IF} r \.{=} \{ \} \.{\THEN} 0 \.{\ELSE} \.{\LET} y
+ \.{\defeq} {\CHOOSE} x \.{\in} r \.{:} {\TRUE}}%
+\@x{\@s{234.63} \.{\IN} map [ y ] \.{+} Sum [ r \.{\,\backslash\,} \{ y \} ]}%
 \@x{\@s{16.4} \.{\IN} Sum [ {\DOMAIN} map ]}%
 \@pvspace{8.0pt}%
  \@x{ EvalPNCounter ( pnc ) \.{\defeq} SumAll ( pnc . p ) \.{-} SumAll ( pnc .
@@ -35,10 +33,11 @@
  \@x{ Max ( n1 ,\, n2 ) \.{\defeq} {\IF} n1 \.{\geq} n2 \.{\THEN} n1 \.{\ELSE}
  n2}%
 \@pvspace{8.0pt}%
- \@x{ MergePNCounters ( pnc1 ,\, pnc2 ) \.{\defeq} [ p \.{\mapsto} [ d \.{\in}
- {\DOMAIN} pnc1 . p \.{\mapsto} Max ( pnc1 . p [ d ] ,\, pnc2 . p [ d ] ) ]
- ,\, n \.{\mapsto} [ d \.{\in} {\DOMAIN} pnc1 . n \.{\mapsto} Max ( pnc1 . n
- [ d ] ,\, pnc2 . n [ d ] ) ] ]}%
+\@x{ MergePNCounters ( pnc1 ,\, pnc2 ) \.{\defeq}}%
+ \@x{\@s{32.8} [ p \.{\mapsto} [ d \.{\in} {\DOMAIN} pnc1 . p \.{\mapsto} Max
+ ( pnc1 . p [ d ] ,\, pnc2 . p [ d ] ) ] ,\,}%
+ \@x{\@s{87.33} n \.{\mapsto} [ d \.{\in} {\DOMAIN} pnc1 . n \.{\mapsto} Max (
+ pnc1 . n [ d ] ,\, pnc2 . n [ d ] ) ] ]}%
 \@pvspace{8.0pt}%
 \@x{}\midbar\@xx{}%
 \@pvspace{8.0pt}%
@@ -142,8 +141,9 @@
 }%
 \@xx{}%
  \@x{ ConservationOfMoney \.{\defeq} \A\, r \.{\in} Replicas \.{:}
- EvalPNCounter ( Head ( wallets [ r ] ) . balance )\@s{4.1} \.{+}
- EvalPNCounter ( Head ( wallets [ r ] ) . v1cnt ) \.{*} V1Cost \.{=} 0}%
+ EvalPNCounter ( Head ( wallets [ r ] ) . balance )\@s{4.1} \.{+}}%
+ \@x{\@s{32.8} EvalPNCounter ( Head ( wallets [ r ] ) . v1cnt ) \.{*} V1Cost
+ \.{=} 0}%
 \@pvspace{8.0pt}%
 \@x{}%
 \@y{\@s{0}%
@@ -159,37 +159,42 @@
  counters and vector clocks are monotonically nondecreasing in time
 }%
 \@xx{}%
- \@x{ Monotonicity \.{\defeq} \.{\land} \A\, r \.{\in} Replicas ,\, r2 \.{\in}
- Replicas ,\, i \.{\in} Nat \.{:} ( i \.{>} 0 \.{\land} i \.{<} Len ( wallets
- [ r ] ) ) \.{\implies} ( GetElt ( wallets [ r ] ,\, i ) . vecclc [ r2 ]
- \.{\geq} GetElt ( wallets [ r ] ,\, i \.{+} 1 ) . vecclc [ r2 ]}%
- \@x{\@s{397.89} \.{\land} GetElt ( wallets [ r ] ,\, i ) . balance . p [ r2
+ \@x{ Monotonicity \.{\defeq} \.{\land} \A\, r \.{\in} Replicas ,\,
+ r2\@s{1.57} \.{\in} Replicas ,\, i \.{\in} Nat \.{:} ( i \.{>} 0 \.{\land} i
+ \.{<} Len ( wallets [ r ] ) ) \.{\implies}}%
+ \@x{\@s{32.8} ( GetElt ( wallets [ r ] ,\, i ) . vecclc [ r2 ] \.{\geq}
+ GetElt ( wallets [ r ] ,\, i \.{+} 1 ) . vecclc [ r2 ]}%
+ \@x{\@s{16.4} \.{\land} GetElt ( wallets [ r ] ,\, i ) . balance . p [ r2
  ]\@s{0.64} \.{\geq} GetElt ( wallets [ r ] ,\, i \.{+} 1 ) . balance . p [
  r2 ]}%
- \@x{\@s{397.89} \.{\land} GetElt ( wallets [ r ] ,\, i ) . balance . n [ r2 ]
+ \@x{\@s{16.4} \.{\land} GetElt ( wallets [ r ] ,\, i ) . balance . n [ r2 ]
  \.{\geq} GetElt ( wallets [ r ] ,\, i \.{+} 1 ) . balance . n [ r2 ]}%
- \@x{\@s{397.89} \.{\land} GetElt ( wallets [ r ] ,\, i ) . v1cnt . p [ r2
+ \@x{\@s{31.61} \.{\land} GetElt ( wallets [ r ] ,\, i ) . v1cnt . p [ r2
  ]\@s{0.64} \.{\geq} GetElt ( wallets [ r ] ,\, i \.{+} 1 ) . v1cnt . p [ r2
  ]}%
- \@x{\@s{397.89} \.{\land} GetElt ( wallets [ r ] ,\, i ) . v1cnt . n [ r2 ]
+ \@x{\@s{31.61} \.{\land} GetElt ( wallets [ r ] ,\, i ) . v1cnt . n [ r2 ]
  \.{\geq} GetElt ( wallets [ r ] ,\, i \.{+} 1 ) . v1cnt . n [ r2 ] )}%
 \@pvspace{8.0pt}%
  \@x{ FinalState ( vc ) \.{\defeq} \A\, rep \.{\in} Replicas \.{:} vc [ rep ]
  \.{=} Natlim}%
  \@x{ EqualStates ( st1 ,\, st2 ) \.{\defeq} \A\, rep \.{\in} Replicas \.{:}
- st1 . balance . p [ rep ] \.{=} st2 . balance . p [ rep ] \.{\land} st1 .
- balance . n [ rep ] \.{=} st2 . balance . n [ rep ] \.{\land} st1 . v1cnt .
- p [ rep ] \.{=} st2 . v1cnt . p [ rep ] \.{\land} st1 . v1cnt . n [ rep ]
- \.{=} st2 . v1cnt . n [ rep ]}%
+ st1 . balance . p [ rep ] \.{=} st2 . balance . p [ rep ] \.{\land}}%
+ \@x{\@s{32.8} st1 . balance . n [ rep ] \.{=} st2 . balance . n [ rep ]
+ \.{\land}}%
+ \@x{\@s{32.8} st1 . v1cnt . p [ rep ]\@s{0.64} \.{=} st2 . v1cnt . p [ rep ]
+ \.{\land}}%
+\@x{\@s{32.8} st1 . v1cnt . n [ rep ] \.{=} st2 . v1cnt . n [ rep ]}%
 \@x{}%
 \@y{\@s{0}%
  Eventually all states converge to the same state
 }%
 \@xx{}%
  \@x{ Convergence \.{\defeq} \A\, r1 \.{\in} Replicas ,\, r2 \.{\in} Replicas
- \.{:} FinalState ( Head ( wallets [ r1 ] ) . vecclc ) \.{\land} FinalState (
- Head ( wallets [ r2 ] ) . vecclc ) \.{\implies} EqualStates ( Head ( wallets
- [ r1 ] ) ,\, Head ( wallets [ r2 ] ) )}%
+ \.{:}}%
+ \@x{\@s{32.8} FinalState ( Head ( wallets [ r1 ] ) . vecclc ) \.{\land}
+ FinalState ( Head ( wallets [ r2 ] ) . vecclc ) \.{\implies}}%
+ \@x{\@s{65.6} EqualStates ( Head ( wallets [ r1 ] ) ,\, Head ( wallets [ r2 ]
+ ) )}%
 \@pvspace{8.0pt}%
  \@x{ Next \.{\defeq} \E\, r1 \.{\in} Replicas ,\, r2 \.{\in} Replicas ,\, qty
  \.{\in} 1 \.{\dotdot} Qtylim}%
@@ -197,10 +202,7 @@
  , \ensuremath{i \.{\in} Nat
 }}%
 \@xx{ \.{:}}%
-\@y{%
- \ensuremath{i \.{\leq} Len(wallets[r2]) \.{\land} i \.{>}0 \.{\land}
-}}%
-\@xx{ ( BuyV1 ( r1 ,\, qty ) \.{\lor}}%
+\@x{\@s{39.83} ( BuyV1 ( r1 ,\, qty ) \.{\lor}}%
 \@y{%
  \ensuremath{Merge(r1,\,r2,\,i)
 }}%
@@ -211,4 +213,3 @@
 \@pvspace{8.0pt}%
 \@x{ {\THEOREM} Spec \.{\implies} TypeInv \.{\land} ConservationOfMoney}%
 \@x{}\bottombar\@xx{}%
-%\end{document}

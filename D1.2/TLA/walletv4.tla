@@ -19,14 +19,18 @@ InitPNCounter(dom) == [p |-> [d \in dom |-> 0], n |-> [d \in dom |-> 0] ]
 
    
 SumAll(map) ==
-    LET Sum[r \in SUBSET DOMAIN map] == IF r ={} THEN 0 ELSE LET y == CHOOSE x \in r: TRUE IN map[y]+ Sum[r\{y}]
+    LET Sum[r \in SUBSET DOMAIN map] == 
+		IF r ={} THEN 0 ELSE LET y == CHOOSE x \in r: TRUE 
+						IN map[y]+ Sum[r\{y}]
     IN Sum[DOMAIN map]
     
 EvalPNCounter(pnc) == SumAll(pnc.p) - SumAll(pnc.n) 
 
 Max(n1,n2) == IF n1>= n2 THEN n1 ELSE n2
 
-MergePNCounters(pnc1, pnc2) == [p |-> [d \in DOMAIN pnc1.p |-> Max(pnc1.p[d], pnc2.p[d])], n|-> [d \in DOMAIN pnc1.n |-> Max(pnc1.n[d], pnc2.n[d])] ]
+MergePNCounters(pnc1, pnc2) == 
+	[p |-> [d \in DOMAIN pnc1.p |-> Max(pnc1.p[d], pnc2.p[d])], 
+			n|-> [d \in DOMAIN pnc1.n |-> Max(pnc1.n[d], pnc2.n[d])] ]
     
 -----------------------------------------------------------------------------
 
@@ -90,24 +94,32 @@ MergeLastStates(rep1, rep2) ==
        
        
 \* Amount of Money spent should be equal to the number of vouchers bought times the unit cost of the voucher in each replica
-ConservationOfMoney == \A r \in Replicas: EvalPNCounter(Head(wallets[r]).balance)  + EvalPNCounter(Head(wallets[r]).v1cnt)*V1Cost = 0
+ConservationOfMoney == \A r \in Replicas: EvalPNCounter(Head(wallets[r]).balance)  + 
+	EvalPNCounter(Head(wallets[r]).v1cnt)*V1Cost = 0
 
 \* Balance in the wallet is always positive --- DOES NOT HOLD
 PosBalance == \A rep \in Replicas: InitBal + EvalPNCounter(Head(wallets[rep]).balance) >= 0
 
 \* Fields of P and N fields of PN counters and vector clocks are monotonically nondecreasing in time
-Monotonicity == /\ \A r \in Replicas, r2 \in Replicas, i \in Nat: (i>0 /\ i<Len(wallets[r]) ) => (GetElt(wallets[r],i).vecclc[r2] >= GetElt(wallets[r],i+1).vecclc[r2]
-                                                                                                /\ GetElt(wallets[r],i).balance.p[r2] >= GetElt(wallets[r],i+1).balance.p[r2]
-                                                                                                /\ GetElt(wallets[r],i).balance.n[r2] >= GetElt(wallets[r],i+1).balance.n[r2]
-                                                                                                /\ GetElt(wallets[r],i).v1cnt.p[r2] >= GetElt(wallets[r],i+1).v1cnt.p[r2]
-                                                                                                /\ GetElt(wallets[r],i).v1cnt.n[r2] >= GetElt(wallets[r],i+1).v1cnt.n[r2])            
+Monotonicity == /\ \A r \in Replicas, r2 \in Replicas, i \in Nat: (i>0 /\ i<Len(wallets[r]) ) => 
+	(GetElt(wallets[r],i).vecclc[r2] >= GetElt(wallets[r],i+1).vecclc[r2]
+    /\ GetElt(wallets[r],i).balance.p[r2] >= GetElt(wallets[r],i+1).balance.p[r2]
+    /\ GetElt(wallets[r],i).balance.n[r2] >= GetElt(wallets[r],i+1).balance.n[r2]
+	/\ GetElt(wallets[r],i).v1cnt.p[r2] >= GetElt(wallets[r],i+1).v1cnt.p[r2]
+	/\ GetElt(wallets[r],i).v1cnt.n[r2] >= GetElt(wallets[r],i+1).v1cnt.n[r2])            
 
 FinalState(vc) == \A rep \in Replicas: vc[rep] = Natlim
-EqualStates(st1, st2) == \A rep \in Replicas: st1.balance.p[rep] = st2.balance.p[rep] /\ st1.balance.n[rep] = st2.balance.n[rep] /\ st1.v1cnt.p[rep] = st2.v1cnt.p[rep] /\ st1.v1cnt.n[rep] = st2.v1cnt.n[rep]
+EqualStates(st1, st2) == \A rep \in Replicas: st1.balance.p[rep] = st2.balance.p[rep] /\ 
+	st1.balance.n[rep] = st2.balance.n[rep] /\ 
+	st1.v1cnt.p[rep] = st2.v1cnt.p[rep] /\ 
+	st1.v1cnt.n[rep] = st2.v1cnt.n[rep]
 \* Eventually all states converge to the same state
-Convergence == \A r1 \in Replicas, r2 \in Replicas: FinalState(Head(wallets[r1]).vecclc) /\ FinalState(Head(wallets[r2]).vecclc) => EqualStates(Head(wallets[r1]), Head(wallets[r2]))
+Convergence == \A r1 \in Replicas, r2 \in Replicas: 
+	FinalState(Head(wallets[r1]).vecclc) /\ FinalState(Head(wallets[r2]).vecclc) => 
+		EqualStates(Head(wallets[r1]), Head(wallets[r2]))
 
-Next == \E r1 \in Replicas, r2 \in Replicas, qty \in 1..Qtylim(*, i \in Nat*): (*i <= Len(wallets[r2]) /\ i >0 /\*)(BuyV1(r1,qty) \/ (*Merge(r1,r2,i)*) MergeLastStates(r1,r2)) 
+Next == \E r1 \in Replicas, r2 \in Replicas, qty \in 1..Qtylim(*, i \in Nat*): 
+	(BuyV1(r1,qty) \/ (*Merge(r1,r2,i)*) MergeLastStates(r1,r2)) 
 
 Spec == Init /\ [] [Next]_<<wallets>>
 
