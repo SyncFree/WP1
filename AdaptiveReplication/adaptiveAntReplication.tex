@@ -10,7 +10,7 @@
 \usepackage{url}
 \usepackage{color,soul}
 \usepackage{graphicx}
-\usepackage[pdftitle={Adaptive Geo--Replication Based on Ant Colony Algorithm},%
+\usepackage[pdftitle={Adaptive Geo--Replication Strateg},%
 		hidelinks,colorlinks=true, linkcolor=black, citecolor=cyan, filecolor=green, urlcolor=blue]{hyperref}
 \usepackage{mathtools}
 \usepackage{amssymb}
@@ -273,14 +273,14 @@ It is considered that there is a direct cost associated to the reads ($c^{r}_{kd
 	\label{tb:costs}
 \end{table*}
 
-The cost between time $t$ and $t+dt$ is expressed by Equation \ref{eq:cost_operations} and the minimum number of replicas is represented by Inequality \ref{ineq:limit_replicas} for time $t$.
-\begin{equation} \label{eq:cost_operations}
+The cost between time $t_{i}$ and $t_{i}+t_{i+1}$, where $i \in [0, n]$ with $t_{0} = 0$ and $t_{n} = T$, is expressed by Equation \ref{eq:cost_operations} and the minimum number of replicas is represented by Inequality \ref{ineq:limit_replicas} for time $t$.
+\begin{equation}\label{eq:cost_operations}
 	\begin{split}
-		 Cost_{k}(t, t+dt) =\\
-		  \sum^{|DC|}_{d = 1} \left(\underbrace{r_{kd}(t, t+dt) * c^{r}_{kd}(t) + w_{kd}(t, t+dt) * c^{w}_{kd}(t)}_\text{direct cost} \right. \\
-		 \left. + \underbrace{\sum^{|DC|}_{j = 1} w_{kd}(t, t+dt) * c^{w}_{kdj}(t) * X_{kj}(t)}_\text{update propagation cost} \right. \\ 
-		 \left. + \underbrace{(1 - X_{kd}(t)) * r_{kd}(t, t+dt) * \min_{j \in R_{k}}(c^{r}_{kdj}(t))}_\text{redirect reads cost} \right. \\  
-		 \left. + \underbrace{(1 - X_{kd}(t)) * w_{kd}(t, t+dt) * \min_{j \in R_{k}}(c^{w}_{kdj}(t))}_\text{redirect writes cost}  \right. \\ \left. + \underbrace{\sum^{|DC|}_{j = 1, j \neq d}  (1 - X_{kd}(t)) * X_{kj}(t) * \rho_{kd}(t, t+dt)  * c^{r}_{*dj}(t)}_\text{search cost}\right)
+		 Cost_{k}(t_{i}, t_{i+1}) =\\
+		  \sum^{|DC|}_{d = 1} \left(\underbrace{r_{kd}(t_{i}, t_{i+1}) * c^{r}_{kd}(t_{i}) + w_{kd}(t_{i}, t_{i+1}) * c^{w}_{kd}(t_{i})}_\text{direct cost} \right. \\
+		 \left. + \underbrace{\sum^{|DC|}_{j = 1} w_{kd}(t_{i}, t_{i+1}) * c^{w}_{kdj}(t_{i}) * X_{kj}(t_{i})}_\text{update propagation cost} \right. \\ 
+		 \left. + \underbrace{(1 - X_{kd}(t_{i})) * r_{kd}(t_{i}, t_{i+1}) * \min_{j \in R_{k}}(c^{r}_{kdj}(t_{i}))}_\text{redirect reads cost} \right. \\  
+		 \left. + \underbrace{(1 - X_{kd}(t_{i})) * w_{kd}(t_{i}, t_{i+1}) * \min_{j \in R_{k}}(c^{w}_{kdj}(t_{i}))}_\text{redirect writes cost}  \right. \\ \left. + \underbrace{\sum^{|DC|}_{j = 1, j \neq d}  (1 - X_{kd}(t_{i})) * X_{kj}(t_{i}) * \rho_{kd}(t_{i}, t_{i+1})  * c^{r}_{*dj}(t_{i})}_\text{search cost}\right)
 	 \end{split}
 \end{equation}
 \begin{equation} \label{ineq:limit_replicas}
@@ -289,23 +289,23 @@ The cost between time $t$ and $t+dt$ is expressed by Equation \ref{eq:cost_opera
 
 The cost expresses in Equation \ref{eq:cost_operations} corresponds to the cost of the operations for the reads and writes of data $k$ in \gls{dc} $d$, `direct cost', plus the cost of propagating the updates, `update propagation cost', plus the cost of redirecting the reads to the less costly \gls{dc} with a replica, `redirect reads cost', and finally plus the cost of searching for a \gls{dc} with a replica of the data $k$ to forward the request if the directly access \gls{dc} does not have a replica of such data, `search cost', from time $t$ to time $t+dt$. The Equation \ref{eq:cost_operations} has a quadratic term that corresponds to the `search cost'. So the total time up to a time $T$ is expressed in Equation \ref{eq:total_cost}.
 \begin{equation} \label{eq:total_cost}
-	Cost_{k} = \frac{\int^{T}_{t = 0} Cost_{k}(t, t+dt) * dt}{T}
+	Cost_{k} = \sum^{n-1}_{i=0} Cost_{k}(t_{i}, t_{i+1})
 \end{equation}
 
 The algorithm proposed does not incur the full `search cost' as only the first reply is processed and \glspl{dc} with no replica of the data do not reply to the search request. Also all the reads received could be combined into one to the closes \gls{dc} with a replica.
 
 There is a cost incurred when a replica is placed in a new \gls{dc} and when the data is removed from a \gls{dc} which are not present in Equation \ref{eq:cost_operations}. If $X^{'}_{kd}$ is the new replication state after all the current operations have been executed with a cost per notification of $c^{r}_{*kdj}$ then the cost of a new replica can be represented as in Equation \ref{eq:new_replica}, and the cost of removing a replica from a \gls{dc}, with cost per notification of $c^{r}_{*kdj}$, can be represented as in Equation \ref{eq:remove_replica}.
 \begin{equation} \label{eq:new_replica}
-	\sum^{|DC|}_{j = 1, X_{kj}(t) = 1} X^{'}_{kd}(t) * (1 - X_{kd}(t)) * c^{r}_{*kdj}(t)
+	\sum^{|DC|}_{j = 1, X_{kj}(t_{i}) = 1} X^{'}_{kd}(t_{i}) * (1 - X_{kd}(t)) * c^{r}_{*kdj}(t_{i})
 \end{equation}
 \begin{equation} \label{eq:remove_replica}
-	\sum^{|DC|}_{j = 1, j \neq d, X_{kj}(t) = 1} (1 - X^{'}_{kd}(t)) * X_{kd}(t) * c^{r}_{*kdj}(t)
+	\sum^{|DC|}_{j = 1, j \neq d, X_{kj}(t_{i}) = 1} (1 - X^{'}_{kd}(t_{i})) * X_{kd}(t_{i}) * c^{r}_{*kdj}(t_{i})
 \end{equation}
 
 The extended cost is shown in Equation \ref{eq:full_cost_operations} where the time dependency has been omitted for simplicity and clarity.
 \begin{equation} \label{eq:full_cost_operations}
 	\begin{split}
-		Cost_{k}(t, t+dt) =\\
+		Cost_{k}(t_{i}, t_{i+1}) =\\
 		 \sum^{|DC|}_{d = 1} \left( \underbrace{r_{kd} * c^{r}_{kd} + w_{kd} * c^{w}_{kd}}_\text{direct cost} + \underbrace{\sum^{|DC|}_{j = 1} w_{kd} * c^{w}_{kdj} * X_{kj}}_\text{update propagation cost} \right. \\ 
 		\left. + \underbrace{(1 - X_{kd}) * r_{kd} * \min_{j \in R_{k}}(c^{r}_{kdj})}_\text{redirect reads cost} \right. \\ 
 		\left. + \underbrace{\sum^{|DC|}_{j = 1, j \neq d}  (1 - X_{kd}) * X_{kj} * c^{r}_{*dj}}_\text{search cost} \right. \\

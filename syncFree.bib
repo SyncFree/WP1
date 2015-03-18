@@ -304,6 +304,32 @@ Autonomous Mobile Computing},
   Url                      = {http://minema.cs.uni-magdeburg.de/downloads/folien/minema07-proceedings.pdf}
 }
 
+@InProceedings{Bernardo2001a,
+  Title                    = {A simulation analysis of dynamic server selection algorithms for replicated Web services},
+  Author                   = {Bernardo, M.},
+  Booktitle                = {Modeling, Analysis and Simulation of Computer and Telecommunication Systems, 2001. Proceedings. Ninth International Symposium on},
+  Year                     = {2001},
+  Pages                    = {371-378},
+
+  Abstract                 = {A practical approach to the provision of responsive Web services is based on introducing redundancy in the service implementation by replicating the service across a number of servers geographically distributed over the Internet. In this paper we compare the user perceived performance of three dynamic server selection algorithms operating at the client side, in order to provide some guidelines for adopting an algorithm that is appropriate for a given scenario. All the three algorithms use small probes to assess the network congestion and the server load before making a decision. The first algorithm downloads the whole requested Web page from a single server while the other two algorithms concurrently download different pieces of the same requested Web page from different servers. The analysis is conducted via simulation with AEMPA/TwoTowers},
+  Doi                      = {10.1109/MASCOT.2001.948889},
+  ISSN                     = {1526-7639},
+  Keywords                 = {Internet;client-server systems;redundancy;telecommunication congestion control;AEMPA/TwoTowers;Internet;dynamic server selection algorithms;network congestion;perceived performance;redundancy;replicated Web Services;requested Web page;responsive Web services;server load;service implementation;Algorithm design and analysis;Analytical models;Guidelines;Heuristic algorithms;Network servers;Probes;Web and internet services;Web pages;Web server;Web services}
+}
+
+@InProceedings{Bjoerkqvist2012a,
+  Title                    = {Dynamic Replication in Service-Oriented Systems},
+  Author                   = {Björkqvist, M. and Chen, L.Y. and Binder, W.},
+  Booktitle                = {Cluster, Cloud and Grid Computing (CCGrid), 2012 12th IEEE/ACM International Symposium on},
+  Year                     = {2012},
+  Month                    = {May},
+  Pages                    = {531-538},
+
+  Abstract                 = {Service-oriented systems, consisting of atomic services and their compositions hosted in service composition execution engines (CEEs), are commonly deployed to deliver web applications. As the workloads of applications fluctuate over time, it is economical to autonomously and dynamically adjust system capacity, i.e., the number of replicas for atomic services and CEEs. In this paper, we propose a novel replica provisioning policy, Resos, which adjusts the number of CEE and service replicas periodically based on the predicted workloads such that all replicas are well utilized at the target values. In particular, Resos models the workload balance and dependency between CEE and service replicas by estimating the probability that threads of CEE replicas are not blocked by I/O. Moreover, we derive the analytical bounds of CEE effective utilization and illustrate the cause of low nominal utilization at CEE replicas. We evaluate Resos on a simulated service-oriented system, which hosts CEE and service replicas on multi-threaded servers. The evaluated workload is derived from utilization traces collected from production systems. Through simulation, we demonstrate that Resos effectively reduces the number of required replicas while maintaining target utilization and lowering the response times of requests.},
+  Doi                      = {10.1109/CCGrid.2012.108},
+  Keywords                 = {Internet;multi-threading;probability;replicated databases;resource allocation;service-oriented architecture;software maintenance;CEE;Resos models;Web applications;atomic services;dynamic replication;multithreaded servers;probability estimation;production systems;replica provisioning policy;service composition execution engines;service-oriented systems;system capacity;utilization traces;workload balance;workload dependency;Engines;Instruction sets;Load management;Monitoring;Servers;Time factors;Upper bound;performance modeling and optimization;replication;service systems}
+}
+
 @InProceedings{Bonvin2010a,
   Title                    = {A Self-organized, Fault-tolerant and Scalable Replication Scheme for Cloud Storage},
   Author                   = {Bonvin, Nicolas and Papaioannou, Thanasis G. and Aberer, Karl},
@@ -381,7 +407,7 @@ We propose a replication mechanism built upon conflict-free replicated data type
   Url                      = {http://www.info.ucl.ac.be/~pvr/MemoireIwanBriquemont.pdf}
 }
 
-@TechReport{Briquemont2015a,
+@TechReport{Briquemont2014b,
   Title                    = {Conflict-free Partially Replicated Data Types},
   Author                   = {Iwan Briquemont and Manuel Bravo and Zhongmiao Li and Peter Van Roy},
   Year                     = {2014},
@@ -827,6 +853,24 @@ foraging, Monomorium pharaonis, pheromonal decay, pheromone trail},
   Url                      = {http://doi.acm.org/10.1145/138873.138877}
 }
 
+@InCollection{Liu2011a,
+  Title                    = {Quality Driven Web Services Replication Using Directed Acyclic Graph Coding},
+  Author                   = {Liu, An and Li, Qing and Huang, Liusheng},
+  Booktitle                = {Web Information System Engineering -- WISE 2011},
+  Publisher                = {Springer Berlin Heidelberg},
+  Year                     = {2011},
+  Editor                   = {Bouguettaya, Athman and Hauswirth, Manfred and Liu, Ling},
+  Pages                    = {322--329},
+  Series                   = {Lecture Notes in Computer Science},
+  Volume                   = {6997},
+
+  Abstract                 = {Web services cannot be always available as they are typically deployed in a dynamic environment. As an effective approach to improving Web services availability, replication has received much attention recently. How to design an optimal replication scheme with the best QoS, however, remains an open problem due to its inherent computational hardness. In this paper, we propose an efficient approach to designing a near-optimal replication scheme. We adopt directed acyclic graph (DAG) as the modeling tool for replication scheme and then utilize DAG coding for performance optimization. Simulation results show our approach can generate a near-optimal replication scheme with acceptable computation overheads.},
+  Doi                      = {10.1007/978-3-642-24434-6_28},
+  ISBN                     = {978-3-642-24433-9},
+  Language                 = {English},
+  Url                      = {http://dx.doi.org/10.1007/978-3-642-24434-6_28}
+}
+
 @Article{lloyd2014dont,
   Title                    = {Don'T Settle for Eventual Consistency},
   Author                   = {Lloyd, Wyatt and Freedman, Michael J. and Kaminsky, Michael and Andersen, David G.},
@@ -975,6 +1019,7 @@ Also the rapid changes in the load of system do not help either.},
   Number                   = {1--18},
   Volume                   = {2},
 
+  Abstract                 = {Replication is considered one of the most important techniques to improve the Quality of Services (QoS) of published Web Services. It has achieved impressive success in managing resource sharing and usage in order to moderate the energy consumed in IT environments. For a robust and successful replication process, attention should be paid to suitable time as well as the constraints and capabilities in which the process runs. The replication process is time-consuming since outsourcing some new replicas into other hosts is lengthy. Furthermore, nowadays, most of the business processes that might be implemented over the Web are composed of multiple Web services working together in two main styles: Orchestration and Choreography. Accomplishing a replication over such business processes is another challenge due to the complexity and flexibility involved. In this paper, we present an adaptive replication framework for regular and orchestrated composite Web services. The suggested framework includes a number of components for detecting unexpected and unhappy events that might occur when consuming the original published web services including failure or overloading. It also includes a specific replication controller to manage the replication process and select the best host that would encapsulate a new replica. In addition, it includes a component for predicting the incoming load in order to decrease the time needed for outsourcing new replicas, enhancing the performance greatly. A simulation environment has been created to measure the performance of the suggested framework. The results indicate that adaptive replication with prediction scenario is the best option for enhancing the performance of the replication process in an online business environment.},
   Doi                      = {10.1186/2193-1801-2-511},
   Keywords                 = {Service-Oriented Architecture (SOA), Replication, Composite web service, Orchestration, QoS, Load balancing},
   Owner                    = {aas},
@@ -1027,6 +1072,52 @@ Also the rapid changes in the load of system do not help either.},
   Owner                    = {aas},
   Timestamp                = {2014.10.23},
   Url                      = {https://ece.uwaterloo.ca/~ssundara/courses/prob_logics.pdf}
+}
+
+@Article{Ooi2012a,
+  Title                    = {Dynamic Service Placement and Replication Framework to Enhance Service Availability Using Team Formation Algorithm},
+  Author                   = {Ooi, Boon-Yaik and Chan, Huah-Yong and Cheah, Yu-N.},
+  Journal                  = {J. Syst. Softw.},
+  Year                     = {2012},
+
+  Month                    = sep,
+  Number                   = {9},
+  Pages                    = {2048--2062},
+  Volume                   = {85},
+
+  Abstract                 = {The motivation of this work is to reduce the complexity in managing and administering services in the ever growing distributed environment via automated service placement and replication with team formation algorithm. The team formation algorithm is designed in a way that it would continuously search for resources with better performance and pool resources together to achieve better availability. The main intention of this work is not to replace the human administrators but to provide a better alternative in managing services in dynamic distributed environment. Instructions from the administrators are still required but at a different level. Administrators are freed from making low level decisions such as to decide the actual placement of the services and design the failover capabilities for each of the services. The evaluation results showed that the framework is capable of managing resources according to the requirements given by administrator, even during in the event of multiple consecutive resources failure. The proposed solution had the probability of 72.1% of its services that are still available after 83.3% of the available resources were shut down while conventional failover solution using three redundant units had only the probability of 40.8% of services that are still available.},
+  Acmid                    = {2325228},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1016/j.jss.2012.02.010},
+  ISSN                     = {0164-1212},
+  Issue_date               = {September, 2012},
+  Keywords                 = {Autonomic computing, Resource management, Resource selection, Service placement and replication},
+  Numpages                 = {15},
+  Publisher                = {Elsevier Science Inc.},
+  Url                      = {http://dx.doi.org/10.1016/j.jss.2012.02.010}
+}
+
+@Article{Paiva2015a,
+  Title                    = {On Data Placement in Distributed Systems},
+  Author                   = {Paiva, Jo\~{a}o and Rodrigues, Lu\'{\i}s},
+  Journal                  = {SIGOPS Oper. Syst. Rev.},
+  Year                     = {2015},
+
+  Month                    = jan,
+  Number                   = {1},
+  Pages                    = {126--130},
+  Volume                   = {49},
+
+  Abstract                 = {Data placement refers to the problem of deciding how to assign data items to nodes in a distributed system to optimize one or several of a number of performance criteria such as reducing network congestion, improving load balancing, among others. This document reports on our experience when addressing this problem in distributed systems of different scales, namely: medium size datacenter-scale and internet-scale systems.},
+  Acmid                    = {2723890},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1145/2723872.2723890},
+  ISSN                     = {0163-5980},
+  Issue_date               = {January 2015},
+  Keywords                 = {Data Placement, Distributed Systems, Key-Value Storage, Load Balancing, Replication, Scalability, Storage},
+  Numpages                 = {5},
+  Publisher                = {ACM},
+  Url                      = {http://doi.acm.org/10.1145/2723872.2723890}
 }
 
 @InProceedings{Paiva2013,
@@ -1150,6 +1241,36 @@ More in detail, four transactional replication protocols are proposed, which tac
   Url                      = {http://doi.acm.org/10.1145/1394127.1394128}
 }
 
+@Article{Raiciu2011a,
+  Title                    = {Improving Datacenter Performance and Robustness with Multipath TCP},
+  Author                   = {Raiciu, Costin and Barre, Sebastien and Pluntke, Christopher and Greenhalgh, Adam and Wischik, Damon and Handley, Mark},
+  Journal                  = {SIGCOMM Comput. Commun. Rev.},
+  Year                     = {2011},
+
+  Month                    = aug,
+  Number                   = {4},
+  Pages                    = {266--277},
+  Volume                   = {41},
+
+  Abstract                 = {The latest large-scale data centers offer higher aggregate bandwidth and robustss by creating multiple paths in the core of the network. To utilize this bandwidth requires different flows take different paths, which poses a challenge. In short, a single-path transport seems ill-suited to such networks.
+
+We propose using Multipath TCP as a replacement for TCP in such data centers, as it can effectively and seamlessly use available bandwidth, giving improved throughput and better fairness on many topologies. We investigate what causes these benefits, teasing apart the contribution of each of the mechanisms used by MPTCP.
+
+Using MPTCP lets us rethink data center networks, with a different mindset as to the relationship between transport protocols, routing and topology. MPTCP enables topologies that single path TCP cannot utilize. As a proof-of-concept, we present a dual-homed variant of the FatTree topology. With MPTCP, this outperforms FatTree for a wide range of workloads, but costs the same.
+
+In existing data centers, MPTCP is readily deployable leveraging widely deployed technologies such as ECMP. We have run MPTCP on Amazon EC2 and found that it outperforms TCP by a factor of three when there is path diversity. But the biggest benefits will come when data centers are designed for multipath transports.},
+  Acmid                    = {2018467},
+  Address                  = {New York, NY, USA},
+  Doi                      = {10.1145/2043164.2018467},
+  ISSN                     = {0146-4833},
+  Issue_date               = {August 2011},
+  Keywords                 = {data center, mptcp},
+  Numpages                 = {12},
+  Publisher                = {ACM},
+  Review                   = {- "MPTCP could improve data center performance by performing very short timescale distributed load balancing"},
+  Url                      = {http://inl.info.ucl.ac.be/system/files/mptcp-sigcomm.pdf}
+}
+
 @Article{Rinard2003a,
   Title                    = {Eliminating Synchronization Bottlenecks Using Adaptive Replication},
   Author                   = {Rinard, Martin C. and Diniz, Pedro C.},
@@ -1191,6 +1312,27 @@ More in detail, four transactional replication protocols are proposed, which tac
   Keywords                 = {optim,rep,syn},
   Local-url                = {./papers/Optimistic_Replication_Computing_Surveys_2005-03_cameraready.pdf},
   Url                      = {http://lip6.fr/Marc.Shapiro/papers/Optimistic_Replication_Computing_Surveys_2005-03_cameraready.pdf}
+}
+
+@InProceedings{Salas2006a,
+  Title                    = {WS-replication: A Framework for Highly Available Web Services},
+  Author                   = {Salas, Jorge and Perez-Sorrosal, Francisco and Pati\~{n}o-Mart\'{\i}nez, Marta and Jim{\'e}nez-Peris, Ricardo},
+  Booktitle                = {Proceedings of the 15th International Conference on World Wide Web},
+  Year                     = {2006},
+
+  Address                  = {New York, NY, USA},
+  Pages                    = {357--366},
+  Publisher                = {ACM},
+  Series                   = {WWW '06},
+
+  Abstract                 = {Due to the rapid acceptance of web services and its fast spreading, a number of mission-critical systems will be deployed as web services in next years. The availability of those systems must be guaranteed in case of failures and network disconnections. An example of web services for which availability will be a crucial issue are those belonging to coordination web service infrastructure, such as web services for transactional coordination (e.g., WS-CAF and WS-Transaction). These services should remain available despite site and connectivity failures to enable business interactions on a 24x7 basis. Some of the common techniques for attaining availability consist in the use of a clustering approach. However, in an Internet setting a domain can get partitioned from the network due to a link overload or some other connectivity problems. The unavailability of a coordination service impacts the availability of all the partners in the business process. That is, coordination services are an example of critical components that need higher provisions for availability. In this paper, we address this problem by providing an infrastructure, WS-Replication, for WAN replication of web services. The infrastructure is based on a group communication web service, WS-Multicast, that respects the web service autonomy. The transport of WS-Multicast is based on SOAP and relies exclusively on web service technology for interaction across organizations. We have replicated WS-CAF using our WS-Replication framework and evaluated its performance.},
+  Acmid                    = {1135831},
+  Doi                      = {10.1145/1135777.1135831},
+  ISBN                     = {1-59593-323-9},
+  Keywords                 = {WS-CAF, availability, group communication, transactions, web services},
+  Location                 = {Edinburgh, Scotland},
+  Numpages                 = {10},
+  Url                      = {http://wwwconference.org/www2006/programme/files/pdf/5052.pdf}
 }
 
 @InProceedings{Serrano2007a,
@@ -1616,6 +1758,20 @@ It maybe could be extended},
   Numpages                 = {25},
   Publisher                = {ACM},
   Url                      = {http://academiccommons.columbia.edu/catalog/ac%3A142996}
+}
+
+@InProceedings{Zheng2008a,
+  Title                    = {A Distributed Replication Strategy Evaluation and Selection Framework for Fault Tolerant Web Services},
+  Author                   = {Zibin Zheng and Lyu, M.R.},
+  Booktitle                = {Web Services, 2008. ICWS '08. IEEE International Conference on},
+  Year                     = {2008},
+  Month                    = {Sept},
+  Pages                    = {145-152},
+
+  Abstract                 = {Redundancy-based fault tolerance strategies are proposed for building reliable Service-Oriented Architectures/Applications (SOA), which are usually developed on the unpredictable remote Web services. This paper proposes and implements a distributed replication strategy evaluation and selection framework for fault tolerant Web services. Based on this framework, we provide a systematic comparison of various replication strategies by theoretical formula and real-world experiments. Moreover, a user participated strategy selection algorithm is designed and verified. Experiments are conducted to illustrate the advantage of this framework. In these experiments, users from six different locations all over the world perform evaluation of Web services distributed in six countries. Over 1,000,000 test cases are executed in a collaborative manner and detailed results are also provided.},
+  Doi                      = {10.1109/ICWS.2008.42},
+  Keywords                 = {Web services;fault tolerant computing;software architecture;distributed replication strategy evaluation;fault tolerant Web services;redundancy-based fault tolerance strategies;selection algorithm;selection framework;service-oriented architectures;Algorithm design and analysis;Buildings;Computer science;Delay;Fault tolerance;Reliability engineering;Service oriented architecture;Telecommunication network reliability;Web and internet services;Web services},
+  Url                      = {https://wiki.cse.cuhk.edu.hk/user/zbzheng/paper/zibin-icws08.pdf}
 }
 
 @comment{jabref-meta: groupsversion:3;}
