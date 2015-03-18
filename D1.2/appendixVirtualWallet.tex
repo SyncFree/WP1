@@ -1,18 +1,14 @@
 \subsection{Virtual Wallet}\label{use_case_virtual_wallet}
 
-%\verbinput{TLA/walletv4.tla}
-%\input{TLA/latexDocs/walletv4.tex}
-%\input{TLA/latexDocs/walletv4.dvi}
-%\includegraphics[scale=1.0]{TLA/latexDocs/walletv4.dvi}
+\input{TLA/latexDocs/walletv4.tex}
 
 \subsubsection{Wallet use case using Integers}
 The balance and the counts of the vouchers in the wallets are integers instead of PN-Counters. When two copies of a wallet account are merged the maximum of the balances of the wallets is taken so the balance is generous for the player. When merging the total count of vouchers, the amount of vouchers is added in the two copies. As expected, when it is tested in TLC some money is lost, i.e. the total money spend is more than the money reduced from the balance. The TLA+ representation for this particular example is presented bellow.
 
-%\verbinput{TLA/walletNat.tla}
-%\input{TLA/latexDocs/walletNat.tex}
+\input{TLA/latexDocs/walletNat.tex}
 
 \subsubsection{Wallet use case using No Atomic Operations}
 In here it is presented the scenario in which buying some vouchers is not an atomic operation. For this model, it is defined two operators so that PN-Counters, which keep the balance and voucher counts, could be merged separately. As expected again, some money is lost and some properties are not satisfied. The TLA+ representation for this particular example is presented bellow.
 
-%\verbinput{TLA/walletWOTx.tla}
-%\input{TLA/latexDocs/walletWOTx.tex}
+\input{TLA/latexDocs/walletWOTx.tex}
+

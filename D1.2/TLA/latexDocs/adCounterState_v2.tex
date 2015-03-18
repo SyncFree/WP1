@@ -1,9 +1,6 @@
 \batchmode %% Suppresses most terminal output.
-\documentclass{article}
 \setlength{\textwidth}{360pt}
 \setlength{\textheight}{541pt}
-\usepackage{latexsym}
-\usepackage{ifthen}
 % \usepackage{color}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SWITCHES                                                                  %
@@ -882,7 +879,6 @@
    {\end{list}}
 
 %   For tlatex.TeX
-\usepackage{verbatim}
 \makeatletter
 \def\tla{\let\%\relax%
          \@bsphack
@@ -934,9 +930,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%% end of tlatex.sty file %%%%%%%%%%%%%%%%%%%%%%% 
 % last modified on Fri  3 August 2012 at 14:23:49 PST by lamport
 
-\begin{document}
+%\begin{document}
 \tlatex
-\@x{}\moduleLeftDash\@xx{ {\MODULE} adCounterState\_v2}\moduleRightDash\@xx{}%
+\@x{}\moduleLeftDash\@xx{ {\MODULE} adCounterState}\moduleRightDash\@xx{}%
 \@pvspace{8.0pt}%
 \@x{ {\EXTENDS} Naturals ,\, GCounters}%
 \@pvspace{8.0pt}%
@@ -1239,4 +1235,4 @@
 }%
 \end{cpar}%
 \end{lcom}%
-\end{document}
+%\end{document}
