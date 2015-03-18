@@ -9,11 +9,13 @@
 \documentclass[a4paper, 10pt]{article}
 %\documentclass{acm_proc_article-sp}
 \usepackage{graphicx}
+\usepackage{fancyhdr}
 \usepackage[pdftitle={Optimistic Control for a Critical System},%
 		hidelinks,colorlinks=true, linkcolor=black, citecolor=cyan, filecolor=green, urlcolor=blue]{hyperref}
 \usepackage{mathtools}
 \usepackage{amssymb}
-\usepackage[toc]{glossaries}
+%\usepackage[toc]{glossaries}
+%\usepackage[toc,nonumberlist]{glossaries}
 % Use sverb or moreverb
 %\usepackage{TLA/sverb}
 %\usepackage{TLA/moreverb} % CTAN/macros/latex/contrib/supported/moreverb
@@ -23,6 +25,14 @@
 \usepackage{ifthen}
 \usepackage{verbatim}
 
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[L]{Work Package 1: Application and environment requirements \\ Deliverable D1.2 Formal Mathematical Requirements}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
 \input{../glossaries}
 \glsdisablehyper
 
@@ -31,7 +41,13 @@
 
 \begin{document}
 
-\title{Formal Mathematical Requirements\\(work in progress)}
+% Title
+\title{{\Huge SYNCFREE} \\ Work Package 1: Application and environment requirements \\  D1.2 Formal Mathematical Requirements}
+%\title{SYNCFREE\\Deliverable D1.1\\Natural Language Requirements}
+%\author{Project acronym: SyncFree\\Project Title: Large-scale computation without synchronisation\\Funded by: 7th Research Framework Programme, ICT call 10, grant agreement n°609551\\Issue: 0.1\\Edited by: Tom Benedictus \href{mailto:tob@trifork.com}{tob@trifork.com}}
+\author{Project acronym: SyncFree\\Project Title: Large-scale computation without synchronisation \thanks{7th Research Framework Programme, ICT call 10, grant agreement n$^{o}$ 609551}\\Issue: 0.1\\Edited by: Amadeo AscAsc\'{o} (\href{mailto:aas@trifork.com}{ass@trifork.com})}
+
+
 %
 % You need the command \numberofauthors to handle the 'placement and alignment' of the authors beneath the title.
 %
@@ -50,21 +66,22 @@
 %\numberofauthors{2} %  in this sample file, there are a *total*
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting reasons) and the remaining two appear in the \additionalauthors section.
 %
-\author{
-% 1st. author
-	\alignauthor
-	Amadeo Asc\'{o} and Tom Benedictus\\
-	\affaddr{Trifork Leeds}\\
-	\email{tom@trifork.com} and \email{aas@trifork.com}
-}
+%\author{
+%% 1st. author
+%	\alignauthor
+%	Amadeo Asc\'{o} and Tom Benedictus\\
+%	\affaddr{Trifork Leeds}\\
+%	\email{tom@trifork.com} and \email{aas@trifork.com}
+%}
 
 % There's nothing stopping you putting the seventh, eighth, etc. author on the opening page (as the 'third row') but we ask, for aesthetic reasons that you place these 'additional authors' in the \additional authors block, viz.
 %\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
 %	email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 %	(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{28$^{th}$ July 2014}
+\date{March 2015}
 
 \maketitle
+\newpage
 
 \tableofcontents
 
@@ -109,8 +126,8 @@
 
 %
 % The following two commands are all you need in the initial runs of your .tex file to produce the bibliography for the citations in your paper.
-%\bibliographystyle{abbrv}
-\bibliographystyle{notplainnat} % References list without URL or DOI
+\bibliographystyle{abbrv}
+%\bibliographystyle{plainnat} % References list without URL or DOI
 \bibliography{../syncFree}  % sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file and remember to run:
 % latex bibtex latex latex to resolve all references
