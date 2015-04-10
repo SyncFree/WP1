@@ -43,7 +43,7 @@
 \title{{\Huge SYNCFREE} \\ Work Package 1 Application and environment requirements \\ Deliverable D1.1 Natural language requirements}
 %\title{SYNCFREE\\Deliverable D1.1\\Natural Language Requirements}
 %\author{Project acronym: SyncFree\\Project Title: Large-scale computation without synchronisation\\Funded by: 7th Research Framework Programme, ICT call 10, grant agreement n°609551\\Issue: 0.1\\Edited by: Tom Benedictus \href{mailto:tob@trifork.com}{tob@trifork.com}}
-\author{Project acronym: SyncFree\\Project Title: Large-scale computation without synchronisation \thanks{7th Research Framework Programme, ICT call 10, grant agreement n°609551}\\Issue: 0.1\\Edited by: Tom Benedictus (\href{mailto:tob@trifork.com}{tob@trifork.com})}
+\author{Project acronym: SyncFree\\Project Title: Large-scale computation without synchronisation \thanks{7th Research Framework Programme, ICT call 10, grant agreement n°609551}\\Issue: 0.2\\Edited by: Amadeo Asc\'{o} (\href{mailto:aas@trifork.com}{aas@trifork.com})}
 
 
 \makeglossaries
@@ -146,7 +146,7 @@ read $\rightarrow$ increase $\rightarrow$ write
 \end{center}
 
 at the same time will cause the updates to overwrite each other or at least make the sibling resolution extremely difficult and unreliable.
-For example:
+For example the sibling conflict, shown in Figure \ref{fig:sibling_conflict}  and described below:
 \begin{enumerate}
 \item Node A reads value N from the database.
 \item Node B reads value N from the database. 
@@ -155,6 +155,13 @@ For example:
 \item Node C reads the value from the database $\rightarrow$ two siblings with values $N+n_A$ and $N+n_B$. 
 \item Node C is unable to resolve the correct value of the counter with the obtained information $\rightarrow$ data is lost.
 \end{enumerate}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\textwidth]{./img/Sibling_conflict.png}
+	
+	\caption{Sibling conflict.}
+	\label{fig:sibling_conflict}
+\end{figure}
 
 Note, this issue has already been solved with the simplified implementation of \gls{crdt} counter.
 
@@ -220,8 +227,17 @@ There have been some challenges around how to verify the data integrity if somet
 \section{Leaderboard}
 \subsection{Application description}
 Leaderboards are used in games to provide information on who are the best players globally (and often also domestically) and how the current player ranks against other players.
-Rovio's Leaderboard service provides different kind of leaderboards for games. The default type of leaderboard is level­-based which means that the high scores are stored by level, so each user has one document per each level passed in a game. Each level score document contains the user's high score, (estimated) rank, matchmaking and percentile indices and some other additional properties the service itself doesn't care about (e.g. stars, lap time etc. depending on the game).
+Rovio's Leaderboard service provides different kind of leaderboards for games, Figure \ref{fig:leaderboard_service}. The default type of leaderboard is level­-based which means that the high scores are stored by level, so each user has one document per each level passed in a game. Each level score document contains the user's high score, (estimated) rank, matchmaking and percentile indices and some other additional properties the service itself doesn't care about (e.g. stars, lap time etc. depending on the game).
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\textwidth]{./img/Leaderboard.png}
+	
+	\caption{Wallet Service Architecture.}
+	\label{fig:leaderboard_service}
+\end{figure}
+
 Since the leaderboard should always contain the highest score the user has achieved in a level, custom conflict resolution based on the high score is required. With \glspl{crdt} the conflict resolution could be done so that the maximum or minimum score wins, and the rest of the properties are taken from the update that contained the new score (no conflict resolution required).
+
 The leaderboard service supports the following operations:
 \begin{enumerate}
 \item Send score (adds or updates the high score of the user)
@@ -286,7 +302,14 @@ The service is currently being prototyped but not yet used in production.
 \section{Virtual Wallet}
 \subsection{Application description}
 Virtual Wallet applications manage virtual economies.The clients keep a local state and also do credits and debits to their local state but the clients local state cannot be trusted.  Such applications require massive scalability and very robust security guarantees. To ensure very low per--transaction financial cost, as required for use at a ﬁne granularity (nano---transactions), some consistency constraints may need to be temporarily relaxed, but not others. The challenge is to maintain correctness at an extreme scale, i.e., ensure money does not vanish nor is created out of thin air, despite data fragmented across numerous replicas, lost or duplicated information, long­--term disconnection, etc.
-Rovio's Wallet service provides a delivery mechanism for in­game items and manages the user's virtual currencies. A single wallet contains balances of the virtual currencies the user owns, vouchers for the in­game items (e.g power­ups) the user has purchased but have not been delivered yet, and a transaction log that lists the most recent transactions for the wallet.
+Rovio's Wallet service provides a delivery mechanism for in­game items and manages the user's virtual currencies, Figure \ref{fig:walled_services}. A single wallet contains balances of the virtual currencies the user owns, vouchers for the in­game items (e.g power­ups) the user has purchased but have not been delivered yet, and a transaction log that lists the most recent transactions for the wallet.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\textwidth]{./img/Wallet_service_architecture.png}
+
+	\caption{Wallet Service Architecture.}
+	\label{fig:walled_services}
+\end{figure}
 
 \begin{itemize}
 \item Balance consists of a numerical value and currency name (e.g Crystals: 150 or Euro: 2.45).
@@ -313,6 +336,14 @@ Purchasing an item that the user should be able to purchase only once (e.g remov
 Consuming the same voucher multiple times would cause issues if it resulted in delivering the same item multiple times (the user would have paid if only once). We could, of course, decide to take the hit and give the extra items for free.
 
 Consuming virtual currency in a way that balance becomes negative would also cause issues unless we decided to take the hit and round it up to 0.
+
+A conflicting use case is:
+\begin{enumerate}
+	\item $Customer_1$ purchase an item from $device_1$.
+	\item $Customer_1$ tries to consume the purchased item from both $device_1$ and $device_2$.
+\end{enumerate}
+Currently, it is ensured that items can be consumed only once by using conflict resolution. With CRDT solution this would be solved by using sets which would not create siblings.
+
 
 \subsection{Invariants}
 The wallet  service has the following invariants:
